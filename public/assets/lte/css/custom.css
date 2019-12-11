@@ -1,0 +1,50 @@
+label.requerido:after{
+    content:" *";
+    color:#e73d4a;
+}
+.btn-accion-tabla {
+    cursor: pointer;
+    border: none;
+    background: 0;
+    padding: 0 0 0 5px;
+    font-size: 14px !important;
+    line-height: 1.5;
+}
+.d-inline{
+    display: inline;
+}
+.width70{
+    width: 70px !important;
+}
+.pl-20{
+    padding-left:20px !important;
+}
+.pl-30{
+    padding-left:30px !important;
+}
+.pl-40{
+    padding-left:40px !important;
+} 
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: DodgerBlue;
+    }
+    
+    .flex-container > div {
+    background-color: #f1f1f1;
+    width: 250px;
+    max-width :271px;
+    margin: 10px auto ;
+    text-align: center;
+    line-height: 75px;
+    font-size: 30px;
+    height: 250px;
+    max-height: 271px;
+    border-radius: 9px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+       transition: 0.3s;
+    }
+    .flex-container > div:hover{
+      box-shadow: 9px 8px 16px 10px rgba(0,2,0,0.2);
+    }
