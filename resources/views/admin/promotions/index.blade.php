@@ -67,33 +67,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <div id="carouselExampleIndicators{{$promo->id}}" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                          <li data-target="#carouselExampleIndicators{{$promo->id}}" data-slide-to="0" class="active"></li>
-                          <li data-target="#carouselExampleIndicators{{$promo->id}}" data-slide-to="1"></li>
-                          <li data-target="#carouselExampleIndicators{{$promo->id}}" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner" max-width="300" max-height="200">
-                          <div class="carousel-item active">
-                            <img max-width="50" max-height="70"  class="d-block w-100" src="{{ $promo->file }}"   alt="First slide">
-                          </div>
-                          <div class="carousel-item">
-                            <img max-width="50" max-height="70"  class="d-block w-100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8x_RaV_1ioeH3uiU89tjLeLOt-Kowu8BUTHh_mh3jZ-2EIja4&s"    alt="Second slide">
-                          </div>
-                          <div class="carousel-item">
-                            <img max-width="50" max-height="70"  class="d-block w-100" src="/images/A29.jpg"   alt="Third slide">
-                          </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators{{$promo->id}}" role="button" data-slide="prev">
-                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators{{$promo->id}}" role="button" data-slide="next">
-                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Next</span>
-                        </a>
-                      </div>
-                    <!-- /.col -->
+                  <img style="max-width:300px, max-height:200px"  class="d-block w-100" src="{{ $promotion->file }}"   alt="src-file">
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer no-padding">

@@ -9,14 +9,14 @@
                         Editar Departamento
                         @section('titulo')
                         editar: 
-            {{$departamento->nombre }}
+            {{$department->nombre }}
             @endsection
                     </div>
     
                     <div class="panel-body">
-                        {!! Form::model($departamento, ['route' => ['departamentos.update', $departamento->id], 'method' => 'PUT']) !!}
+                        {!! Form::model($department, ['route' => ['departments.update', $department->id], 'method' => 'PUT']) !!}
                             
-                            @include('admin.departamentos.partials.form')    
+                            @include('admin.departments.partials.form')    
                         {!! Form::close() !!}
                     </div>
                 </div>

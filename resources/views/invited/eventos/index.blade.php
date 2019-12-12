@@ -33,22 +33,22 @@
           @endsection
         </div>
         <div class="card-body row-md-12">
-            @foreach ($events as $evento)
+            @foreach ($events as $event)
             <div class="card card-default col-md-6 col-md-offset-2  float-left">                
                 <div class="card-header with-border ">  
                     <div class="card-tools pull-right">
                         <button type="button" class="btn btn-card-tool" >
-                      <a  href="{{ route('events.show', $evento->id) }}">
+                      <a  href="{{ route('events.show', $event->id) }}">
                           <i class="fa fa-fw fa-eye 10px"></i>
                       </a>
                         </button>
                         <button type="button" class="btn btn-card-tool" >
-                      <a  href="{{ route('events.edit', $evento->id) }}">
+                      <a  href="{{ route('events.edit', $event->id) }}">
                           <i class="fa fa-fw fa-pen 50px"></i>
                       </a>
                     </button>
                     <button type="button" class="btn btn-card-tool" >
-                        {!! Form::open(['route' => ['events.destroy', $evento->id], 'method' => 'DELETE']) !!}
+                        {!! Form::open(['route' => ['events.destroy', $event->id], 'method' => 'DELETE']) !!}
                         <button class="btn-danger">
                             <i class="fa fa-fw fa-trash "></i>
                         </button>                           
@@ -61,69 +61,44 @@
                         <i class="fa fa-times"></i></button>
                     </div>
                     <br>
-                        <h3 class="card-title">{{ $evento->nombre }}</h3>   
+                        <h3 class="card-title">{{ $event->nombre }}</h3>   
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <div id="carouselExampleIndicators{{$evento->id}}" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                          <li data-target="#carouselExampleIndicators{{$evento->id}}" data-slide-to="0" class="active"></li>
-                          <li data-target="#carouselExampleIndicators{{$evento->id}}" data-slide-to="1"></li>
-                          <li data-target="#carouselExampleIndicators{{$evento->id}}" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner" max-width="300" max-height="200">
-                          <div class="carousel-item active">
-                            <img max-width="300" max-height="200"  class="d-block w-100" src="{{ $evento->file }}"   alt="First slide">
-                          </div>
-                          <div class="carousel-item">
-                            <img max-width="300" max-height="200"  class="d-block w-100" src="/images/critor.png"    alt="Second slide">
-                          </div>
-                          <div class="carousel-item">
-                            <img max-width="300" max-height="200"  class="d-block w-100" src="/images/A29.jpg"   alt="Third slide">
-                          </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators{{$evento->id}}" role="button" data-slide="prev">
-                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators{{$evento->id}}" role="button" data-slide="next">
-                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Next</span>
-                        </a>
-                      </div>
-                    <!-- /.col -->
+                  <img style="max-width:300px, max-height:200px"  class="d-block w-100" src="{{ $event->file }}"   alt="src-file">
+    
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer no-padding">
                     <tr>
                         <p><b>Descripción: <br>
-                        </b> {{ $evento->descripcion }}</p>
+                        </b> {{ $event->descripcion }}</p>
                 </tr>
                     <table class="table table-bordered">
                         <tbody>
                                 <tr>
                                     <td><b>Fecha de inicio:</b></td>
-                                        <td>{{ $evento->fecha_inicio }}</td>                                        
+                                        <td>{{ $event->fecha_inicio }}</td>                                        
                                 </tr>
                                 <tr>
                                   <td>
                                       <b>Hora de inicio:</b>
                                   </td>
-                                  <td>{{ $evento->hora_inicio }}</td>
+                                  <td>{{ $event->hora_inicio }}</td>
                                 </tr>
                                     <tr><td><b>Fecha de finalizacion:</b></td>
-                                      <td>{{ $evento->fecha_fin }}</td>                                     
+                                      <td>{{ $event->fecha_fin }}</td>                                     
                                     </tr>
                                     <tr>
                                         <td>
                                             <b>Hora de finalizacion:</b>
                                         </td>
-                                        <td>{{ $evento->hora_fin }}</td>
+                                        <td>{{ $event->hora_fin }}</td>
                                     </tr>
                                    
                                     <tr>
                                         <td><b>Disponible en: </b></td>
-                                        <td>{{ $evento->commerce_id }}</td>
+                                        <td>{{ $event->commerce_id }}</td>
                                 </tr>
                         </tbody>
                     </table>

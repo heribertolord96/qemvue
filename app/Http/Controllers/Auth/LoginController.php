@@ -46,7 +46,7 @@ class LoginController extends Controller
         }else{
             $this ->guard()->logout();
             $request->session()->invalidate();
-            return redirect('seguridad/login')->withErrors([
+            return redirect('auth/login')->withErrors([
                 'Error' => 'Este usuario no tiene un rol activo']);
         }
     }

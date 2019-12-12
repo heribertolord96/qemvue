@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Category;
+use App\Commerce;
 use App\Department;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryStoreRequest;
@@ -24,7 +25,9 @@ class CategoryController extends Controller
         $buscar = $request->buscar;
         $criterio = $request->criterio;
         if ($buscar==''){
-    $categories =Category::orderBy('name','desc')->paginate(3);
+    $categories =Category::
+    join ('departments', 'departments.id','=','categories.department_id')
+    ->orderBy('categories.name','asc')->paginate(3);
     return view('admin.categories.index', compact('categories'));
         }
         else{
@@ -32,6 +35,34 @@ class CategoryController extends Controller
             ->where($criterio, 'like', '%'. $buscar . '%')
             ->paginate(3);
     return view('admin.categories.index', compact('categories'));
+        }
+    }
+
+    public function categories($slug, Request $request) //Muestra los categorys que pertenecen a una misma tienda
+    {
+        $buscar   = $request->buscar;
+        $criterio = $request->criterio;       
+        $commerce_d  = Commerce::where('slug', $slug)->first();
+        if ($buscar == '')        {
+            /* $select commerces.nombre as Tienda , categories.name as Category, departments.name as Departamento 
+            from commerces join departments on departments.commerce_id = commerces.id 
+            join categories on categories.department_id =departments.id
+             * 
+             */
+            $commerce    = Commerce::where('slug', $slug)->pluck('id')->first();
+
+            $categories =Commerce:: 
+            join('departments', 'departments.commerce_id','=','commerces.id')
+            ->join('categories', 'categories.department_id','=','departments.id')
+            ->where('commerces.id', $commerce)
+            ->orderBy('categories.name', 'ASC')->paginate(3);
+            return view('admin.categories.index', compact('categories', 'commerce_d'));
+        }
+        else
+        {            
+            $tienda    = Commerce::where('slug', $slug)->pluck('id')->first();
+            $categories = Category::where('commerce_id', $tienda)->orderBy('name', 'ASC')->where($criterio, 'like', '%' . $buscar . '%')->paginate(3);
+            return view('admin.tienda_departamentos.index', compact('categorys', 'commerce_d'));
         }
     }
 

@@ -17,7 +17,7 @@
                     <div class="card-body">
                                 <img class="d-block w-100" height="300" width="150 "
                                 src="{{ $product->file }}" 
-                                 alt="First slide">
+                                 alt="src-file">
                         </div>
                     <div class="card-footer">
                             <p><strong>Descripción: <br>
@@ -46,15 +46,15 @@
                                                             <!--a href="{*{route('departamento', $product->departamento->slug)}}" class="">
                                                                 {*{ $product->departamento->name }}</a></td-->
                                                 </tr>
-                                                <tr>
+                                                <!--tr>
                                                         <td><b>De venta en: </b></td>
                                                     <td>
-                                                      {{$product->excerpt}}
-                                                      <a href="{{route('commerce', $product->commerce->slug)}}" class="">
-                                                          {{ $product->commerce->nombre }}</a></td>
+                                                      {*{$product->excerpt}}
+                                                      <a href="{*{route('commerce', $product->commerce->slug)}}" class="">
+                                                          {*{ $product->commerce->nombre }}</a></td>
                                                 </tr>
                                                 
-                                                </tr>
+                                                </tr-->
                                     </tbody>
                                 </table>
                     </div>
@@ -73,14 +73,14 @@
                                           </button>
                             </div>
                         </div>
-                        <div class="card-body">
+                        <!--div class="card-body">
                             <p>Etiquetas :</p>
-                            @foreach ($product->tags  as $tag)
-                                <a href="{{ route('tag', $tag->slug) }}" class="href">
-                                    {{$tag->name}}
+                            @@foreach ($product->tags  as $tag)
+                                <a href="{*{ route('tag', $tag->slug) }}" class="href">
+                                    {*{$tag->name}}
                                 </a>, 
-                            @endforeach.
-                        </div>
+                            @@endforeach.
+                        </div-->
                     </div>
                 
             

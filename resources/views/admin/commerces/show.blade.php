@@ -45,7 +45,7 @@
       <div class="card-body">
          <img class="d-block w-100" height="100" width="150 "
             src="{{ $commerce->file }}" 
-            alt="First slide">
+            alt="src-file">
       </div>
       <div class="card-footer">
          <p><strong>Descripción: <br>
@@ -97,13 +97,13 @@
          <div class="small-box bg-success">
             <div class="inner">
                <h3>150</h3>
-               <p>categories</p>
+               <p>Categorias</p>
             </div>
             <div class="icon">
                <i class="fa fa-shopping-bag "></i>
             </div>
             <!--mostrar categories de una commerce-->
-            <a href="{{route('category', $commerce->slug)}}" class="small-box-footer">Ver... <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{route('commerce_categories', $commerce->slug)}}" class="small-box-footer">Ver... <i class="fa fa-arrow-circle-right"></i></a>
          </div>
       </div>
       <!-- ./col -->
@@ -119,7 +119,7 @@
                <i class="fa fa-shopping-bag "></i>
             </div>
             <!--mostrar articulos de una commerce-->
-            <a href="{{route('product', $commerce->slug)}}" class="small-box-footer">Ver... <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{route('commerce_products', $commerce->slug)}}" class="small-box-footer">Ver... <i class="fa fa-arrow-circle-right"></i></a>
          </div>
       </div>
       <!-- ./col -->

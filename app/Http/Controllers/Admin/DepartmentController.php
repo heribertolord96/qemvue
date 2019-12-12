@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Department;
+use App\Commerce;
 use Illuminate\Http\Request;
 use App\Http\Requests\DepartmentStoreRequest;
 use App\Http\Requests\DepartmentUpdateRequest;
@@ -36,6 +37,26 @@ class DepartmentController extends Controller
             }
     }
     
+    public function department($slug, Request $request) //Muestra los departments que pertenecen a una misma tienda
+    {
+        $buscar   = $request->buscar;
+        $criterio = $request->criterio;
+        $commerce_d  = Commerce::where('slug', $slug)->first();
+        //$departamento_d  = Departamento::where('slug', $slug)->first();
+        if ($buscar == '')        {
+            
+            $commerce    = Commerce::where('slug', $slug)->pluck('id')->first();
+            $departments = Department::where('commerce_id', $commerce)->orderBy('name', 'ASC')->paginate(3);
+            return view('admin.departments.index', compact('departments', 'commerce_d'));
+        }
+        else
+        {
+            
+            $tienda    = Commerce::where('slug', $slug)->pluck('id')->first();
+            $departments = Department::where('commerce_id', $tienda)->orderBy('name', 'ASC')->where($criterio, 'like', '%' . $buscar . '%')->paginate(3);
+            return view('admin.tienda_departamentos.index', compact('departments', 'commerce_d'));
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *

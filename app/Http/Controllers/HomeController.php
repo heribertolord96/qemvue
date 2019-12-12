@@ -17,16 +17,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    
     public function index()
     {
         return view('home');
     }
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    public function logged()
-    {
-        return view('inicio');
-    }
+    
+   
 }

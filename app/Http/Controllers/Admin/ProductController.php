@@ -39,14 +39,40 @@ class ProductController extends Controller
         ->paginate(20);
         return view('admin.products.index', compact('products'));
             }
-    }   
-   /* public function listar_prod($id)
-        {
-            $commerce = Commerce::find($id);
-            $products =Product::orderBy('name','ASC')->paginate(2);
-            return view('admin.commerces.lista_arts', compact('products'));
+    }  
 
-        }*/
+   public function products($slug, Request $request)
+    {
+        $buscar = $request->buscar;
+            $criterio = $request->criterio;
+            if ($buscar==''){
+                $commerce_d  = Commerce::where('slug', $slug)->first();
+                $commerce    = Commerce::where('slug', $slug)->pluck('id')->first();
+/**
+ * select commerces.nombre as Tienda , categories.name as Category, 
+ * departments.name as Departamento, products.name as Producto 
+ * from products 
+ * join categories ON categories.id = products.category_id 
+ * join departments on departments.id = categories.department_id 
+ * join commerces on commerces.id = departments.commerce_id
+ */
+                $products = Commerce::
+                join('departments', 'departments.commerce_id','=','commerces.id')
+                ->join('categories', 'categories.department_id','=','departments.id')
+                ->join('products', 'products.category_id','=','categories.id')
+                ->where('departments.commerce_id', $commerce)
+                
+                ->orderBy('products.name', 'ASC')->paginate(3);
+                return view('admin.products.myproducts', compact('products', 'commerce_d'));
+            }
+            else
+            {
+                $products =Product::orderBy('name','ASC')
+                ->where($criterio, 'like', '%'. $buscar . '%')
+        ->paginate(20);
+        return view('admin.products.index', compact('products'));
+            }
+    }  
 
     /**
      * Show the form for creating a new resource.
@@ -84,8 +110,9 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        return view('admin.products.show', compact('products'));
+        return view('admin.products.show', compact('product'));
     }
+   
 
     /**
      * Show the form for editing the specified resource.

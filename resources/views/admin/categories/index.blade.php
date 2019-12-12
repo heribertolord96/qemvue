@@ -3,7 +3,10 @@
 <div class="card card-success">
     <div class="panel panel-default-success">
         <div class="card-header with-border ">
-            <h3 class="card-title">Categorias</h3>
+            <h3 class="card-title success">                         
+                    Categorias de: 
+                    <a href="{{ route('get_commerce', $commerce_d->id) }}" >{{$commerce_d->nombre}}     </a>                    
+                    </h3>
         </div>
         <div class="card-tool pull-right">
             <a href="{{ route('categories.create') }}" class="btn btn-block btn-info btn-sm">
@@ -64,33 +67,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <div id="carouselExampleIndicators{{$category->id}}" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                          <li data-target="#carouselExampleIndicators{{$category->id}}" data-slide-to="0" class="active"></li>
-                          <li data-target="#carouselExampleIndicators{{$category->id}}" data-slide-to="1"></li>
-                          <li data-target="#carouselExampleIndicators{{$category->id}}" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner" max-width="300" max-height="200">
-                          <div class="carousel-item active">
-                            <img max-width="300" max-height="200"  class="d-block w-100" src="{{ $category->file }}"   alt="First slide">
-                          </div>
-                          <div class="carousel-item">
-                            <img max-width="300" max-height="200"  class="d-block w-100" src="/images/critor.png"    alt="Second slide">
-                          </div>
-                          <div class="carousel-item">
-                            <img max-width="300" max-height="200"  class="d-block w-100" src="/images/A29.jpg"   alt="Third slide">
-                          </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators{{$category->id}}" role="button" data-slide="prev">
-                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators{{$category->id}}" role="button" data-slide="next">
-                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Next</span>
-                        </a>
-                      </div>
-                    <!-- /.col -->
+                  <img style="max-width:300px, max-height:200px"  class="d-block w-100" src="{{ $category->file }}"   alt="src-file">
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer no-padding">

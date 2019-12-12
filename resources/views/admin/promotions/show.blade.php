@@ -14,7 +14,7 @@
                     <div class="card-body">
                                 <img class="d-block w-100" height="300" width="150 "
                                 src="{{ $promotion->file }}" 
-                                 alt="First slide">
+                                 alt="src-file">
                         </div>
                     <div class="card-footer">
                             <p><strong>Descripción: <br>

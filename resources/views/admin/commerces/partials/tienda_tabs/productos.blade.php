@@ -42,33 +42,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <div id="carouselExampleIndicators{{$product->id}}" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                          <li data-target="#carouselExampleIndicators{{$product->id}}" data-slide-to="0" class="active"></li>
-                          <li data-target="#carouselExampleIndicators{{$product->id}}" data-slide-to="1"></li>
-                          <li data-target="#carouselExampleIndicators{{$product->id}}" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner" max-width="300" max-height="200">
-                          <div class="carousel-item active">
-                            <img max-width="300" max-height="200"  class="d-block w-100" src="{{ $product->file }}"   alt="First slide">
-                          </div>
-                          <div class="carousel-item">
-                            <img max-width="300" max-height="200"  class="d-block w-100" src="/images/critor.png"    alt="Second slide">
-                          </div>
-                          <div class="carousel-item">
-                            <img max-width="300" max-height="200"  class="d-block w-100" src="/images/A29.jpg"   alt="Third slide">
-                          </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators{{$product->id}}" role="button" data-slide="prev">
-                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators{{$product->id}}" role="button" data-slide="next">
-                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Next</span>
-                        </a>
-                      </div>
-                    <!-- /.col -->
+                  <img style="max-width:300px, max-height:200px"  class="d-block w-100" src="{{ $product->file }}"   alt="src-file">
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer no-padding">

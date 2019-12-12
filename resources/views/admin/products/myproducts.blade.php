@@ -2,9 +2,27 @@
 @section('contenido')
 <div class="card card-success">
     <div class="panel panel-default-success">
+            <div class="card-header success with-border ">
+                   
+                    <h2 class="card-title success">                         
+                        Productos de: 
+                        <a href="{{ route('get_commerce', $commerce_d->id) }}" >{{$commerce_d->nombre}}     </a>                    
+                        </h2>
+                    <!--
+                      Agregar tambien: fondo y colores cargados desde la db
+                    -->
+                    <div class="card-tools pull-right">
+                       <button type="button" class="btn btn-card-tool" data-widget="collapse">
+                       <i class="fa fa-minus"></i>
+                       </button>
+                    </div>
+                 </div>
         <div class="card-header with-border ">
             <h3 class="card-title">Articulos</h3>
-        </div>
+            @section('titulo')
+            {{$commerce_d->nombre}}
+            @endsection
+        </div> 
         @section('searchform')
             <!-- SEARCH FORM -->
 
@@ -26,14 +44,13 @@
         </div>
     </form>
           @endsection
-        <!--div class="card-tool pull-right">
-            <a href="{?{ route('products.create') }}" class="btn btn-block btn-info btn-sm">
+        <div class="card-tool pull-right">
+            <a href="{{ route('products.create') }}" class="btn btn-block btn-info btn-sm">
                 <i class="fa fa-fw fa-plus-circle"></i> Agregar articulo
             </a>
-        </div-->
+        </div>
         </div>
         <div class="card-body row-md-12">
-        <!--if user.auth=true-->
             @foreach ($products as $product)
             <div class="card card-default col-md-3  float-left">                
                 <div class="card-header with-border ">  
@@ -66,7 +83,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <img style="max-width:300px, max-height:200px"  class="d-block w-100" src="{{ $product->file }}"   alt="src-file">
+                    <img style="max-width:300px, max-height:200px"  class="d-block w-100" src="{{ $product->file }}"   alt="src-file">
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer no-padding">
@@ -80,19 +97,23 @@
                                     <td><b>Precio:</b></td>
                                         <td>{{ $product->precio }}</td>                                        
                                 </tr>
+                                    <tr><td><b>Descripcion</b></td>
+                                      <td>{{ $product->descripcion }}</td>                                     
+                                    </tr>
                                     <tr>
                                         <td><b>Presentacion</b></td>
                                         <td>{{ $product->presentacion }}</td>
                                 </tr>
-                                <tr>
+                                <!--tr>
                                     <td><b>De venta en: </b></td>
                                 <td>
-                                  {{$product->excerpt}}
+                                  {*{$product->excerpt}}
 
-                                  <a href="{{route('commerce_products', $product->slug)}} class="">
-                                      {{ $product->nombre }}
+                                  <a href="{*{ route('commerces.show', $product->nombre)}}" class="">
+                                      {*{ $product->nombre}}
                                       </a></td>
                             </tr>
+                               </tr-->
                         </tbody>
                     </table>
                   

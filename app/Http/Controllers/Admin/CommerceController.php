@@ -124,11 +124,24 @@ class CommerceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug )
     {
-        $commerce = Commerce::find($id);
+        $commerce = Commerce::find($slug );
         return view('admin.commerces.show', compact('commerce'));
-           }
+    }
+    public function getcommerce($nombre)
+    {
+        $commerce_d  = Commerce::where('nombre', $nombre)->first();
+                $commerce_id    = Commerce::where('nombre', $nombre)->pluck('id')->first();
+
+        $commerce = Commerce::
+                join('departments', 'departments.commerce_id','=','commerces.id')
+                ->join('categories', 'categories.department_id','=','departments.id')
+                ->join('products', 'products.category_id','=','categories.id')
+                ->where('departments.commerce_id', $commerce_id)
+                ->get() ;
+                return view('admin.commerces.show', compact('commerce', 'commerce_d'));
+    }
    
 
     /**

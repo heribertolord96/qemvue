@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
@@ -45,4 +46,19 @@ class User extends Authenticatable
     public function commerce_users(){
         return $this->belongsToMany(CommerceUser::class)->withTimestamps();//El usuario puede pertenecer a muchos grupos
     }
+
+    public function setSession ($roles){
+        if(count($roles) == 1){
+            Session::put(
+                ['role_id'=>$roles[0]['id'], //SELECT  id from rols as rol_id
+                    'role_name'=>$roles[0]['name'],
+                    'user_id'=>$this->id,
+                    'user_name'=>$this->name            
+                    //'persona'=>$this->user_name,
+                    //select id from personas where id =  usuarios.id
+                ]);
+            }
+        }
+    
 }
+

@@ -17,7 +17,13 @@
                 <span class="right badge badge-info"> {{session()->get('role_name')}} </span>
             </div>
             <div class="pull-right">
-                <a href="{{route('logout')}}" class="nav-icon fas fa-sign-out-alt"></a>
+                <a href="{{route('logout')}}" class="nav-icon fas fa-sign-out-alt"
+                onclick="event.preventDefault();
+                 document.getElementById('logout-form').submit();"
+                >Exit</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
             </div>
         </div>
         <!--si->el usuario es....-->
