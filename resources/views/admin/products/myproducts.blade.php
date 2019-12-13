@@ -2,21 +2,12 @@
 @section('contenido')
 <div class="card card-success">
     <div class="panel panel-default-success">
-            <div class="card-header success with-border ">
-                   
-                    <h2 class="card-title success">                         
-                        Productos de: 
-                        <a href="{{ route('get_commerce', $commerce_d->id) }}" >{{$commerce_d->nombre}}     </a>                    
-                        </h2>
-                    <!--
-                      Agregar tambien: fondo y colores cargados desde la db
-                    -->
-                    <div class="card-tools pull-right">
-                       <button type="button" class="btn btn-card-tool" data-widget="collapse">
-                       <i class="fa fa-minus"></i>
-                       </button>
-                    </div>
-                 </div>
+            <div class="card-header with-border ">
+                    <h3 class="card-title success">                         
+                            Productos de: 
+                            <a href="{{ route('commerces.show', $commerce_d->id) }}" >{{$commerce_d->nombre}}     </a>                    
+                            </h3>
+                </div>
         <div class="card-header with-border ">
             <h3 class="card-title">Articulos</h3>
             @section('titulo')

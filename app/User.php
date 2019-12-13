@@ -53,12 +53,25 @@ class User extends Authenticatable
                 ['role_id'=>$roles[0]['id'], //SELECT  id from rols as rol_id
                     'role_name'=>$roles[0]['name'],
                     'user_id'=>$this->id,
-                    'user_name'=>$this->name            
+                    'user_name'=>$this->name,           
                     //'persona'=>$this->user_name,
                     //select id from personas where id =  usuarios.id
                 ]);
             }
         }
     
+        //Obtener rol de usuario al estar en un comercio, para mostrar
+        public function setSessionCommerce ($roles){
+            if(count($roles) == 1){
+                Session::put(
+                    ['role_id'=>$roles[0]['id'], //SELECT  id from rols as rol_id
+                        'role_name'=>$roles[0]['name'],
+                        'user_id'=>$this->id,
+                        'user_name'=>$this->name,           
+                        //'persona'=>$this->user_name,
+                        //select id from personas where id =  usuarios.id
+                    ]);
+                }
+            }
 }
 

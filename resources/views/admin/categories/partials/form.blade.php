@@ -1,11 +1,11 @@
     <div class="form-group">
-            {{ Form::label('department_id', 'Department') }}
-            {{ Form::select('department_id', $departments, null, ['class' => 'form-control']) }}
+            {{ Form::label('department_id', 'Seleccione un departamento') }}
+            {{ Form::select('department_id', $departments, null, ['class' => 'form-control'],'placeholder'=>'Ferreteria') }}
         </div> 
 
 <div class="form-group">
-        {{ Form::label('name', 'Depto:') }}
-        {{ Form::text('name', null, ['class' => 'form-control', 'id' => 'name']) }}
+        {{ Form::label('name', 'Nombre de categoria:') }}
+        {{ Form::text('name', null, ['class' => 'form-control', 'id' => 'name','placeholder'=>'Desarmadoresy llaves']) }}
     </div>
     <div class="form-group">
         {{ Form::label('slug', 'URL amigable') }}

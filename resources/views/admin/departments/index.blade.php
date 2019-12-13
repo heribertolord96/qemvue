@@ -2,9 +2,12 @@
 @section('contenido')
 <div class="card card-success">
     <div class="panel panel-default-success">
-        <div class="card-header with-border ">
-            <h3 class="card-title">Departamentos de: <h2> {{$commerce_d->nombre}}</h2></h3>
-        </div>
+            <div class="card-header with-border ">
+                    <h3 class="card-title success">                         
+                            Departamentos de: 
+                            <a href="{{ route('commerces.show', $commerce_d->id) }}" >{{$commerce_d->nombre}}     </a>                    
+                            </h3>
+                </div>
         <div class="card-tool pull-right">
             <a href="{{ route('departments.create') }}" class="btn btn-block btn-info btn-sm">
                 <i class="fa fa-fw fa-plus-circle"></i> Crear departamento

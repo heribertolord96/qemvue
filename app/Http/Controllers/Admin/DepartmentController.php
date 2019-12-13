@@ -62,9 +62,12 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($slug)
     {
-        return view('admin.departments.create',compact('commerce'));
+        $commerce = Commerce::find($slug);
+        //$commerce = Commerce::get('commerces.id');
+        //$categories = Category::orderBy('name', 'ASC')->pluck('name', 'id');
+        return view('admin.departments.create',compact('department','commerce'));
     }
 
     /**

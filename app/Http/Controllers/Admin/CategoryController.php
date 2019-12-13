@@ -43,13 +43,14 @@ class CategoryController extends Controller
         $buscar   = $request->buscar;
         $criterio = $request->criterio;       
         $commerce_d  = Commerce::where('slug', $slug)->first();
+        $commerce    = Commerce::where('slug', $slug)->pluck('id')->first();
         if ($buscar == '')        {
             /* $select commerces.nombre as Tienda , categories.name as Category, departments.name as Departamento 
             from commerces join departments on departments.commerce_id = commerces.id 
             join categories on categories.department_id =departments.id
              * 
              */
-            $commerce    = Commerce::where('slug', $slug)->pluck('id')->first();
+          
 
             $categories =Commerce:: 
             join('departments', 'departments.commerce_id','=','commerces.id')
@@ -87,7 +88,8 @@ class CategoryController extends Controller
     {
         $category = Category::create($request->all());
 
-        return redirect()->route('categories.edit', $category->id)->with('info', 'Categoría creada con éxito');
+        return redirect()->route('categories.edit', $category->id)->
+        with('info', 'Categoría creada con éxito');
     }
 
 

@@ -24,22 +24,22 @@
           <h3 class="card-title">{{ $commerce->nombre }}</h3>    
                     <div class="card-tools pull-right">
               <button type="button" class="btn btn-card-tool" >
-            <a  href="{{ route('commerces.show', $commerce->id) }}">
+            <a  href="{{ route('commerces.show', $commerce->commerce_id) }}">
                 <i class="fa fa-fw fa-eye"></i>
             </a>
               </button>
-              <!--button type="button" class="btn btn-card-tool" >
-            <a  href="{*{ route('commerces.edit', $commerce->id) }}">
+              <button type="button" class="btn btn-card-tool" >
+            <a  href="{{ route('commerces.edit', $commerce->commerce_id)}}">
                 <i class="fa fa-fw fa-pen"></i>
             </a>
           </button>
           <button type="button" class="btn btn-card-tool" >
-              {!*! Form::open(['route' => ['commerces.destroy', $commerce->id], 'method' => 'DELETE']) !!}
+              {!! Form::open(['route' => ['commerces.destroy', $commerce->commerce_id], 'method' => 'DELETE']) !!}
               <button class="btn-danger">
                   <i class="fa fa-fw fa-trash "></i>
               </button>                           
-          {!*! Form::close() !!}
-          </button-->
+          {!! Form::close() !!}
+          </button>
             <button type="button" class="btn btn-card-tool" data-widget="collapse">
               <i class="fa fa-minus"></i>
             </button>

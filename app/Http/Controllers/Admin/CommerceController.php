@@ -45,15 +45,21 @@ class CommerceController extends Controller
 
     public function my_commerces(Request $request)
     {
+        $user = Auth::user()->id;
         $buscar = $request->buscar;
             $criterio = $request->criterio;
             if ($buscar==''){
-        $commerces =CommerceUser::orderBy('commerces.nombre','asc')
+        /*$commerces =CommerceUser::orderBy('commerces.nombre','asc')
         ->join ( 'commerces', 'commerce_users.commerce_id' ,'=' ,'commerces.id')
                 ->join('users', 'commerce_users.user_id','=','users.id')
-                ->where ('users.id','=', '1')//Auth->user->id
+                */
+                $commerces = Commerce::orderBy('commerces.nombre','asc')                
+                ->join ('commerce_users','commerce_users.commerce_id','=','commerces.id')
+                ->join ('users', 'users.id','=','commerce_users.user_id')
+                ->where ('users.id','=', $user)//Auth->user->id
         ->paginate(3);
-        return view('admin.commerces.index', compact('my_commerces','commerces'));
+                //$commerceroleuser = CommerceRoleuser::where ('commerce_user_id','user_id')->pluck('id');
+        return view('admin.commerces.my_commerces', compact('my_commerces','commerces'));
             }
             else{
                 $commerces =CommerceUser::orderBy('commerces.nombre','asc')
@@ -62,9 +68,14 @@ class CommerceController extends Controller
                 ->where ('users.id','=', '2')
                 ->andWhere($criterio, 'like', '%'. $buscar . '%')
                 ->paginate(3);
-        return view('admin.commerces.index', compact('my_commerces','commerces'));
+        return view('admin.commerces.my_commerces', compact('my_commerces','commerces'));
             }
     }
+    /*public function show_my_commerce()
+    {
+        $commerce = Commerce::find('commerces.id');
+        return view('admin.commerces.show', compact('commerce'));
+    }*/
 
     /**
      * Show the form for creating a new resource.
@@ -124,25 +135,27 @@ class CommerceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug )
-    {
-        $commerce = Commerce::find($slug );
-        return view('admin.commerces.show', compact('commerce'));
-    }
-    public function getcommerce($nombre)
-    {
-        $commerce_d  = Commerce::where('nombre', $nombre)->first();
-                $commerce_id    = Commerce::where('nombre', $nombre)->pluck('id')->first();
+    //show  commerces from commerces.index
+            public function show($slug)
+            {
+                $commerce = Commerce::find($slug);
+                return view('admin.commerces.show', compact('commerce'));
+            }
+        //show  commerces from commerces.my_commerces
+            public function getcommerce($commerce_id)//Para acceder a los detalles de un item desde el  listado
+            {
+                $commerce_d  = Commerce::where('nombre', $nombre)->first();
+                        $commerce_id    = Commerce::where('nombre', $nombre)->pluck('id')->first();
 
-        $commerce = Commerce::
-                join('departments', 'departments.commerce_id','=','commerces.id')
-                ->join('categories', 'categories.department_id','=','departments.id')
-                ->join('products', 'products.category_id','=','categories.id')
-                ->where('departments.commerce_id', $commerce_id)
-                ->get() ;
-                return view('admin.commerces.show', compact('commerce', 'commerce_d'));
-    }
-   
+                $commerce = Commerce::
+                        join('departments', 'departments.commerce_id','=','commerces.id')
+                        ->join('categories', 'categories.department_id','=','departments.id')
+                        ->join('products', 'products.category_id','=','categories.id')
+                        ->where('departments.commerce_id', $commerce_id)
+                        ->get() ;
+                        return view('admin.commerces.show', compact('commerce', 'commerce_d'));
+            }
+   //show  commerce
 
     /**
      * Show the form for editing the specified resource.

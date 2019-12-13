@@ -1,6 +1,6 @@
     <div class="form-group">
             {{ Form::label('commerce_id', 'Commerce') }}
-            {{ Form::select('commerce_id', $commerces, null, ['class' => 'form-control']) }}
+           <{{ Form::select('commerce_id', $commerce_d, null, ['class' => 'form-control']) }}-->
         </div> 
 
 <div class="form-group">

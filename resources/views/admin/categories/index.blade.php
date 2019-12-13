@@ -5,7 +5,7 @@
         <div class="card-header with-border ">
             <h3 class="card-title success">                         
                     Categorias de: 
-                    <a href="{{ route('get_commerce', $commerce_d->id) }}" >{{$commerce_d->nombre}}     </a>                    
+                    <a href="{{ route('commerces.show', $commerce_d->id) }}" >{{$commerce_d->nombre}}     </a>                    
                     </h3>
         </div>
         <div class="card-tool pull-right">

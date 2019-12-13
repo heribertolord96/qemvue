@@ -9,26 +9,36 @@
     <div class="sidebar">
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="{{asset (" assets/lte/dist/img/user2-160x160.jpg ")}}" class="img-circle elevation-2" alt="User Image">
-            </div>
-            <div class="info">
-                <span class="right badge badge-success"> Hola {{session()->get('user_name')?? 'Invitado'}} </span> </br>
-                <span class="right badge badge-info"> {{session()->get('role_name')}} </span>
-            </div>
-            <div class="pull-right">
-                <a href="{{route('logout')}}" class="nav-icon fas fa-sign-out-alt"
-                onclick="event.preventDefault();
-                 document.getElementById('logout-form').submit();"
-                >Exit</a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    {{ csrf_field() }}
-                </form>
-            </div>
-        </div>
+            @guest
+           <a href="{{ route('login') }}">Login</a>
+                            <a href="{{ route('register') }}">Register</a>
+                @else
+                <div class="image">
+                        <img src="{{asset (" assets/lte/dist/img/user2-160x160.jpg ")}}" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <span class="right badge badge-success"> Hola {{ Auth::user()->name ?? 'Invitado'}} </span> 
+                        <!--session()->get('user_name')-->
+                    </br>
+                        <span class="right badge badge-info"> {{session()->get('role_name')}} </span>
+                    </div>
+                    <div class="pull-right">
+                        <a href="{{route('logout')}}" class="nav-icon fas fa-sign-out-alt"
+                        onclick="event.preventDefault();
+                         document.getElementById('logout-form').submit();"
+                        >Exit</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </div>
+                </div>
+                @include("menus/menu_administrador");
+            @endguest
+           
+        
         <!--si->el usuario es....-->
         
-    @include("menus/menu_administrador");
+    
        
         
 
