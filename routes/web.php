@@ -20,7 +20,7 @@ Route::get('admin','AdminController@index')->name('inicio');
         Route::get('admin/tag/{slug}','TagController@tag')->name('tag');
         Route::resource('tags', 		'Admin\TagController');
 //Commerce routes
-        Route::get('admin/commerce/{slug}','Admin\CommerceController@commerce')->name('commerce');
+        Route::get('admin/{slug}/commerce','Admin\CommerceController@commerce')->name('commerce');
         Route::resource('commerces', 		'Admin\CommerceController');
 
         Route::get('get_commerce', 'Admin\CommerceController@getcommerce')->name('getcommerce');
@@ -32,7 +32,8 @@ Route::get('admin','AdminController@index')->name('inicio');
 //Commerce routes   
 //Department routes
 //Relacion con mi  commerce_id
-    Route::get('admin/departments/{slug}','Admin\DepartmentController@department')->name('department');
+    Route::get('admin/{slug}/departments','Admin\DepartmentController@department')//Obtiene los departamentos de una tienda
+    ->name('department');
     Route::resource('departments', 		'Admin\DepartmentController');
 //Department routes
 //Category routes
@@ -50,12 +51,16 @@ Route::get('admin','AdminController@index')->name('inicio');
     Route::resource('products', 		'Admin\ProductController');
 //Product routes 
 //Promotion routes
+    Route::get('admin/promotion/{slug}','PromotionController@promotion')->name('promotion');
+    Route::resource('promotions', 		'Admin\PromotionController');
 //Promotion routes
 //Event routes
     Route::get('admin/event/{slug}','EventController@event')->name('event');
     Route::resource('events', 		'Admin\EventController');
 //Event routes
 //Ad Routes
+    Route::get('admin/ad/{slug}','AdController@ad')->name('ad');
+    Route::resource('ads', 		'Admin\AdController');
 //Ad Routes
 /////////////////////////////
 /// Crashed routes
@@ -66,21 +71,5 @@ Route::get('admin','AdminController@index')->name('inicio');
             //Route::resource('products', 		'Admin\ProductController');
         //Relacion con mi commerce_id
 /// Crashed routes
-
-
-               
-            
-           
-        
-        
-
-      
-       
-
-        Route::get('admin/promotion/{slug}','PromotionController@promotion')->name('promotion');
-        Route::resource('promotions', 		'Admin\PromotionController');
-
-        Route::get('admin/ad/{slug}','AdController@ad')->name('ad');
-        Route::resource('ads', 		'Admin\AdController');
 
    // });

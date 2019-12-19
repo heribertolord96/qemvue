@@ -1,11 +1,11 @@
     <div class="form-group">
             {{ Form::label('department_id', 'Seleccione un departamento') }}
-            {{ Form::select('department_id', $departments, null, ['class' => 'form-control'],'placeholder'=>'Ferreteria') }}
+            {{ Form::select('department_id', $departments, null, ['class' => 'form-control','id'=>'department_id']) }}
         </div> 
 
 <div class="form-group">
         {{ Form::label('name', 'Nombre de categoria:') }}
-        {{ Form::text('name', null, ['class' => 'form-control', 'id' => 'name','placeholder'=>'Desarmadoresy llaves']) }}
+        {{ Form::text('name', null, ['class' => 'form-control', 'id' => 'name', 'placeholder'=>'Desarmadoresy llaves']) }}
     </div>
     <div class="form-group">
         {{ Form::label('slug', 'URL amigable') }}
@@ -17,10 +17,10 @@
         </div>
         <div class="form-group">
                 {{ Form::label('condition', 'Desactivar:') }}
-                {{ Form::radio('condition', null, ['class' => 'form-control' ,'value'=>'0']) }}
+                {{ Form::radio('condition', null, ['class' => 'form-control' ,'id'=>'condition','value'=>'0']) }}
 
                 {{ Form::label('condition', 'Activar:') }}
-                {{ Form::radio('condition', null, ['class' => 'form-control' ,'value'=>'1']) }}
+                {{ Form::radio('condition', null, ['class' => 'form-control' ,'id'=>'condition','value'=>'1']) }}
             </div>
             
          

@@ -11,8 +11,9 @@ class Category extends Model
         'condition'
     ];
 
-    public function department()
-    {
-        return $this->belongsTo(Department::class);
+    public function department(){
+        return $this->belongsTo(Department::class);//Pertenece a una categoria
     }
+
+
 }

@@ -51,10 +51,12 @@
                           <i class="fa fa-fw fa-pen 50px"></i>
                       </a>
                     </button>
-                    <button type="button" class="btn btn-card-tool" >
-                      <a  href="{{ route('departments.destroy', $department->id) }}">
-                          <i class="fa fa-fw fa-trash warning"></i>
-                      </a>
+                    <button type="" class="btn btn-card-tool" >
+                        {!! Form::open(['route' => ['departments.destroy', $department->id], 'method' => 'DELETE']) !!}
+                        <button class="btn-danger">
+                            <i class="fa fa-fw fa-trash "></i>
+                        </button>                           
+                    {!! Form::close() !!}
                     </button>
                       <button type="button" class="btn btn-card-tool" data-widget="collapse">
                         <i class="fa fa-minus"></i>

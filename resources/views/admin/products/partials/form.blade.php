@@ -3,10 +3,10 @@
             {{ Form::label('commerce_id', 'Commerce') }}
             {{ Form::select('commerce_id', $commerces, null, ['class' => 'form-control']) }}
         </div> 
-        <div class="form-group">
-                {{ Form::label('department_id', 'Department') }}
-                {{ Form::select('department_id', $departments, null, ['class' => 'form-control']) }}
-            </div> 
+        <!--div class="form-group">
+                {*{ Form::label('department_id', 'Department') }}
+                {*{ Form::select('department_id', $departments, null, ['class' => 'form-control']) }}
+            </div--> 
             <div class="form-group">
                     {{ Form::label('category_id', 'Category') }}
                     {{ Form::select('category_id', $categories, null, ['class' => 'form-control']) }}
@@ -16,7 +16,7 @@
 
 <div class="form-group">
         {{ Form::label('name', 'Nombre del articulo') }}
-        {{ Form::text('name', null, ['class' => 'form-control', 'id' => 'name']) }}
+        {{ Form::text('name', null, ['class' => 'form-control', 'id' => 'nombre']) }}
     </div>
     <div class="form-group">
         {{ Form::label('slug', 'URL amigable') }}
@@ -24,21 +24,26 @@
     </div>
     <div class="form-group">
             {{ Form::label('descripcion', 'Descripción') }}
-            {{ Form::textarea('descripcion', null, ['class' => 'form-control']) }}
+            {{ Form::textarea('descripcion', null, ['class' => 'form-control', 'id' => 'descripcion']) }}
         </div>
         <div class="form-group">
                 {{ Form::label('presentacion', 'Presentacion') }}
-                {{ Form::text('presentacion', null, ['class' => 'form-control']) }}
+                {{ Form::text('presentacion', null, ['class' => 'form-control', 'id' => 'presentacion']) }}
             </div>
             <div class="form-group">
                     {{ Form::label('precio', 'Precio') }}
-                    {{ Form::text('precio', null, ['class' => 'form-control']) }}
+                    {{ Form::text('precio', null, ['class' => 'form-control', 'id' => 'precio_venta']) }}
                 </div>
                         
-    <div class="form-group">
-            {{ Form::label('image', 'Imagen') }}
-            {{ Form::file('image') }}
-        </div>
+                <div class="form-group">
+                    {{ Form::label('image', 'Imagen') }}
+                    {{ Form::file('image') }}
+                </div>
+        
+                <div class="form-group">
+                    {{ Form::label('condition', 'Activar:') }}
+                    {{ Form::radio('condition', null, ['class' => 'form-control' ,'id'=>'condition','value'=>'1']) }}
+                </div>
 
     
      </div>

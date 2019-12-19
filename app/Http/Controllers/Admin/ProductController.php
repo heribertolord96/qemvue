@@ -7,9 +7,11 @@ use App\Product;
 Use App\Category;
 Use App\Commerce;
 Use App\Department;
+use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -84,8 +86,8 @@ class ProductController extends Controller
         $commerces = Commerce::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $categories = Category::orderBy('name', 'ASC')->pluck('name', 'id');
         $departments = Department::orderBy('name', 'ASC')->pluck('name', 'id');
-        $tags       = Tag::orderBy('name', 'ASC')->get();
-        return view('admin.products.create', compact('commerces', 'tags','categorias','departamentos'));
+        $tags       = Tag::orderBy('nombre', 'ASC')->get();
+        return view('admin.products.create', compact('commerces', 'tags','categories','departaments'));
     }
 
     /**
@@ -97,6 +99,10 @@ class ProductController extends Controller
     public function store(ProductStoreRequest $request)
     {
         $product = Product::create($request->all());
+        if($request->file('image')){
+            $path = Storage::disk('public')->put('image',  $request->file('image'));
+            $product->fill(['file' => asset($path)])->save();
+        }
         return redirect()->route('products.edit', $product->id)
         ->with('info', 'Product agregado con éxito');
     }
@@ -143,6 +149,10 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->fill($request->all())->save();
+        if($request->file('image')){
+            $path = Storage::disk('public')->put('image',  $request->file('image'));
+            $product->fill(['file' => asset($path)])->save();
+        }
         return redirect()->route('products.edit', 
         $product->id)->with('info', 'Info de product actualizada con éxito');
     }

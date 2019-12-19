@@ -5,9 +5,15 @@ use App\Http\Controllers\Controller;
 
 use App\Department;
 use App\Commerce;
+use App\CommerceUser;
+use App\CommerceRole;
+use App\User;
+use App\CommerceRoleUser;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\DepartmentStoreRequest;
 use App\Http\Requests\DepartmentUpdateRequest;
+use Illuminate\Support\Facades\Storage;
 
 class DepartmentController extends Controller
 {
@@ -62,12 +68,15 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($slug)
+    public function create()
     {
-        $commerce = Commerce::find($slug);
-        //$commerce = Commerce::get('commerces.id');
-        //$categories = Category::orderBy('name', 'ASC')->pluck('name', 'id');
-        return view('admin.departments.create',compact('department','commerce'));
+        $uid =Auth::id();
+        $commerces = Commerce::orderBy('commerces.nombre','asc')                
+                ->join ('commerce_users','commerce_users.commerce_id','=','commerces.id')
+                ->join ('users', 'users.id','=','commerce_users.user_id')
+                ->where ('users.id','=', $uid)
+        ->pluck('commerces.nombre', 'commerces.id');//Obtener dropdown de mis tiendas        
+        return view('admin.departments.create',compact('commerces'));
     }
 
     /**
@@ -78,9 +87,14 @@ class DepartmentController extends Controller
      */
     public function store(DepartmentStoreRequest $request)
     {
+        
         $department = Department::create($request->all());
-        return redirect()->route('departments.edit', $department->id)
-        ->with('info', 'Department creada con éxito');
+        if($request->file('image')){
+            $path = Storage::disk('public')->put('image',  $request->file('image'));
+            $department->fill(['file' => asset($path)])->save();
+        }
+       return redirect()->route('departments.edit', $department->id)
+        ->with('info', 'Departamento creado con éxito');
     }
 
     /**
@@ -105,9 +119,18 @@ class DepartmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
+
     {
         $department = Department::find($id);
-        return view('admin.departments.edit', compact('department'));
+        $uid =Auth::id();
+        $commerces = Commerce::orderBy('commerces.nombre','asc')                
+                ->join ('commerce_users','commerce_users.commerce_id','=','commerces.id')
+                ->join ('users', 'users.id','=','commerce_users.user_id')
+                ->where ('users.id','=', $uid)
+        ->pluck('commerces.nombre', 'commerces.id');//Obtener dropdown de mis tiendas 
+
+        
+        return view('admin.departments.edit', compact('department','commerces'));
     }
 
     /**
@@ -121,6 +144,10 @@ class DepartmentController extends Controller
     {
         $department = Department::find($id);
         $department->fill($request->all())->save();
+        if($request->file('image')){
+            $path = Storage::disk('public')->put('image',  $request->file('image'));
+            $department->fill(['file' => asset($path)])->save();
+        }
         return redirect()->route('departments.edit', 
         $department->id)->with('info', 'Info de department actualizada con éxito');
     }

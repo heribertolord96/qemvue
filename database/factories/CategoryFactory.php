@@ -10,7 +10,7 @@ $factory->define(Category::class, function (Faker $faker) {
     return [
         'name' => $title,
         'slug'=> Str::slug($title),
-        'department_id'=> rand(1,28),
+        'department_id'=> $faker->unique()->randomDigit,
         //'codigo' => $faker->postcode(),
         'body' => $faker->text(50),
         //'file' => 'http://storeblog.test/images/atrr.png'

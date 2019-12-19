@@ -18,5 +18,7 @@ use Illuminate\Database\Eloquent\Model;
     public function commerce_role_users(){
         return $this->belongsToMany(CommerceRoleUser::class)->withTimestamps();//El usuario puede pertenecer a muchos grupos
     }
-    
+    public function departments(){
+        return $this->belongsTo(Department::class)->withTimestamps();//Una tienda puede tener muchos departamentos
+    }
 }

@@ -7,6 +7,7 @@ use App\Event;
 use Illuminate\Http\Request;
 use App\Http\Requests\EventStoreRequest;
 use App\Http\Requests\EventUpdateRequest;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -57,6 +58,10 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $event = Event::create($request->all());
+        if($request->file('image')){
+            $path = Storage::disk('public')->put('image',  $request->file('image'));
+            $event->fill(['file' => asset($path)])->save();
+        }
         return redirect()->route('events.edit', $event->id)
         ->with('info', 'Event agregado con éxito');
     }
@@ -96,6 +101,10 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         $event->fill($request->all())->save();
+        if($request->file('image')){
+            $path = Storage::disk('public')->put('image',  $request->file('image'));
+            $event->fill(['file' => asset($path)])->save();
+        }
         return redirect()->route('.events.edit', 
         $event->id)->with('info', 'Info de event actualizada con éxito');
     }

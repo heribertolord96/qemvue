@@ -11,8 +11,7 @@
 
                 <div class="panel-body ">
                 </br>
-                    {!! Form::open(['route' => 'commerces.store']) !!}
-                        
+                    {!! Form::open(['route' => 'commerces.store', 'files' => true]) !!}                       
                     
                         @include('admin.commerces.partials.form')
 

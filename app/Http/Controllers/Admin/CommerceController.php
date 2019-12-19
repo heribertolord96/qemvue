@@ -11,6 +11,7 @@ use App\CommerceRole;
 use App\User;
 use App\CommerceRoleUser;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CommerceStoreRequest;
@@ -122,7 +123,11 @@ class CommerceController extends Controller
             Se crea una relacion que indica que un comercio puede tener un grupo 
             de usuarios con disintos roles
              */
-        ]);        
+        ]);   
+        if($request->file('image')){
+            $path = Storage::disk('public')->put('image',  $request->file('image'));
+            $commerce->fill(['file' => asset($path)])->save();
+        }     
         //$commerce = Commerce::get();
         return redirect()->route('commerces.edit', $commerce->id)
         ->with('info', 'commerce agregado con éxito');
@@ -182,6 +187,10 @@ class CommerceController extends Controller
     {
         $commerce = Commerce::find($id);
         $commerce->fill($request->all())->save();
+        if($request->file('image')){
+            $path = Storage::disk('public')->put('image',  $request->file('image'));
+            $commerce->fill(['file' => asset($path)])->save();
+        }
         return redirect()->route('commerces.edit', 
         $commerce->id)->with('info', 'Info de commerce actualizada con éxito');
     }

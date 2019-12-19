@@ -9,12 +9,12 @@
                         Editar Category
                         @section('titulo')
                         editar: 
-            {{$category->name }}
+            {{$category->name}}
             @endsection
                     </div>
     
                     <div class="panel-body">
-                        {!! Form::model($category, ['route' => ['categories.update', $category->id], 'method' => 'PUT']) !!}
+                        {!! Form::model($category, ['route' => ['categories.update', $category->id], 'method' => 'PUT', 'files' => true]) !!}
                             
                             @include('admin.categories.partials.form')    
                         {!! Form::close() !!}

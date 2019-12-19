@@ -7,6 +7,7 @@ use App\Promotion;
 use Illuminate\Http\Request;
 use App\Http\Requests\PromotionStoreRequest;
 use App\Http\Requests\PromotionUpdateRequest;
+use Illuminate\Support\Facades\Storage;
 
 class PromotionController extends Controller
 {

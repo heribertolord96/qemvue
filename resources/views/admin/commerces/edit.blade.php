@@ -14,7 +14,7 @@
                     </div>
     
                     <div class="panel-body">
-                        {!! Form::model($commerce, ['route' => ['commerces.update', $commerce->id], 'method' => 'PUT']) !!}
+                        {!! Form::model($commerce, ['route' => ['commerces.update', $commerce->id], 'method' => 'PUT', 'files' => true]) !!}
                             
                             @include('admin.commerces.partials.form1')    
                         {!! Form::close() !!}

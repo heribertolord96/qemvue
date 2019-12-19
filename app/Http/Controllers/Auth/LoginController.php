@@ -39,6 +39,7 @@ class LoginController extends Controller
     }
     public function authenticated(Request $request, $user)
     {
+        //Un usuario debe tener un rol en el sistema para poder acceder a este
         $roles = $user->roles()->get();
         if($roles->isNotEmpty()){
             $user->setSession($roles ->toArray());
@@ -46,7 +47,7 @@ class LoginController extends Controller
         }else{
             $this ->guard()->logout();
             $request->session()->invalidate();
-            return redirect('auth/login')->withErrors([
+            return redirect('login')->withErrors([
                 'Error' => 'Este usuario no tiene un rol activo']);
         }
     }

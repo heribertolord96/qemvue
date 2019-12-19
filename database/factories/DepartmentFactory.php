@@ -6,14 +6,14 @@ use App\Department;
 use Faker\Generator as Faker;
 
 $factory->define(Department::class, function (Faker $faker) {
-    $title = $faker->sentence(4);
+    $title = $faker->sentence(4)->rand(1,1000);
     return [
         'name' => $title,
-        //'slug' 			=> $title,
-        'commerce_id'=> rand(1,10),
-        //'codigo' => $faker->barcode(),   
+        'slug' 			=> $title,
+        'commerce_id'=> $faker->unique()->randomDigit,
+        'codigo' => $faker->barcode(),   
         'body' => $faker->text(50),
-        //'file' => 'http://storeblog.test/images/atrr.png',
+        'file' => 'http://storeblog.test/images/atrr.png',
 
     ];
 });

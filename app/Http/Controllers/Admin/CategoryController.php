@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Category;
 use App\Commerce;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use App\Department;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -50,8 +53,6 @@ class CategoryController extends Controller
             join categories on categories.department_id =departments.id
              * 
              */
-          
-
             $categories =Commerce:: 
             join('departments', 'departments.commerce_id','=','commerces.id')
             ->join('categories', 'categories.department_id','=','departments.id')
@@ -61,8 +62,11 @@ class CategoryController extends Controller
         }
         else
         {            
-            $tienda    = Commerce::where('slug', $slug)->pluck('id')->first();
-            $categories = Category::where('commerce_id', $tienda)->orderBy('name', 'ASC')->where($criterio, 'like', '%' . $buscar . '%')->paginate(3);
+            $categories =Commerce:: 
+            join('departments', 'departments.commerce_id','=','commerces.id')
+            ->join('categories', 'categories.department_id','=','departments.id')
+            ->where('commerces.id', $commerce)
+            ->where($criterio, 'like', '%' . $buscar . '%')->paginate(3);
             return view('admin.tienda_departamentos.index', compact('categorys', 'commerce_d'));
         }
     }
@@ -74,8 +78,29 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $departments = Department::orderBy('name', 'ASC')->pluck('name', 'id');
-        return view('admin.categories.create' , compact('category', 'departments')); 
+        /*         
+        select 
+departments.id, departments.name as Departamento, 
+commerces.id, commerces.nombre as Tienda,
+users.id, users.name as Usuario
+FROM
+departments
+join commerces on commerces.id = departments.commerce_id
+JOIN commerce_users
+join users on users.id = commerce_users.user_id
+         */
+        $uid =Auth::id();
+        $departments = Department::
+        orderBy('departments.id','asc') 
+        ->join('commerces','commerces.id','=','departments.commerce_id')        
+        ->join('commerce_users','commerce_users.commerce_id','=','commerces.id')
+        ->join('users','users.id','=','commerce_users.user_id')
+        ->where('users.id','=',$uid)     
+
+        
+        ->pluck('departments.name', 'departments.id');//Obtener dropdown de mis tiendas        
+        //return view('admin.departments.create',compact('commerce'));
+        return view('admin.categories.create' , compact( 'departments')); 
     }
 
     /**
@@ -86,7 +111,12 @@ class CategoryController extends Controller
      */
     public function store(CategoryStoreRequest $request)
     {
+
         $category = Category::create($request->all());
+        if($request->file('image')){
+            $path = Storage::disk('public')->put('image',  $request->file('image'));
+            $category->fill(['file' => asset($path)])->save();
+        }
 
         return redirect()->route('categories.edit', $category->id)->
         with('info', 'Categoría creada con éxito');
@@ -132,7 +162,10 @@ class CategoryController extends Controller
         
         $category = Category::find($id);
         $category->fill($request->all())->save();
-
+        if($request->file('image')){
+            $path = Storage::disk('public')->put('image',  $request->file('image'));
+            $category->fill(['file' => asset($path)])->save();
+        }
         return redirect()->route('categories.edit', $category->id)->with('info', 'Categoría actualizada con éxito');
     }
 

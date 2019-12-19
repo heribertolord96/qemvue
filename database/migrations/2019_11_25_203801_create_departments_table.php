@@ -17,6 +17,7 @@ class CreateDepartmentsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('commerce_id');
             $table->string('name');
+            $table->string('slug', 128)->unique();
             $table->text('body',100);
             $table->boolean('condition')->default(1);
             $table->timestamps();
