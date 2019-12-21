@@ -24,7 +24,7 @@ class CommerceRoleStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|unique:commerce_roles, id',
+            'id' => 'required|unique:commerce_roles|max:255, id',
         ];
     }
 }

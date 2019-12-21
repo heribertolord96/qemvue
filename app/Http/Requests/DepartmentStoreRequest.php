@@ -26,7 +26,7 @@ class DepartmentStoreRequest extends FormRequest
         return [
             'commerce_id' => 'required',
             'name' => 'required',
-            //'slug' => 'required|unique:departments, slug',
+            'slug' => 'required|unique:departments|max:255, slug',
             'body' => 'required',
             'condition' => 'required',
         ];

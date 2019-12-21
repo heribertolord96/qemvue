@@ -147,7 +147,7 @@ class DepartmentController extends Controller
         if($request->file('image')){
             $path = Storage::disk('public')->put('image',  $request->file('image'));
             $department->fill(['file' => asset($path)])->save();
-        }
+        }   
         return redirect()->route('departments.edit', 
         $department->id)->with('info', 'Info de department actualizada con éxito');
     }

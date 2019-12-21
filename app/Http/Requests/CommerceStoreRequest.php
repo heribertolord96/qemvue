@@ -27,7 +27,7 @@ class CommerceStoreRequest extends FormRequest
             'id' => 'required',
             'nombre' => 'required',
             'descripcion' => 'required',
-            //'slug' => 'required|unique:commerces, slug',
+            'slug' => 'required|unique:commerces|max:255, slug',
         ];
     }
 }

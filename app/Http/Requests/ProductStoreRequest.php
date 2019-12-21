@@ -25,7 +25,7 @@ class ProductStoreRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'slug' => 'required|unique:products,slug',
+            'slug' => 'required|unique:products|max:255,slug',
             'descripcion' => 'required',
         ];
     }

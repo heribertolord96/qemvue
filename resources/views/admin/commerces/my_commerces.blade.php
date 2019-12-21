@@ -46,6 +46,83 @@
             <button type="button" class="btn btn-card-tool" data-widget="remove">
               <i class="fa fa-times"></i></button>
           </div>
+         <!----------------------------------------------------------------->
+         @section('my_menu')   
+<style>
+        ul, #myUL {
+          list-style-type: none;
+        }
+        
+        #myUL {
+          margin: 0;
+          padding: 0;
+        }
+        
+        .caret {
+          cursor: pointer;
+          -webkit-user-select: none; /* Safari 3.1+ */
+          -moz-user-select: none; /* Firefox 2+ */
+          -ms-user-select: none; /* IE 10+ */
+          user-select: none;
+        }
+        
+        .caret::before {
+          content: "\25B6";
+          color: black;
+          display: inline-block;
+          margin-right: 6px;
+        }
+        
+        .caret-down::before {
+          -ms-transform: rotate(90deg); /* IE 9 */
+          -webkit-transform: rotate(90deg); /* Safari */'
+          transform: rotate(90deg);  
+        }
+        
+        .nested {
+          display: none;
+        }
+        
+        .active {
+          display: block;
+        }
+  </style>
+  <div class="input-group input-group-sm">
+    
+  <ul id="myUL">
+    <li>Administrar
+      <span class="caret success">1</span>
+      <ul class="nested">
+    <li>Commerces
+      <span class="caret success">1</span>
+      <ul class="nested">
+        <li><span class="caret">Departments</span>
+        </li>  
+      
+        <li><span class="caret">Categories</span>
+        </li>  
+        <li><span class="caret">Products</span>
+        </li>  
+    </li>
+  </ul>
+    </li>
+  </ul>
+  
+  <script>
+  var toggler = document.getElementsByClassName("caret");
+  var i;
+  
+  for (i = 0; i < toggler.length; i++) {
+    toggler[i].addEventListener("click", function() {
+      this.parentElement.querySelector(".nested").classList.toggle("active");
+      this.classList.toggle("caret-down");
+    });
+  }
+  </script>
+  </div>
+ 
+      @endsection
+         <!----------------------------------------------------------------->
           @section('searchform')
             <!-- SEARCH FORM -->
 
@@ -72,7 +149,7 @@
             max-width:300px
             max-height="200"-->
             </style-->
-            <img style="max-width:300px, max-height:200px"  class="d-block w-100" src="{{ $commerce->file }}"   alt="src-file">
+            <img   class="d-block w-100" src="{{ $commerce->file }}"  height="100" width="100"  height="100" width="100" alt="src-file">
           <!--div  id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                   <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -82,7 +159,7 @@
 
                 <div class="carousel-inner" style="max-width:300px; max-height:200px; float:center;">
                   <div class="carousel-item active">
-                    <img style="max-width:300px, max-height:200px"  class="d-block w-100" src="{*{ $commerce->file }}"   alt="src-file">
+                    <img style="max-width:300px, max-height:200px"  class="d-block w-100" src="{*{ $commerce->file }}"    height="100" width="100" alt="src-file">
                   </div>
                   <div class="carousel-item">
                     <img style=" max-width:300px, max-height:200px"  class="d-block w-100" src="/images/critor.png"    alt="Second slide">

@@ -45,7 +45,7 @@
       <div class="card-body">
          <img class="d-block w-100" height="100" width="150 "
             src="{{ $commerce->file }}" 
-            alt="src-file">
+             height="100" width="100" alt="src-file">
       </div>
       <div class="card-footer">
          <p><strong>Descripción: <br>
@@ -180,6 +180,8 @@
       </div-->
       <!-- ./col -->
    </div>
+   @include("admin/commerces/includes/detalles");
+  
       <!-- /.row --
       <!- ---- ----->
       <div class="row">

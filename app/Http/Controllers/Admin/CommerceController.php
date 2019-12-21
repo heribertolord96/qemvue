@@ -67,7 +67,7 @@ class CommerceController extends Controller
                 ->join ( 'commerces', 'commerce_users.commerce_id' ,'=' ,'commerces.id')
                 ->join('users', 'commerce_users.user_id','=','users.id')
                 ->where ('users.id','=', '2')
-                ->andWhere($criterio, 'like', '%'. $buscar . '%')
+                ->where($criterio, 'like', '%'. $buscar . '%')
                 ->paginate(3);
         return view('admin.commerces.my_commerces', compact('my_commerces','commerces'));
             }
@@ -190,7 +190,7 @@ class CommerceController extends Controller
         if($request->file('image')){
             $path = Storage::disk('public')->put('image',  $request->file('image'));
             $commerce->fill(['file' => asset($path)])->save();
-        }
+        }   
         return redirect()->route('commerces.edit', 
         $commerce->id)->with('info', 'Info de commerce actualizada con éxito');
     }

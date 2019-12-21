@@ -42,12 +42,13 @@ Route::get('admin','AdminController@index')->name('inicio');
         Route::get('admin/categories', 'Admin\CategoryController@categories')->name('categories');
         Route::resource('categories', 		'Admin\CategoryController');
         
-
 //Category routes
 //Product routes   
-    Route::get('admin/products/{slug}', 'Admin\ProductController@products')->name('commerce_products');
+    Route::get('admin/products/{slug}', 'Admin\ProductController@products')
+    ->name('commerce_products');//Del metodo index
     Route::resource('products', 		'Admin\ProductController');
-    Route::get('admin/product/{slug}', 'Admin\ProductController@show')->name('product');
+    Route::get('admin/product/{slug}', 'Admin\ProductController@show')
+    ->name('product');
     Route::resource('products', 		'Admin\ProductController');
 //Product routes 
 //Promotion routes

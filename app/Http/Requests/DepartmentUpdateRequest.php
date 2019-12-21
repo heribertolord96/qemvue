@@ -25,7 +25,7 @@ class DepartmentUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'slug' => 'required|unique:departments,slug,' . $this->department,
+            'slug' => 'required|unique:departments|max:255,slug,' . $this->department,
         ];
     }
 }

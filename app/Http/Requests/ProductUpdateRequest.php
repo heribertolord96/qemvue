@@ -25,7 +25,7 @@ class ProductUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'slug' => 'required|unique:products,slug,' . $this->product,
+            //'slug' => 'required|unique:products|max:255,slug' . $this->product,
         ];
     }
 }

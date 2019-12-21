@@ -72,7 +72,7 @@
             max-width:300px
             max-height="200"-->
             </style-->
-            <img style="max-width:300px, max-height:200px"  class="d-block w-100" src="{{ $commerce->file }}"   alt="src-file">
+            <img  class="d-block w-100" src="{{ $commerce->file }}" height="42" width="42"   height="100" width="100" alt="src-file">
           <!--div  id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                   <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -82,7 +82,7 @@
 
                 <div class="carousel-inner" style="max-width:300px; max-height:200px; float:center;">
                   <div class="carousel-item active">
-                    <img style="max-width:300px, max-height:200px"  class="d-block w-100" src="{*{ $commerce->file }}"   alt="src-file">
+                    <img style="max-width:300px, max-height:200px"  class="d-block w-100" src="{*{ $commerce->file }}"    height="100" width="100" alt="src-file">
                   </div>
                   <div class="carousel-item">
                     <img style=" max-width:300px, max-height:200px"  class="d-block w-100" src="/images/critor.png"    alt="Second slide">

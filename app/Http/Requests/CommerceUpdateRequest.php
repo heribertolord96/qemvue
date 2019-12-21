@@ -25,7 +25,7 @@ class CommerceUpdateRequest extends FormRequest
     {
         return [
             'nombre' => 'required',
-            'slug' => 'required|unique:commerces,slug,' . $this->commerce,
+            //'slug' => 'required|unique:commerces|max:255,slug,' . $this->commerce,
             'descripcion' => 'required',
         ];
     }

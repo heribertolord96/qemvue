@@ -59,6 +59,7 @@ class CategoryController extends Controller
             ->where('commerces.id', $commerce)
             ->orderBy('categories.name', 'ASC')->paginate(3);
             return view('admin.categories.index', compact('categories', 'commerce_d'));
+            $count = $categories::count();
         }
         else
         {            
@@ -118,7 +119,7 @@ join users on users.id = commerce_users.user_id
             $category->fill(['file' => asset($path)])->save();
         }
 
-        return redirect()->route('categories.edit', $category->id)->
+        return redirect()->route('categories.edit', $category->slug)->
         with('info', 'Categoría creada con éxito');
     }
 
@@ -129,9 +130,9 @@ join users on users.id = commerce_users.user_id
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $category = Category::find($id);
+        $category = Category::find($slug);
 
         return view('admin.categories.show', compact('category'));
     }
@@ -154,18 +155,18 @@ join users on users.id = commerce_users.user_id
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $slug
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryUpdateRequest $request, $id)
+    public function update(CategoryUpdateRequest $request, $slug)
     {
         
-        $category = Category::find($id);
+        $category = Category::find($slug);
         $category->fill($request->all())->save();
         if($request->file('image')){
             $path = Storage::disk('public')->put('image',  $request->file('image'));
             $category->fill(['file' => asset($path)])->save();
-        }
+        }   
         return redirect()->route('categories.edit', $category->id)->with('info', 'Categoría actualizada con éxito');
     }
 
@@ -175,9 +176,9 @@ join users on users.id = commerce_users.user_id
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $category = Category::find($id)->delete();
+        $category = Category::find($slug)->delete();
 
         return back()->with('info', 'Eliminado correctamente');
     }

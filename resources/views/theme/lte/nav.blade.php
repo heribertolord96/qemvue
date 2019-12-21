@@ -6,17 +6,18 @@
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="{{ route('my_commerces') }}" class="nav-link">
+          <a href="{{ route('my_commerces') }}" class="nav-link">            
              <i class="nav-icon fas fa-store-alt"></i>
-                Mis negocios
-                <span class="right badge badge-danger">60</span>
-                <!--Se muestra una lista con los esablecimientos publicados pos un usuario -->
+                Mis negocios<!--Se muestra una lista con los esablecimientos publicados pos un usuario -->
           </a>
        </li>
+       
+       
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
         </li>
     </ul>
+    @yield('my_x_menu')
 
   @yield('searchform')
 
@@ -116,5 +117,6 @@
 </nav>
 </br>
 </br>
-
+<script>
+</script>
 <!-- /.navbar -->

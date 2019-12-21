@@ -64,7 +64,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                     <img style="max-width:300px, max-height:200px"  class="d-block w-100" src="{{ $category->file }}"   alt="src-file">
+                     <img style="max-width:300px, max-height:200px"  class="d-block w-100" src="{{ $category->file }}"    height="100" width="100" alt="src-file">
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer no-padding">

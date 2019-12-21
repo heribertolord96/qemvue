@@ -5,8 +5,10 @@
             <div class="card-header with-border ">
                     <h3 class="card-title success">                         
                             Productos de: 
-                            <a href="{{ route('commerces.show', $commerce_d->id) }}" >{{$commerce_d->nombre}}     </a>                    
-                            </h3>
+                            <a href="{{ route('commerces.show', $commerce_d->id) }}" >{{$commerce_d->nombre}}     
+                                
+                                <img src="{{$commerce_d->file}}" class="img-circle elevation-2" height="70px" box-shadow="2px" alt="User Image">
+                            </h3></a> 
                 </div>
         <div class="card-header with-border ">
             <h3 class="card-title">Articulos</h3>
@@ -74,7 +76,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <img style="max-width:300px, max-height:200px"  class="d-block w-100" src="{{ $product->file }}"   alt="src-file">
+                    <img style="max-width:300px, max-height:200px"  class="d-block w-100" src="{{ $product->file }}"    height="100" width="100" alt="src-file">
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer no-padding">

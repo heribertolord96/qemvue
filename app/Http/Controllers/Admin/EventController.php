@@ -104,7 +104,7 @@ class EventController extends Controller
         if($request->file('image')){
             $path = Storage::disk('public')->put('image',  $request->file('image'));
             $event->fill(['file' => asset($path)])->save();
-        }
+        }   
         return redirect()->route('.events.edit', 
         $event->id)->with('info', 'Info de event actualizada con éxito');
     }
