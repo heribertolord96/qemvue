@@ -5,7 +5,7 @@
         <div class="card-header with-border ">
             <h3 class="card-title">Articulos</h3>
         </div>
-        @section('searchform')
+        @section('search_form')
             <!-- SEARCH FORM -->
 
     <form class="form-inline ml-3">

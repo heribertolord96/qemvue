@@ -1,0 +1,127 @@
+<ul class="nav nav-treeview">
+            <li class="nav-item has-treeview">
+               <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-list-alt"></i>
+                  <p>
+                    Coomercios
+                     <i class="right fas fa-angle-left"></i>
+                  </p>
+               </a>
+               <ul class="nav nav-treeview">                  
+                  <li class="nav-item">
+                     <a href="{{ route('commerces.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-bag-alt"></i>
+                        <p>
+                           Productos
+                           <span class="right badge badge-danger">60</span>
+                           <!--Un usuario puede ver informacion (estadisticas) de 
+                               otras tiendas de su compania,
+                           pero solo puede administrar datos de su tienda -->
+                        </p>
+                     </a>
+                     <ul class="nav nav-treeview"> 
+                        <li class="nav-item">
+                           <a href="{{ route('commerces.index') }}" class="nav-link">
+                              <i class="nav-icon fas fa-box-alt"></i>
+                              <p>
+                                 Almacen
+                                 <span class="right badge badge-danger">60</span>
+                                 <!--Un usuario puede ver informacion (estadisticas) de 
+                                     otras tiendas de su compania,
+                                 pero solo puede administrar datos de su tienda -->
+                              </p>
+                           </a>
+                        </li> 
+                        <li class="nav-item">
+                           <a href="{{ route('commerces.index') }}" class="nav-link">
+                              <i class="nav-icon fas fa-box-alt"></i>
+                              <p>
+                                 Ventas
+                                 <span class="right badge badge-danger">60</span>
+                                 <!--Un usuario puede ver informacion (estadisticas) de 
+                                     otras tiendas de su compania,
+                                 pero solo puede administrar datos de su tienda -->
+                              </p>
+                           </a>
+                        </li> 
+                        <li class="nav-item">
+                           <a href="{{ route('commerces.index') }}" class="nav-link">
+                              <i class="nav-icon fas fa-box-alt"></i>
+                              <p>
+                                 Ingresos
+                                 <span class="right badge badge-danger">60</span>
+                                 <!--Un usuario puede ver informacion (estadisticas) de 
+                                     otras tiendas de su compania,
+                                 pero solo puede administrar datos de su tienda -->
+                              </p>
+                           </a>
+                        </li> 
+                        <li class="nav-item">
+                           <a href="{{ route('commerces.index') }}" class="nav-link">
+                              <i class="nav-icon fas fa-skull-alt"></i>
+                              <p>
+                                 Bajas
+                                 <span class="right badge badge-danger">60</span>
+                                 <!--Un usuario puede ver informacion (estadisticas) de 
+                                     otras tiendas de su compania,
+                                 pero solo puede administrar datos de su tienda -->
+                              </p>
+                           </a>
+                        </li>
+                     </ul>
+
+                  </li>               
+                      
+                     <li class="nav-item">
+                        <a href="{{ route('commerces.index') }}" class="nav-link">
+                           <i class="nav-icon fas fa-danger-alt"></i>
+                           <p>
+                              Alertas
+                              <span class="right badge badge-danger">60</span>
+                              <!--Un usuario puede ver informacion (estadisticas) de 
+                                  otras tiendas de su compania,
+                              pero solo puede administrar datos de su tienda -->
+                           </p>
+                        </a>
+                     </li> 
+                     <li class="nav-item">
+                        <a href="{{ route('products.index') }}" class="nav-link">
+                           <i class="nav-icon fas fa-chart"></i>
+                           <p>
+                              Graficas
+                              <span class="right badge badge-danger">968</span>
+                           </p>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="{{ route('promotions.index') }}" class="nav-link">
+                           <i class="nav-icon fas fa-cart-arrow-down"></i>
+                           <p>
+                              Promociones
+                              <span class="right badge badge-danger">968</span>
+                           </p>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                     <a href="{{ route('events.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-birthday-cake"></i>
+                        <p>
+                           Proveedores
+                           <span class="right badge badge-danger">78</span>
+                        </p>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                   <a href="{{ route('promotions.index') }}" class="nav-link">
+                      <i class="nav-icon fas fa-cart-arrow-down"></i>
+                      <p>
+                         Pedidos
+                         <span class="right badge badge-danger">968</span>
+                      </p>
+                   </a>
+                </li>
+               </ul>
+              
+            </li>
+            
+          </ul>

@@ -17,24 +17,7 @@
             Categorias
             @endsection
         </div> 
-        @section('searchform')
-            <!-- SEARCH FORM -->
-
-    <form class="form-inline ml-3">
-        <div class="input-group input-group-sm">
-            <select class="form-control form-control-navbar col-md-3" name="criterio">                
-                <option value="categories.name">Articulo</option>
-                <option value="categories.body">Descripcion</option>
-            </select>
-            <input class="form-control form-control-navbar" name="buscar" type="search" placeholder="Search" aria-label="Search">
-            <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </div>
-    </form>
-          @endsection
+       
         </div>
         <div class="card-body row-md-12">
             @foreach ($categories as $category)

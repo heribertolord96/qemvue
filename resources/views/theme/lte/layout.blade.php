@@ -7,15 +7,16 @@
   </title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Font Awesome -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link href="{{ asset('css/plantilla.css') }}" rel="stylesheet">  
+<!-- Ionicons -->
+  <!--link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"-->
   <!-- Theme style -->
- <link rel="stylesheet" href="{{asset ("assets/$theme/dist/css/adminlte.min.css")}}">
-
+ <!--link rel="stylesheet" href="{*{asset ("assets/$theme/dist/css/adminlte.min.css")}}"-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  
   @yield('styles')
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
   
@@ -35,7 +36,9 @@
 @endsection
 
 @section("scriptsPlugins")
-<script src="{{asset("assets/js/jquery-nestable/jquery.nestable.js")}}" type="text/javascript"></script>
+<!--script src="{_{asset("assets/js/jquery-nestable/jquery.nestable.js")}}" type="text/javascript"></script-->
+<script src="{{asset("js/jquery.nestable.js")}}"></script>
+
 @endsection
 
 @section("scripts")
@@ -74,7 +77,9 @@
                                 </div>
                             </div>
                         @endif
-                                @yield('contenido')
+                        
+                               @yield('contenido')                               
+                               
                                 <br>
                                 
                                 
@@ -86,4 +91,5 @@
         @include("theme/lte/footer")
         <!--fin-footer-->
 </body>
+
 </html>

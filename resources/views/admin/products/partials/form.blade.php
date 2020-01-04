@@ -32,8 +32,8 @@
                 {{ Form::text('presentacion', null, ['class' => 'form-control', 'id' => 'presentacion']) }}
             </div>
             <div class="form-group">
-                    {{ Form::label('precio', 'Precio') }}
-                    {{ Form::text('precio', null, ['class' => 'form-control', 'id' => 'precio_venta']) }}
+                    {{ Form::label('precio_venta', 'Precio') }}
+                    {{ Form::text('precio_venta', null, ['class' => 'form-control', 'id' => 'precio_venta']) }}
                 </div>
                 <div class="form-group">
                     {{ Form::label('stock', 'Almacen') }}

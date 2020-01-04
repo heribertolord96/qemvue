@@ -1,4 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/plantilla.css": "/css/plantilla.css",
+    "/js/jquery.nestable.js": "/js/jquery.nestable.js",
+    "/js/plantilla.js": "/js/plantilla.js",
+    "/js/scripts.js": "/js/scripts.js"
 }

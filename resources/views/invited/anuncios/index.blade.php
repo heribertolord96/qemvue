@@ -14,7 +14,7 @@
             Anuncios
             @endsection
         </div> 
-        @section('searchform')
+        @section('search_form')
             <!-- SEARCH FORM -->
 
     <form class="form-inline ml-3">

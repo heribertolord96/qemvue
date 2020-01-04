@@ -13,8 +13,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are...n 't logged in!
+                    <div id="app">
+                        @yield('vuecontainer')
+                        </div>
                     <h1>:(</h1>
                 </div>
             </div>

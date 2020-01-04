@@ -43,7 +43,7 @@
             <button type="button" class="btn btn-card-tool" data-widget="remove">
               <i class="fa fa-times"></i></button>
           </div>
-          @section('searchform')
+          @section('search_form')
             <!-- SEARCH FORM -->
 
     <form class="form-inline ml-3">

@@ -11,15 +11,8 @@
                 Mis negocios<!--Se muestra una lista con los esablecimientos publicados pos un usuario -->
           </a>
        </li>
-       
-       
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Contact</a>
-        </li>
-    </ul>
-    @yield('my_x_menu')
 
-  @yield('searchform')
+  @include('includes.searchform')
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">

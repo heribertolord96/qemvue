@@ -119,8 +119,13 @@
                <i class="fa fa-shopping-bag "></i>
             </div>
             <!--mostrar articulos de una commerce-->
-            <a href="{{route('commerce_products', $commerce->slug)}}" class="small-box-footer">Ver... <i class="fa fa-arrow-circle-right"></i></a>
-         </div>
+            @if (Auth::user()->id == $commerce->u_id)
+            <a href="{{route('myproducts', $commerce->slug)}}" class="small-box-footer">Ver... <i class="fa fa-arrow-circle-right"></i></a>
+                        @else
+                <a href="{{route('commerce_products', $commerce->slug)}}" class="small-box-footer">Ver... <i class="fa fa-arrow-circle-right"></i></a>
+        
+            @endif
+             </div>
       </div>
       <!-- ./col -->
       <div class="col-lg-2 col-xs-6">

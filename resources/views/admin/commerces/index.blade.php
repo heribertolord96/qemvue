@@ -18,6 +18,9 @@
                 
                 </div>
                 <div class="card-body">
+                  <div id="app">
+                    <commerces> </commerces>
+                    </div>
                      @foreach ($commerces as $commerce)
     <div class="card card-default">
         <div class="card-header with-border">
@@ -46,7 +49,7 @@
             <button type="button" class="btn btn-card-tool" data-widget="remove">
               <i class="fa fa-times"></i></button>
           </div>
-          @section('searchform')
+          @section('search_form')
             <!-- SEARCH FORM -->
 
     <form class="form-inline ml-3">
@@ -127,10 +130,13 @@
         </div>
         <!-- /.footer -->
     </div>
+    
     @endforeach     
-      
+    
      {{ $commerces->render() }}
     
       <!-- /.card -->
-@endsection
 
+     
+      <script src="{{asset('js/app.js')}}"></script>
+@endsection

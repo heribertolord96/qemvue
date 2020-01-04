@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -20,6 +21,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+   public function indexv(Request $request){
+        return Product::orderBy('id','asc')->paginate(10);
+    }
     public function __construct()
     {
         $this->middleware('auth');
@@ -52,7 +56,7 @@ class ProductController extends Controller
             ->join ('categories','categories.id','=','products.category_id')
             ->join ('departments','categories.department_id','=','departments.id')
             ->join('commerces','departments.commerce_id','=', 'commerces.id')
-            ->paginate(20);
+            ->paginate(50);
 
        /* $products =Product::orderBy('name','ASC')*/
         
@@ -73,7 +77,7 @@ class ProductController extends Controller
             ->join ('departments','categories.department_id','=','departments.id')
             ->join('commerces','departments.commerce_id','=', 'commerces.id')
                 ->where($criterio, 'like', '%'. $buscar . '%')
-        ->paginate(20);
+        ->paginate(50);
         return view('admin.products.index', compact('products'));
             }
     }  
@@ -81,6 +85,7 @@ class ProductController extends Controller
    public function products($slug, Request $request)
     {
         $buscar = $request->buscar;
+        
             $criterio = $request->criterio;
             if ($buscar==''){
                 $commerce_d  = Commerce::where('slug', $slug)->first();
@@ -98,17 +103,70 @@ class ProductController extends Controller
                 ->join('categories', 'categories.department_id','=','departments.id')
                 ->join('products', 'products.category_id','=','categories.id')
                 ->where('departments.commerce_id', $commerce)                
-                ->orderBy('products.name', 'ASC')->paginate(3);
-                return view('admin.products.myproducts', compact('products', 'commerce_d'));
+                ->orderBy('products.name', 'ASC')->paginate(50);
+                
+                
+                
+            
+                //return view('admin.products.myproducts', compact('products', 'commerce_d'));
+            
+                return view('admin.products.index', compact('products', 'commerce_d'));
+            
             }
+                
             else
             {
-                $products =Product::orderBy('name','ASC')
+                $products = Commerce::
+                join('departments', 'departments.commerce_id','=','commerces.id')
+                ->join('categories', 'categories.department_id','=','departments.id')
+                ->join('products', 'products.category_id','=','categories.id')
+                ->where('departments.commerce_id', $commerce)                
+                ->orderBy('products.name', 'ASC')->paginate(50)
                 ->where($criterio, 'like', '%'. $buscar . '%')
-        ->paginate(20);
+        ->paginate(50);
         return view('admin.products.index', compact('products'));
             }
     }  
+    public function myproducts($slug, Request $request)
+    {
+        $buscar = $request->buscar;
+        
+            $criterio = $request->criterio;
+            if ($buscar==''){
+                $commerce_d  = Commerce::where('slug', $slug)->first();
+                $commerce    = Commerce::where('slug', $slug)->pluck('id')->first();
+        /**
+         * select commerces.nombre as Tienda , categories.name as Category, 
+         * departments.name as Departamento, products.name as Producto 
+         * from products 
+         * join categories ON categories.id = products.category_id 
+         * join departments on departments.id = categories.department_id 
+         * join commerces on commerces.id = departments.commerce_id
+         */
+                $myproducts = Commerce::
+                join('departments', 'departments.commerce_id','=','commerces.id')
+                ->join('categories', 'categories.department_id','=','departments.id')
+                ->join('products', 'products.category_id','=','categories.id')
+                ->where('departments.commerce_id', $commerce)                
+                ->orderBy('products.name', 'ASC')->paginate(50);
+                return view('admin.products.myproducts', compact('myproducts', 'commerce_d'));
+            
+            }
+                
+            else
+            {
+                $myproducts = Commerce::
+                join('departments', 'departments.commerce_id','=','commerces.id')
+                ->join('categories', 'categories.department_id','=','departments.id')
+                ->join('products', 'products.category_id','=','categories.id')
+                ->where('departments.commerce_id', $commerce)                
+                ->orderBy('products.name', 'ASC')->paginate(50)
+                ->where($criterio, 'like', '%'. $buscar . '%')
+        ->paginate(50);
+        return view('admin.products.myproducts', compact('myproducts', 'commerce_d'));
+            }
+    }  
+   
 
     /**
      * Show the form for creating a new resource.
@@ -137,7 +195,7 @@ class ProductController extends Controller
             $path = Storage::disk('public')->put('image',  $request->file('image'));
             $product->fill(['file' => asset($path)])->save();
         }
-        return redirect()->route('products.edit', $product->id)
+        return redirect()->route('products.create', $product->id)
         ->with('info', 'Product agregado con éxito');
     }
 

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
     ];
 
     
-    public function commerce_users(){
+    public function users(){
         return $this->belongsToMany(CommerceUser::class)->withTimestamps();//El usuario puede pertenecer a muchos grupos
     }
     public function commerce_role_users(){

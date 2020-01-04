@@ -28,6 +28,7 @@ class CommerceController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function index(Request $request)
     {
         $buscar = $request->buscar;
@@ -43,6 +44,19 @@ class CommerceController extends Controller
         return view('admin.commerces.index', compact('commerces'));
             }
     }   
+    public function menu_mycommerces(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/');
+        $user = Auth::user()->id;   
+        $commerces = Commerce::orderBy('commerces.nombre','asc') 
+        ->join ('commerce_users','commerce_users.commerce_id','=','commerces.id')
+        ->join ('users', 'users.id','=','commerce_users.user_id')
+        ->where ('users.id','=', $user)//Auth->user->id
+->paginate(3);
+        //$commerceroleuser = CommerceRoleuser::where ('commerce_user_id','user_id')->pluck('id');
+        
+        return view('menus.my_commerces', compact('menu_mycommerces','commerces'));
+    }
 
     public function my_commerces(Request $request)
     {
@@ -103,7 +117,7 @@ class CommerceController extends Controller
     public function store(CommerceStoreRequest $request)
     {
         
-        //Insertar valores de mi negocio
+        //Insertar valores de  negocio
          $commerce = Commerce::create($request->all());
         //Relacion usuario-negocio
         $commerceuser = CommerceUser::create([
@@ -142,8 +156,15 @@ class CommerceController extends Controller
      */
     //show  commerces from commerces.index
             public function show($slug)
-            {
+            {       
                 $commerce = Commerce::find($slug);
+                /*$commerce= Commerce::
+                    select('commerces.nombre as nombre')
+                    ->join('commerce_users','commerce_users.commerce_id','=','commerces.id')
+                        ->join('departments', 'departments.commerce_id','=','commerces.id')
+                        ->join('categories', 'categories.department_id','=','departments.id')
+                        ->join('products', 'products.category_id','=','categories.id')
+                        ->get('nombre') ;*/
                 return view('admin.commerces.show', compact('commerce'));
             }
         //show  commerces from commerces.my_commerces
@@ -153,10 +174,12 @@ class CommerceController extends Controller
                         $commerce_id    = Commerce::where('nombre', $nombre)->pluck('id')->first();
 
                 $commerce = Commerce::
-                        join('departments', 'departments.commerce_id','=','commerces.id')
+                join('commerce_users','commerce_users.commerce_id','=','commerce_id')
+                        ->join('departments', 'departments.commerce_id','=','commerces.id')
                         ->join('categories', 'categories.department_id','=','departments.id')
                         ->join('products', 'products.category_id','=','categories.id')
                         ->where('departments.commerce_id', $commerce_id)
+                        
                         ->get() ;
                         return view('admin.commerces.show', compact('commerce', 'commerce_d'));
             }

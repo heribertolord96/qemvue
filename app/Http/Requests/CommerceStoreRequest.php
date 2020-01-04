@@ -24,7 +24,7 @@ class CommerceStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required',
+            //'id' => 'required',
             'nombre' => 'required',
             'descripcion' => 'required',
             'slug' => 'required|unique:commerces|max:255, slug',
