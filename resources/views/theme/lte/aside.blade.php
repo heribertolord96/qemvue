@@ -42,19 +42,11 @@
             </form>
         </div>
     </div>
-    @include("menus.menu_administrador") @endguest
-    <li @click:menu="0" class="nav-item">
-        <a href="#" class="nav-link">
-           <i class="nav-icon fas fa-barcode"></i>
-           <p>
-              Productos
-              <span class="right badge badge-danger">968</span>
-           </p>
-        </a>
-     </li>
-
+    @include("menu_admin.menu_admin") 
+  
+    @endguest
     <div class="user-panel mt-3 pb-3 mb-3 d-flex"></div>
-    @include("menus.menu_explorar")
+    @include("menu_admin.menu_explorar")
 
     <!--si->el usuario es....-->
 

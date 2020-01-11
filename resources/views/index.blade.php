@@ -12,10 +12,8 @@
                    
                     <div id="app">
                       
-                        <div id="app-body">
-                            <products></products>
-                        </div>
-                    <h1>:(</h1>
+                        <example-component></example-component>
+                    <h1>:>)</h1>
                 </div>
             </div>
             

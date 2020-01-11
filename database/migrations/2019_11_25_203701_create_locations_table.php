@@ -15,6 +15,15 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('calle',100);
+            $table->string('numero_interior',100)->nullable();
+            $table->string('numero_exterior',100)->nullable();
+            $table->string('municipio',100)->nullable();
+            $table->string('estado',100)->nullable();
+            $table->string('pais',100)->nullable();
+
+            $table->string('latitud',100)->nullable();
+            $table->string('longitud',100)->nullable();
             $table->timestamps();
         });
     }

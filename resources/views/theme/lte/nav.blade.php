@@ -11,9 +11,7 @@
                 Mis negocios<!--Se muestra una lista con los esablecimientos publicados pos un usuario -->
           </a>
        </li>
-
-  @include('includes.searchform')
-
+@yield('search_form')
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
@@ -110,6 +108,4 @@
 </nav>
 </br>
 </br>
-<script>
-</script>
 <!-- /.navbar -->

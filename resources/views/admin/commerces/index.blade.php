@@ -18,9 +18,22 @@
                 
                 </div>
                 <div class="card-body">
-                  <div id="app">
-                    <commerces> </commerces>
+                  <div class="col-md-12">
+                    <div class="card mb-3 mt-3" v-for="item in list" :key="commerce.id" >
+                        <a class="card_header" v-bind:href="item.slug" v-text="item.nombre"></a>
+                        <router-link class="card-header" :to="{nombre: 'post', params: {slug: item.slug}}" v-text="item.nombre"></router-link>
+        
+                        <div class="card-body">
+                            <p class="card-text" v-text="item.descripcion"></p>
+                        </div>
                     </div>
+        
+                    <infinite-loading @distance="1" @infinite="infiniteHandler">
+                        <div slot="no-more">--</div>
+                        <div slot="spinner">Cargando...</div>
+                        <div slot="no-results">Sin resultados</div>
+                    </infinite-loading>
+                </div>
                      @foreach ($commerces as $commerce)
     <div class="card card-default">
         <div class="card-header with-border">
@@ -60,11 +73,14 @@
                 <option value="">Ubicacion</option>
             </select>
             <input class="form-control form-control-navbar" name="buscar" type="search" placeholder="Search" aria-label="Search">
-            <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
+            En: 
+<input class="form-control form-control-navbar autocomplete" name="buscaren" type="search" placeholder="En yahualica Jal." aria-label="Search">
+<div class="input-group-append">
+    <button class="btn btn-navbar" type="submit">
+        <i class="fas fa-search"></i>
+        <i class="fas fa-map-marked-alt"></i>
+    </button>
+</div>
         </div>
     </form>
           @endsection
@@ -137,6 +153,4 @@
     
       <!-- /.card -->
 
-     
-      <script src="{{asset('js/app.js')}}"></script>
 @endsection

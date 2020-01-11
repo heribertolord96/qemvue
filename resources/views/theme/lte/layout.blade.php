@@ -24,13 +24,15 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 
-<body class="hold-transition sidebar-mini layout-boxed">
+<body class="hold-transition sidebar-mini layout-boxed" >
+    <div id="app">
     <!--Inicio-nav-->
     @include("theme/$theme/nav")
     <!--fin-nav-->
-    <!--inicio-aside-->
-    @include("theme/$theme/aside")
-    <!--finaside-->
+     <!--inicio-aside-->
+     @include("theme/$theme/aside")
+     <!--finaside-->
+    
     @section("styles")
 <link href="{{asset("assets/js/jquery-nestable/jquery.nestable.css")}}" rel="stylesheet" type="text/css" />
 @endsection
@@ -42,13 +44,10 @@
 @endsection
 
 @section("scripts")
-<script src="{{asset("assets/pages/scripts/admin/menu/index.js")}}" type="text/javascript"></script>
+<script src="{{asset("assets/pages/scripts/admin/menu/index.js")}}" ></script>
 @endsection
-
-
-
-        <div class="wrapper">
-                <div class="content-wrapper">
+<div  class="wrapper">
+                <div  class="content-wrapper" >
                         <section class="content">
                             @if (session('info'))
                             <div class="container">
@@ -77,9 +76,8 @@
                                 </div>
                             </div>
                         @endif
-                        
-                               @yield('contenido')                               
-                               
+                               <!--@@yield('contenido')--> 
+                                @yield('vue_container')
                                 <br>
                                 
                                 
@@ -90,6 +88,8 @@
         <!--inicio-footer-->
         @include("theme/lte/footer")
         <!--fin-footer-->
+    </div>
+    <script src="{{asset('js/app.js')}}"></script>
 </body>
 
 </html>

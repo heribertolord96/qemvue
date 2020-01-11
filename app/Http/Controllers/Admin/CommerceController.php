@@ -28,36 +28,31 @@ class CommerceController extends Controller
     {
         $this->middleware('auth');
     }
+    public function indexx(Request $request){
+        $commerces=Commerce::all();
+        return $commerces;
+    }
 
     public function index(Request $request)
     {
         $buscar = $request->buscar;
             $criterio = $request->criterio;
             if ($buscar==''){
-        $commerces =Commerce::orderBy('nombre','asc')->paginate(3);
-        return view('admin.commerces.index', compact('commerces'));
+        $commerces =Commerce::all()
+        //->select('commerces.id','commerces.nombre','commerces.descripcion','commerces.slug')
+        ;
+return $commerces;
+        //return view('admin.commerces.index', compact('commerces'));
             }
             else{
                 $commerces =Commerce::orderBy('nombre','asc')
                 ->where($criterio, 'like', '%'. $buscar . '%')
                 ->paginate(3);
-        return view('admin.commerces.index', compact('commerces'));
+               // return $commerces;
+        //return view('admin.commerces.index', compact('commerces'));
             }
     }   
-    public function menu_mycommerces(Request $request)
-    {
-        if (!$request->ajax()) return redirect('/');
-        $user = Auth::user()->id;   
-        $commerces = Commerce::orderBy('commerces.nombre','asc') 
-        ->join ('commerce_users','commerce_users.commerce_id','=','commerces.id')
-        ->join ('users', 'users.id','=','commerce_users.user_id')
-        ->where ('users.id','=', $user)//Auth->user->id
-->paginate(3);
-        //$commerceroleuser = CommerceRoleuser::where ('commerce_user_id','user_id')->pluck('id');
-        
-        return view('menus.my_commerces', compact('menu_mycommerces','commerces'));
-    }
-
+   
     public function my_commerces(Request $request)
     {
         $user = Auth::user()->id;
@@ -68,13 +63,23 @@ class CommerceController extends Controller
         ->join ( 'commerces', 'commerce_users.commerce_id' ,'=' ,'commerces.id')
                 ->join('users', 'commerce_users.user_id','=','users.id')
                 */
-                $commerces = Commerce::orderBy('commerces.nombre','asc')                
-                ->join ('commerce_users','commerce_users.commerce_id','=','commerces.id')
-                ->join ('users', 'users.id','=','commerce_users.user_id')
-                ->where ('users.id','=', $user)//Auth->user->id
-        ->paginate(3);
-                //$commerceroleuser = CommerceRoleuser::where ('commerce_user_id','user_id')->pluck('id');
-        return view('admin.commerces.my_commerces', compact('my_commerces','commerces'));
+                $commerces =CommerceUser::orderBy('commerces.nombre','asc')
+                ->join ( 'commerces', 'commerce_users.commerce_id' ,'=' ,'commerces.id')
+                ->join('users', 'commerce_users.user_id','=','users.id')
+                ->where ('users.id','=', $user)
+                //Auth->user->id  
+                /*->Select('commerces.nombre','commerces.descripcion','commerces.slug','commerces.hora_apertura'
+                ,'commerces.hora_cierre'
+                ,'commerces.num_telefono',
+                'commerces.email',
+                'commerces.file',
+                'commerces.condition',
+                'commerces.ubicacion_id',
+                'commerces.role'
+                )    ;*/
+               
+        ->get(); 
+        return $commerces;
             }
             else{
                 $commerces =CommerceUser::orderBy('commerces.nombre','asc')
@@ -99,7 +104,6 @@ class CommerceController extends Controller
      */
     public function create()
     {  
-       
         $roles = 1; //==owner
         /*$commercerole = CommerceRole::where ('role_id','1')
         ->where ('commerce_id','981') ->pluck('id');/*/
@@ -114,11 +118,11 @@ class CommerceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CommerceStoreRequest $request)
+    public function storex(CommerceStoreRequest $request)
     {
         
         //Insertar valores de  negocio
-         $commerce = Commerce::create($request->all());
+         $commerce = Commerce::create($request->all()); 
         //Relacion usuario-negocio
         $commerceuser = CommerceUser::create([
             'id' => request('commerceuserid'),
@@ -206,7 +210,7 @@ class CommerceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CommerceUpdateRequest $request, $id)
+    public function updatex(CommerceUpdateRequest $request, $id)
     {
         $commerce = Commerce::find($id);
         $commerce->fill($request->all())->save();
@@ -216,6 +220,20 @@ class CommerceController extends Controller
         }   
         return redirect()->route('commerces.edit', 
         $commerce->id)->with('info', 'Info de commerce actualizada con éxito');
+    }
+    public function desactivar(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/');
+        $commerce = Commerce::findOrFail($request->id);
+        $commerce->condition = '0';
+        $commerce->save();
+    }
+    public function activar(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/');
+        $commerce = Commerce::findOrFail($request->id);
+        $commerce->condition = '1';
+        $commerce->save();
     }
 
     /**
@@ -228,5 +246,56 @@ class CommerceController extends Controller
     {
         $commerce = Commerce::find($id)->delete();
         return back()->with('info', 'Eliminado correctamente');
+    }
+    //new methods
+    public function store(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/');
+
+         //Insertar valores de  negocio
+         $commerce = Commerce::create($request->all()); 
+        //Relacion usuario-negocio
+        $commerceuser = CommerceUser::create([
+            'id' => request('commerceuserid'),
+            'commerce_id' => request('id'),//commerce->id
+            'user_id' => request('user_id')
+        ]);
+        $commercerole = CommerceRole::create([
+            'id' => request('commerceroleid'),
+            'commerce_id' => request('id'),//commerce->id
+            'role_id' => request('role_id')//owner in role table
+        ]);
+        $commerceroleuser = CommerceRoleUser::create([
+            'commerce_user_id' => request('commerceuserid'),//commerce->id
+            'commerce_role_id' => request('commerceroleid') //in commerce_role table
+            /*
+            Se crea una relacion que indica que un comercio puede tener un grupo 
+            de usuarios con disintos roles
+             */
+        ]);   
+        if($request->file('image')){
+            $path = Storage::disk('public')->put('image',  $request->file('image'));
+            $commerce->fill(['file' => asset($path)])->save();
+        }     
+        $commerce->save();
+        /*
+
+        $commerce = new Commerce();
+        $commerce->nombre = $request->nombre;
+        $commerce->descripcion = $request->descripcion;
+        $commerce->direccion = $request->direccion;
+        $commerce->condicion = '1';
+        $commerce->save();*/
+    }
+  
+    public function update(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/');
+        $commerce = Commerce::findOrFail($request->id);
+        $commerce->nombre = $request->nombre;
+        $commerce->descripcion = $request->descripcion;
+        $commerce->direccion = $request->direccion;
+        $commerce->condicion = '1';
+        $commerce->save();
     }
 }

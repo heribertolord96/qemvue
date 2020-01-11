@@ -19,11 +19,6 @@ Auth::routes();
 Route::get('/main', function () {
     return view('vue_container/vue_container');
 })->name('main');
-//Route::resource('/commerces', 		'Admin\CommerceController@index');
-Route::get('admin/{slug}/commerce','Admin\CommerceController@commerce')->name('commerce');
-Route::resource('commerces', 		'Admin\CommerceController');
-
-//oldies... rap
 
 Route::get('/','HomeController@index')->name('home');
 Route::get('admin','AdminController@index')->name('inicio');
@@ -31,12 +26,12 @@ Route::get('admin','AdminController@index')->name('inicio');
         Route::get('admin/tag/{slug}','Admin\TagController@tag')->name('tag');
         Route::resource('tags', 		'Admin\TagController');
 //Commerce routes
-       
+        Route::get('admin/{slug}/commerce','Admin\CommerceController@commerce')->name('commerce');
+        Route::resource('commerces', 		'Admin\CommerceController');
 
         Route::get('get_commerce', 'Admin\CommerceController@getcommerce')->name('getcommerce');
         Route::resource('commerces', 		'Admin\CommerceController');
 
-       
         Route::get('admin/my_commerces', 'Admin\CommerceController@my_commerces')->name('my_commerces');
         //En el menu lateral...
         Route::get( 'Admin\CommerceController@menu_mycommerces')->name('menu_mycommerces');
@@ -75,3 +70,19 @@ Route::get('admin/{slug}/myproducts', 'Admin\ProductController@myproducts')
 //Event routes
     Route::get('admin/event/{slug}','Admin\EventController@event')->name('event');
     Route::resource('events', 		'Admin\EventController');
+//Event routes
+//Ad Routes
+    //Route::get('admin/ad/{slug}','Admin\AdController@ad')->name('ad');
+   // Route::resource('ads', 		'Admin\AdController');
+//Ad Routes
+/////////////////////////////
+/// Crashed routes
+        // Route::get('admin/commerce/{slug}','CommerceController@commerce')->name('commerce_departments');
+        //Route::resource('commerce_departments', 		'Admin\CommerceController');
+        
+        // Route::post('admin/departments/{commerce_slug}/','Admin\DepartmentController@create')->name('department');
+            //Route::resource('products', 		'Admin\ProductController');
+        //Relacion con mi commerce_id
+/// Crashed routes
+
+   // });

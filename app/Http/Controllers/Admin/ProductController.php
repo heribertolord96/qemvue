@@ -60,7 +60,7 @@ class ProductController extends Controller
 
        /* $products =Product::orderBy('name','ASC')*/
         
-        return view('admin.products.index', compact('products'));
+        //return view('admin.products.index', compact('products'));
             }
             else
             {

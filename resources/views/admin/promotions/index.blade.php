@@ -25,11 +25,14 @@
                 <option value="" >fabricante</option>
             </select>
             <input class="form-control form-control-navbar" name="buscar" type="search" placeholder="Search" aria-label="Search">
-            <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
+            En: 
+<input class="form-control form-control-navbar autocomplete" name="buscaren" type="search" placeholder="En yahualica Jal." aria-label="Search">
+<div class="input-group-append">
+    <button class="btn btn-navbar" type="submit">
+        <i class="fas fa-search"></i>
+        <i class="fas fa-map-marked-alt"></i>
+    </button>
+</div>
         </div>
     </form>
           @endsection
