@@ -21,6 +21,9 @@
 <template v-if="menu==3">
     <eventos> </eventos>
 </template>
+<template v-if="menu==5">
+    <show_commerce> </show_commerce>
+</template>
 <!--Explorar-->
 
 <!-- /.card -->

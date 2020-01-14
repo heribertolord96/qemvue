@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use App\Commerce;
 use App\CommerceUser;
 use App\CommerceRole;
+use App\Role;
+use App\Location;
 use App\User;
 use App\CommerceRoleUser;
 use Illuminate\Support\Facades\Auth;
@@ -67,16 +69,6 @@ return $commerces;
                 ->join ( 'commerces', 'commerce_users.commerce_id' ,'=' ,'commerces.id')
                 ->join('users', 'commerce_users.user_id','=','users.id')
                 ->where ('users.id','=', $user)
-                //Auth->user->id  
-                /*->Select('commerces.nombre','commerces.descripcion','commerces.slug','commerces.hora_apertura'
-                ,'commerces.hora_cierre'
-                ,'commerces.num_telefono',
-                'commerces.email',
-                'commerces.file',
-                'commerces.condition',
-                'commerces.ubicacion_id',
-                'commerces.role'
-                )    ;*/
                
         ->get(); 
         return $commerces;
@@ -123,6 +115,7 @@ return $commerces;
         
         //Insertar valores de  negocio
          $commerce = Commerce::create($request->all()); 
+        
         //Relacion usuario-negocio
         $commerceuser = CommerceUser::create([
             'id' => request('commerceuserid'),
@@ -174,8 +167,8 @@ return $commerces;
         //show  commerces from commerces.my_commerces
             public function getcommerce($commerce_id)//Para acceder a los detalles de un item desde el  listado
             {
-                $commerce_d  = Commerce::where('nombre', $nombre)->first();
-                        $commerce_id    = Commerce::where('nombre', $nombre)->pluck('id')->first();
+                /*$cmmerce_d  = Commerce::where('nombre', $nombre)->first();
+                        $commerce_id    = Commerce::where('nombre', $nombre)->pluck('id')->first();*/
 
                 $commerce = Commerce::
                 join('commerce_users','commerce_users.commerce_id','=','commerce_id')
@@ -249,7 +242,14 @@ return $commerces;
     }
     //new methods
     public function store(Request $request)
-    {
+    {/*
+        $commerceroleuserid = CommerceRoleUser::get();
+        return ['commerceroleuserid' => $commerceroleuserid];
+        $commerceuserid = CommerceUser::get();
+        return ['$commerceuserid ' => $commerceuserid ];
+        $commerceroleid = CommerceRole::get();
+        return ['commerceroleid' => $commerceroleid];
+*/
         if (!$request->ajax()) return redirect('/');
 
          //Insertar valores de  negocio
@@ -272,7 +272,8 @@ return $commerces;
             Se crea una relacion que indica que un comercio puede tener un grupo 
             de usuarios con disintos roles
              */
-        ]);   
+        ]);  
+        $locations = Location::create($request->all());  
         if($request->file('image')){
             $path = Storage::disk('public')->put('image',  $request->file('image'));
             $commerce->fill(['file' => asset($path)])->save();
@@ -292,10 +293,32 @@ return $commerces;
     {
         if (!$request->ajax()) return redirect('/');
         $commerce = Commerce::findOrFail($request->id);
+        $commercerole = CommerceRole::findOrFail($request->commerce_id);
+        $commerceuser = CommerceUser::findOrFail($request->user_id);
+        $commerceroleuser = CommerceRoleUser::findOrFail($request->commerce_user_id);
+
         $commerce->nombre = $request->nombre;
         $commerce->descripcion = $request->descripcion;
         $commerce->direccion = $request->direccion;
         $commerce->condicion = '1';
         $commerce->save();
     }
+    
+    public function selectCommerceRole(Request $request)
+    { $commerceroleid = Role::
+    select('roles.id as role_id','roles.name as role_name',
+    'roles.slug as role_slug','roles.description as role_description','special')
+    ->get();
+       return ['commerceroleid' => $commerceroleid];
+     } 
+     
+    public function selectCommerceRoleUser(Request $request)
+    {      
+        $commerceroleuserid = CommerceRoleUser::get();
+        return ['commerceroleuserid' => $commerceroleuserid];
+     } 
+    public function selectCommerceUser(Request $request)
+    {
+        $commerceuserid = CommerceUser::get();
+        return ['commerceuserid' => $commerceuserid];} 
 }

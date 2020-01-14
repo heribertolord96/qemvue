@@ -1,6 +1,6 @@
 
 <template>
-  <li class="nav-item has-treeview" >
+  <li class="nav-item has-treeview">
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-list-alt"></i>
       <p>
@@ -9,7 +9,7 @@
       </p>
     </a>
 
-    <ul class="nav nav-treeview" >
+    <ul class="nav nav-treeview">
       <li
         class="nav-item btn btn-block btn-success btn-sm"
         @click="abrirModal('commerce','registrar')"
@@ -25,31 +25,31 @@
       <li class="nav-item" v-for="commerce in arrayCommerce" :key="commerce.id">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-list-alt"></i>
-          <p v-text="commerce.nombre" class="overflow-x: auto;" width="100%"> 
-          </p>
+          <p v-text="commerce.nombre" class="overflow-x: auto;" width="100%"></p>
           <p>
             <span class="right badge badge-primary">
-            <i class="right fas fa-cogs"></i>
-            <i class="right fas fa-angle-left"></i>
-            </span>           
+              <i class="right fas fa-cogs"></i>
+              <i class="right fas fa-angle-left"></i>
+            </span>
           </p>
-          
-          
-         
         </a>
-         
-        <ul class="nav nav-treeview bg-primary" id="menu" >
-             <p>
+        <ul class="nav nav-treeview bg-primary" id="menu">
+          <p>
             <span class="top-left badge badge-success">admin</span>
           </p>
-  <li>
-                    <button type="button" class="btn btn-info  far fa-eye">Ver</button>
-                  </li>
-  <li>
-    <button type="button" class="btn btn-success  fas fa-pen" @click="abrirModal('commerce','actualizar',commerce)">EDITAR</button>
-  </li>
-  <li> <button type="button" class="btn btn-danger  far fa-trash-alt">Eliminar</button></li>
- 
+          <li>
+            <button @click="menu=5" type="button" class="btn btn-info far fa-eye">Ver</button>
+          </li>
+          <li>
+            <button
+              type="button"
+              class="btn btn-success fas fa-pen"
+              @click="abrirModal('commerce','actualizar',commerce)"
+            >EDITAR</button>
+          </li>
+          <li>
+            <button type="button" class="btn btn-danger far fa-trash-alt">Eliminar</button>
+          </li>
         </ul>
       </li>
     </ul>
@@ -65,7 +65,7 @@
     >
       <div class="modal-dialog modal-primary modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header-SUCCESS">
             <h4 class="modal-title" v-text="tituloModal"></h4>
             <button type="button" class="close" @click="cerrarModal()" aria-label="Close">
               <span aria-hidden="true">×</span>
@@ -73,10 +73,73 @@
           </div>
           <div class="modal-body">
             <form action method="post" enctype="multipart/form-data" class="form-horizontal">
+              <div class="row bg-warning">
+                <!--div class="col-md-3">
+                  <label class="col-md-3 form-control-label" for="text-input">Role id</label>
+                  <div class="col-md-9">
+                    <input
+                      type="text"
+                      v-model="role_id"
+                      class="form-control"
+                      placeholder="role_id "
+                    />
+                  </div>
+                </div-->
+                <div class="col-md-3">
+                  <label class="col-md-3 form-control-label" for="text-input">Role </label>
+                  <select class="form-control" v-model="commerceroleid">
+                    <!--option value="0" readonly>Seleccione</option-->
+                    <option
+                      v-for="commerceroleid in arrayCommerceRole"
+                      :key="commerceroleid.role_id"
+                      :value="commerceroleid.role_id"
+                      v-text="commerceroleid.role_name"
+                    ></option>
+                  </select>
+                </div>
+
+                <div class="col-md-3">
+                  <label class="col-md-3 form-control-label" for="text-input">Commerce User id</label>
+                  <div class="col-md-9">
+                    <input
+                      type="text"
+                      v-model="commerceuserid"
+                      class="form-control"
+                      placeholder="commerceuserid "
+                    />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <label
+                    class="col-md-3 form-control-label"
+                    for="text-input"
+                  >Commerce Role id </label>
+                  <div class="col-md-9">
+                    <input
+                      type="text"
+                      v-model="commerceroleuserid"
+                      class="form-control"
+                      placeholder="commerceroleid "
+                    />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <label class="col-md-3 form-control-label" for="text-input">This id</label>
+                  <div class="col-md-9">
+                    <input type="text" v-model="commerce_id" class="form-control" placeholder="id " />
+                  </div>
+                </div>
+              </div>
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                 <div class="col-md-9">
-                  <input type="text" v-model="nombre" class="form-control" placeholder="Nombre " />
+                  <input type="text" v-model="nombre" class="form-control" id="nombre" placeholder="Nombre " />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Slug</label>
+                <div class="col-md-9">
+                  <input type="text" v-model="slug" class="form-control" id="slug" placeholder="Slug " />
                 </div>
               </div>
               <div class="form-group row">
@@ -92,17 +155,103 @@
                   <a href="https://wordtohtml.net/">Word to html online editor</a>
                 </div>
               </div>
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
-                <div class="col-md-9">
-                  <input
-                    type="text"
-                    v-model="direccion"
-                    class="form-control"
-                    placeholder="Enrique Segoviano #800"
-                  />
+              <div class="row">
+                <div class="col">
+                  <div class="form-group bootstrap-timepicker">
+                    <label for>Apertura</label>
+                    <input type="timepicker" v-model="hora_apertura" />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group bootstrap-timepicker">
+                    <label for>Cierre</label>
+                    <input type="timepicker" v-model="hora_cierre" />
+                  </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for>Telefono</label>
+                    <input type="text" v-model="num_telefono" />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for>Email</label>
+                    <input type="email" v-model="email" />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <p>Direccion</p>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="inputEmail" class="control-label">Pais</label>
+                    <input
+                      v-model="country"
+                      class="form-control"
+                      name="lon"
+                      type="text"
+                      required
+                      placeholder="Mexico"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail" class="control-label">Estado</label>
+                    <input
+                      v-model="state"
+                      class="form-control"
+                      name="lon"
+                      type="text"
+                      required
+                      placeholder="Jalisco"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail" class="control-label">Ciudad</label>
+                    <input
+                      v-model="city"
+                      class="form-control"
+                      name="lon"
+                      type="text"
+                      required
+                      placeholder="Yahualica"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail" class="control-label">Calle</label>
+                    <input class="form-control" name="lon" type="numeric" v-model="calle" />
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail" class="control-label">N.Ext.</label>
+                    <input class="form-control" name="lon" type="numeric" v-model="numero_exterior" />
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail" class="control-label">N. Interior</label>
+                    <input class="form-control" name="lon" type="numeric" v-model="numero_interior" />
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail" class="control-label">Lon</label>
+                    <input class="form-control" name="lon" type="coords"  />
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail" class="control-label">Lat</label>
+                    <input class="form-control" name="lat" type="coords"  />
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail" class="control-label">Imagen</label>
+                    <input class="form-control" name="imagen" id="imagen" type="file" required />
+                  </div>
+                </div>
+                <div class="col-md-7">
+                  <div
+                    class
+                    style="border:1px solid; width:100%;height:100%;background-color:rgb(108, 42, 208);"
+                  ></div>
+                </div>
+              </div>
+
               <div v-show="errorCommerce" class="form-group row div-error">
                 <div class="text-center text-error">
                   <div v-for="error in errorMostrarMsjCommerce" :key="error" v-text="error"></div>
@@ -115,7 +264,8 @@
             <button
               type="button"
               v-if="tipoAccion==1"
-              class="btn btn-primary"  @click="registrarCommerce()"
+              class="btn btn-primary"
+              @click="registrarCommerce()"
             >Guardar</button>
             <button
               type="button"
@@ -138,10 +288,15 @@ export default {
   data() {
     return {
       //isOpen: false,//DROPDOWN
-
+      ubicacion_id: 0,
       commerce_id: 0,
       user_id: 0,
-      id: 0,
+      //id: 0,
+      commerceuserid: 0,
+      commerceroleid: 0,
+      commerceroleuserid: 0,
+      role_id: 0,
+
       nombre: "",
       slug: "",
       descripcion: "",
@@ -152,18 +307,66 @@ export default {
       file: "",
       condition: 1,
       ubicacion_id: "",
-      role: "",
+
+      arrayLocations: [],
       arrayCommerce: [],
+      arrayLocations: [],
+      arrayCommerceUser: [],
+      arrayCommerceRole: [],
+      arrayCommerceRoleUser: [],
+      errorCommerce:"",
+      errorMostrarMsjCommerce :[],
       modal: 0,
       tituloModal: "",
       tipoAccion: 0
     };
   },
   methods: {
+    selectLocations() {}, //from
+
+    selectCommerceUser() {
+      let me = this;
+      var url = "/commerce_user";
+      axios
+        .get(url)
+        .then(function(response) {
+          var respuesta = response.data;
+          me.arrayCommerceUser = respuesta.commerceuserid;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    selectCommerceRole() {
+      let me = this;
+      var url = "/commerce_role";
+      axios
+        .get(url)
+        .then(function(response) {
+          var respuesta = response.data;
+          me.arrayCommerceRole = respuesta.commerceroleid;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    selectCommerceRoleUser() {
+      var url = "/commerce_role_user";
+      axios
+        .get(url)
+        .then(function(response) {
+          var respuesta = response.data;
+          me.arrayCommerceRoleUser = respuesta.commerceroleuserid;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+
     my_commerces() {
       //const axios = require("axios");
       let me = this;
-      var url = "/admin/my_commerces";
+      var url = "/my_commerces";
       axios
         .get(url)
         .then(function(response) {
@@ -175,6 +378,7 @@ export default {
           console.table(error);
         });
     },
+
     detalles() {
       let me = this;
       var url = "/admin/my_commerces/{slug}";
@@ -196,25 +400,68 @@ export default {
       this.descripcion = "";
     },
     abrirModal(modelo, accion, data = []) {
+     
+      this.selectCommerceRole();
       switch (modelo) {
         case "commerce": {
           switch (accion) {
             case "registrar": {
               this.modal = 1;
               this.tituloModal = "Publicar comercio";
-              /* this.nombre= '';
-                                this.descripcion = '';
-                                this.tipoAccion = 1;*/
+              //ids
+              this.commerce_id = data["id"];
+              this.role_id = data["role_id"];
+              this.commerceuserid = data["commerce_user"];
+              this.commerceroleid = data["commerce_role"];
+              //ids
+              this.nombre = "";
+              this.slug = "";
+              this.descripcion = "";
+              this.hora_apertura = "";
+              this.hora_cierre = "";
+              this.num_telefono = "";
+              this.email = "";
+              this.ubicacion_id = "";
+              this.calle = "";
+              this.numero_interior = "";
+              this.numero_exterior = "";
+              this.city = "";
+              this.state = "";
+              this.country = "";
+              this.latitud = "";
+              this.longitud = "";
+
+              this.tipoAccion = 1;
               break;
             }
             case "actualizar": {
               //console.log(data);
-              this.modal = 1;
+              this.modal = 2;
               this.tituloModal = "Actualizar comercio";
-              /*this.tipoAccion=2;
-                                this.categoria_id=data['id'];
-                                this.nombre = data['nombre'];
-                                this.descripcion= data['descripcion'];*/
+              this.tipoAccion = 2;
+              //ids
+              this.commerce_id = data["commerce_id"];
+              this.role_id = data["role_id"];
+              this.commerceuserid = data["commerceuserid"];
+              this.commerceroleid = data["commerceroleid"];
+              //ids
+              this.nombre = data["nombre"];
+              this.descripcion = data["descripcion"];
+              this.slug = data["slug"];
+              this.hora_apertura = data["hora_apertura"];
+              this.hora_cierre = data["hora_cierre"];
+              this.num_telefono = data["num_telefono"];
+              this.email = data["email"];
+              this.ubicacion_id = data["ubicacion_id"];
+              this.calle = data["calle"];
+              this.numero_interior = data["numero_interior"];
+              this.numero_exterior = data["numero_exterior"];
+              this.city = data["city"];
+              this.state = data["state"];
+              this.country = data["country"];
+              this.latitud = data["latitud"];
+              this.longitud = data["longitud"];
+
               break;
             }
           }
@@ -222,24 +469,37 @@ export default {
       }
     },
     registrarCommerce() {
-      if (this.validarCommerce()) {
+      /*if (this.validarCommerce()) {
         return;
-      }
+      }*/
 
       let me = this;
-
-      axios
-        .post(this.ruta + "/categoria/registrar", {
+      axios.post( "commerces", {
           nombre: this.nombre,
           descripcion: this.descripcion,
-          direccion: this.direccion
+          direccion: this.direccion,
+          //id: this.commerce_id,
+          //
+          commerce_id: this.commerce_id,
+          user_id: this.user_id,
+          commerceuserid: this.commerceuserid,
+          commerceroleid: this.commerceroleid,
+          slug: this.slug,
+          hora_apertura: this.hora_apertura,
+          hora_cierre: this.hora_cierre,
+          num_telefono: this.num_telefono,
+          email: this.email,
+          file: this.file,
+          condition: 1,
+          ubicacion_id: this.ubicacion_id,
+          role_id: this.role_id
         })
         .then(function(response) {
           me.cerrarModal();
           me.listarCommerce(1, "", "nombre");
         })
         .catch(function(error) {
-          console.log(error);
+          console.table(error);
         });
     },
     actualizarCommerce() {
@@ -250,18 +510,33 @@ export default {
       let me = this;
 
       axios
-        .put(this.ruta + "/categoria/actualizar", {
+        .put( "commerces", {
           nombre: this.nombre,
           descripcion: this.descripcion,
           direccion: this.direccion,
-          id: this.categoria_id
+          //id: this.commerce_id,
+          //
+          commerce_id: this.commerce_id,
+          user_id: this.user_id,
+          commerceuserid: this.commerceuserid,
+          commerceroleuserid: this.commerceroleuserid,
+          commerceroleid: this.commerceroleid,
+          slug: this.slug,
+          hora_apertura: this.hora_apertura,
+          hora_cierre: this.hora_cierre,
+          num_telefono: this.num_telefono,
+          email: this.email,
+          file: this.file,
+          condition: 1,
+          ubicacion_id: this.ubicacion_id,
+          role_id: this.role_id
         })
         .then(function(response) {
           me.cerrarModal();
           me.listarCommerce(1, "", "nombre");
         })
         .catch(function(error) {
-          console.log(error);
+          console.table(error);
         });
     },
     infiniteHandler($state) {
@@ -281,7 +556,19 @@ export default {
         .catch(function(error) {
           console.table(error);
         });
-    }
+    },
+    validarCommerce(){
+                this.errorCommerce=0;
+                this.errorMostrarMsjCommerce =[];
+
+                if (!this.nombre) this.errorMostrarMsjCommerce.push("El nombre de la pesona no puede estar vacío.");
+                //if (!this.usuario) this.errorMostrarMsjCommerce.push("El nombre de usuario no puede estar vacío.");
+                //if (!this.password) this.errorMostrarMsjCommerce.push("La password del usuario no puede estar vacía.");
+                //if (this.idrol==0) this.errorMostrarMsjCommerce.push("Seleccione una Role.");
+                if (this.errorMostrarMsjCommerce.length) this.errorCommerce = 1;
+
+                return this.errorCommerce;
+            }
 
     //DROPDOWN METHODS
     /* toggleDropDown() {
@@ -296,16 +583,25 @@ export default {
   mounted() {
     this.my_commerces();
   }
+  
 };
+ $(document).ready(function(){
+            $("#nombre, #slug").stringToSlug({
+                callback: function(input){
+                    $('#slug').val(input);
+                }
+            });
+        });
 </script>
 <style>
 ul#menu li {
-  display:inline;
+  display: inline;
 }
 .modal-content {
   width: 100% !important;
   position: fixed !important;
   overflow-y: visible;
+  margin-top: 10%;
 }
 .mostrar {
   display: list-item !important;

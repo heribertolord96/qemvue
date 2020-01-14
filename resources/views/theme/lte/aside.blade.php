@@ -1,5 +1,8 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4 static-left fixed-left">
+     <!--Inicio-nav-->
+     @include("theme/$theme/nav")
+     <!--fin-nav-->
     <!-- Brand Logo -->
     <a href="{{asset (" assets/lte/index3.html ")}}" class="brand-link">
         <img src="{{asset ("assets/lte/img/quickemart (2).png")}}" alt="QEM" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -42,8 +45,7 @@
             </form>
         </div>
     </div>
-    @include("menu_admin.menu_admin") 
-  
+    @include("menu_admin.menu_admin")   
     @endguest
     <div class="user-panel mt-3 pb-3 mb-3 d-flex"></div>
     @include("menu_admin.menu_explorar")

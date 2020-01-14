@@ -21,6 +21,13 @@ Route::get('/main', function () {
 })->name('main');
 //Route::resource('/commerces', 		'Admin\CommerceController@index');
 Route::get('admin/{slug}/commerce','Admin\CommerceController@commerce')->name('commerce');
+Route::get('my_commerces', 'Admin\CommerceController@my_commerces');
+
+Route::get('commerce_role', 'Admin\CommerceController@selectCommerceRole');
+Route::get('commerce_user', 'Admin\CommerceController@selectCommerceUser');
+Route::get('commerce_role_user', 'Admin\CommerceController@selectCommerceRoleUser');
+//Route::post('/commerce/store', 'Admin\CommerceController@store');
+//Route::put('commerce/update', 'Admin\CommerceController@update');
 Route::resource('commerces', 		'Admin\CommerceController');
 
 //oldies... rap
@@ -37,7 +44,7 @@ Route::get('admin','AdminController@index')->name('inicio');
         Route::resource('commerces', 		'Admin\CommerceController');
 
        
-        Route::get('admin/my_commerces', 'Admin\CommerceController@my_commerces')->name('my_commerces');
+        //Route::get('admin/my_commerces', 'Admin\CommerceController@my_commerces')->name('my_commerces');
         //En el menu lateral...
         Route::get( 'Admin\CommerceController@menu_mycommerces')->name('menu_mycommerces');
         Route::resource('commerces', 		'Admin\CommerceController');
