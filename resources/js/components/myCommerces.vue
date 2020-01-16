@@ -35,7 +35,9 @@
         </a>
         <ul class="nav nav-treeview bg-primary" id="menu">
           <p>
-            <span class="top-left badge badge-success">admin</span>
+            <span class="top-left badge badge-success">
+              <p v-text="commerce.role_name"></p>
+            </span>
           </p>
           <li>
             <button @click="menu=5" type="button" class="btn btn-info far fa-eye">Ver</button>
@@ -73,79 +75,37 @@
           </div>
           <div class="modal-body">
             <form action method="post" enctype="multipart/form-data" class="form-horizontal">
-              <div class="row bg-warning">
-                <!--div class="col-md-3">
-                  <label class="col-md-3 form-control-label" for="text-input">Role id</label>
-                  <div class="col-md-9">
-                    <input
-                      type="text"
-                      v-model="role_id"
-                      class="form-control"
-                      placeholder="role_id "
-                    />
-                  </div>
-                </div-->
-                <div class="col-md-3">
-                  <label class="col-md-3 form-control-label" for="text-input">Role </label>
-                  <select class="form-control" v-model="commerceroleid">
-                    <!--option value="0" readonly>Seleccione</option-->
-                    <option
-                      v-for="commerceroleid in arrayCommerceRole"
-                      :key="commerceroleid.role_id"
-                      :value="commerceroleid.role_id"
-                      v-text="commerceroleid.role_name"
-                    ></option>
-                  </select>
-                </div>
-
-                <div class="col-md-3">
-                  <label class="col-md-3 form-control-label" for="text-input">Commerce User id</label>
-                  <div class="col-md-9">
-                    <input
-                      type="text"
-                      v-model="commerceuserid"
-                      class="form-control"
-                      placeholder="commerceuserid "
-                    />
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <label
-                    class="col-md-3 form-control-label"
-                    for="text-input"
-                  >Commerce Role id </label>
-                  <div class="col-md-9">
-                    <input
-                      type="text"
-                      v-model="commerceroleuserid"
-                      class="form-control"
-                      placeholder="commerceroleid "
-                    />
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <label class="col-md-3 form-control-label" for="text-input">This id</label>
-                  <div class="col-md-9">
-                    <input type="text" v-model="commerce_id" class="form-control" placeholder="id " />
-                  </div>
-                </div>
-              </div>
+           
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                 <div class="col-md-9">
-                  <input type="text" v-model="nombre" class="form-control" id="nombre" placeholder="Nombre " />
+                  <input
+                    type="text"
+                    v-model="nombre"
+                    class="form-control"
+                    id="nombre"
+                    placeholder="Nombre "
+                  />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Slug</label>
                 <div class="col-md-9">
-                  <input type="text" v-model="slug" class="form-control" id="slug" placeholder="Slug " />
+                  <input
+                    type="text"
+                    v-model="commerce_slug"
+                    class="form-control"
+                    id="slug"
+                    placeholder="Slug "
+                    required
+                  />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="email-input">Descripción</label>
                 <div class="col-md-9">
                   <textarea
+                    required
                     rows="5"
                     maxlength="900"
                     v-model="descripcion"
@@ -233,11 +193,11 @@
                   </div>
                   <div class="form-group">
                     <label for="inputEmail" class="control-label">Lon</label>
-                    <input class="form-control" name="lon" type="coords"  />
+                    <input class="form-control" name="lon" type="coords" />
                   </div>
                   <div class="form-group">
                     <label for="inputEmail" class="control-label">Lat</label>
-                    <input class="form-control" name="lat" type="coords"  />
+                    <input class="form-control" name="lat" type="coords" />
                   </div>
                   <div class="form-group">
                     <label for="inputEmail" class="control-label">Imagen</label>
@@ -253,7 +213,7 @@
               </div>
 
               <div v-show="errorCommerce" class="form-group row div-error">
-                <div class="text-center text-error">
+                <div class="text-center text-error bg-danger">
                   <div v-for="error in errorMostrarMsjCommerce" :key="error" v-text="error"></div>
                 </div>
               </div>
@@ -288,17 +248,14 @@ export default {
   data() {
     return {
       //isOpen: false,//DROPDOWN
+
       ubicacion_id: 0,
       commerce_id: 0,
       user_id: 0,
-      //id: 0,
-      commerceuserid: 0,
-      commerceroleid: 0,
-      commerceroleuserid: 0,
       role_id: 0,
-
       nombre: "",
-      slug: "",
+      role_slug: "",
+      commerce_slug: "",
       descripcion: "",
       hora_apertura: "",
       hora_cierre: "",
@@ -307,61 +264,21 @@ export default {
       file: "",
       condition: 1,
       ubicacion_id: "",
-
       arrayLocations: [],
       arrayCommerce: [],
       arrayLocations: [],
       arrayCommerceUser: [],
       arrayCommerceRole: [],
       arrayCommerceRoleUser: [],
-      errorCommerce:"",
-      errorMostrarMsjCommerce :[],
+      errorCommerce: "",
+      errorMostrarMsjCommerce: [],
       modal: 0,
       tituloModal: "",
       tipoAccion: 0
     };
   },
   methods: {
-    selectLocations() {}, //from
-
-    selectCommerceUser() {
-      let me = this;
-      var url = "/commerce_user";
-      axios
-        .get(url)
-        .then(function(response) {
-          var respuesta = response.data;
-          me.arrayCommerceUser = respuesta.commerceuserid;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-    selectCommerceRole() {
-      let me = this;
-      var url = "/commerce_role";
-      axios
-        .get(url)
-        .then(function(response) {
-          var respuesta = response.data;
-          me.arrayCommerceRole = respuesta.commerceroleid;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-    selectCommerceRoleUser() {
-      var url = "/commerce_role_user";
-      axios
-        .get(url)
-        .then(function(response) {
-          var respuesta = response.data;
-          me.arrayCommerceRoleUser = respuesta.commerceroleuserid;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
+  
 
     my_commerces() {
       //const axios = require("axios");
@@ -379,20 +296,7 @@ export default {
         });
     },
 
-    detalles() {
-      let me = this;
-      var url = "/admin/my_commerces/{slug}";
-      axios
-        .get(url)
-        .then(function(response) {
-          var respuesta = response.data;
-          me.arrayCommerce = respuesta;
-          //console.log(response);
-        })
-        .catch(function(error) {
-          console.table(error);
-        });
-    },
+    
     cerrarModal() {
       this.modal = 0;
       this.tituloModal = "";
@@ -400,22 +304,17 @@ export default {
       this.descripcion = "";
     },
     abrirModal(modelo, accion, data = []) {
-     
-      this.selectCommerceRole();
+      //this.selectCommerceRole();
       switch (modelo) {
         case "commerce": {
           switch (accion) {
             case "registrar": {
               this.modal = 1;
               this.tituloModal = "Publicar comercio";
-              //ids
-              this.commerce_id = data["id"];
-              this.role_id = data["role_id"];
-              this.commerceuserid = data["commerce_user"];
-              this.commerceroleid = data["commerce_role"];
-              //ids
+                //ids
+                 this.role_id = 1;
               this.nombre = "";
-              this.slug = "";
+              this.commerce_slug = "";
               this.descripcion = "";
               this.hora_apertura = "";
               this.hora_cierre = "";
@@ -428,26 +327,21 @@ export default {
               this.city = "";
               this.state = "";
               this.country = "";
-              this.latitud = "";
-              this.longitud = "";
+              this.latitude = "";
+              this.longitude = "";
 
               this.tipoAccion = 1;
               break;
             }
             case "actualizar": {
               //console.log(data);
+               this.commerce_id=data['commerce_id'];
               this.modal = 2;
               this.tituloModal = "Actualizar comercio";
               this.tipoAccion = 2;
-              //ids
-              this.commerce_id = data["commerce_id"];
-              this.role_id = data["role_id"];
-              this.commerceuserid = data["commerceuserid"];
-              this.commerceroleid = data["commerceroleid"];
-              //ids
               this.nombre = data["nombre"];
               this.descripcion = data["descripcion"];
-              this.slug = data["slug"];
+              this.commerce_slug = data["commerce_slug"];
               this.hora_apertura = data["hora_apertura"];
               this.hora_cierre = data["hora_cierre"];
               this.num_telefono = data["num_telefono"];
@@ -459,9 +353,9 @@ export default {
               this.city = data["city"];
               this.state = data["state"];
               this.country = data["country"];
-              this.latitud = data["latitud"];
-              this.longitud = data["longitud"];
-
+              this.latitude = data["latitude"];
+              this.longitude = data["longitude"];
+              
               break;
             }
           }
@@ -469,30 +363,31 @@ export default {
       }
     },
     registrarCommerce() {
-      /*if (this.validarCommerce()) {
+      if (this.validarCommerce()) {
         return;
-      }*/
+      }
 
       let me = this;
-      axios.post( "commerces", {
+      axios
+        .post("/commerce/store", {
           nombre: this.nombre,
           descripcion: this.descripcion,
-          direccion: this.direccion,
-          //id: this.commerce_id,
-          //
-          commerce_id: this.commerce_id,
-          user_id: this.user_id,
-          commerceuserid: this.commerceuserid,
-          commerceroleid: this.commerceroleid,
-          slug: this.slug,
+          commerce_slug: this.commerce_slug,
           hora_apertura: this.hora_apertura,
           hora_cierre: this.hora_cierre,
           num_telefono: this.num_telefono,
           email: this.email,
           file: this.file,
           condition: 1,
-          ubicacion_id: this.ubicacion_id,
-          role_id: this.role_id
+
+          calle: this.calle,
+          numero_interior: this.numero_interior,
+          numero_exterior: this.numero_exterior,
+          city: this.city,
+          state: this.state,
+          country: this.country,
+          longitude: this.longitude,
+          latitude: this.latitude
         })
         .then(function(response) {
           me.cerrarModal();
@@ -509,31 +404,30 @@ export default {
 
       let me = this;
 
-      axios
-        .put( "commerces", {
-          nombre: this.nombre,
-          descripcion: this.descripcion,
-          direccion: this.direccion,
-          //id: this.commerce_id,
-          //
-          commerce_id: this.commerce_id,
-          user_id: this.user_id,
-          commerceuserid: this.commerceuserid,
-          commerceroleuserid: this.commerceroleuserid,
-          commerceroleid: this.commerceroleid,
-          slug: this.slug,
-          hora_apertura: this.hora_apertura,
-          hora_cierre: this.hora_cierre,
-          num_telefono: this.num_telefono,
-          email: this.email,
-          file: this.file,
-          condition: 1,
-          ubicacion_id: this.ubicacion_id,
-          role_id: this.role_id
+      axios.put("/commerce/update", {
+          'nombre': this.nombre,
+          'descripcion': this.descripcion,
+          'commerce_slug': this.commerce_slug,
+          'hora_apertura': this.hora_apertura,
+          'hora_cierre': this.hora_cierre,
+          'num_telefono': this.num_telefono,
+          'email': this.email,
+          'file': this.file,
+          'condition': 1,
+          'calle': this.calle,
+          'numero_interior': this.numero_interior,
+          'numero_exterior': this.numero_exterior,
+          'city': this.city,
+          'state': this.state,
+          'country': this.country,
+          'longitude': this.longitude,
+          'latitude': this.latitude,
+          'commerce_id': this.commerce_id,
+          'ubicacion_id': this.ubicacion_id
         })
         .then(function(response) {
           me.cerrarModal();
-          me.listarCommerce(1, "", "nombre");
+          me.listarCommerce();
         })
         .catch(function(error) {
           console.table(error);
@@ -557,18 +451,29 @@ export default {
           console.table(error);
         });
     },
-    validarCommerce(){
-                this.errorCommerce=0;
-                this.errorMostrarMsjCommerce =[];
+    validarCommerce() {
+      this.errorCommerce = 0;
+      this.errorMostrarMsjCommerce = [];
 
-                if (!this.nombre) this.errorMostrarMsjCommerce.push("El nombre de la pesona no puede estar vacío.");
-                //if (!this.usuario) this.errorMostrarMsjCommerce.push("El nombre de usuario no puede estar vacío.");
-                //if (!this.password) this.errorMostrarMsjCommerce.push("La password del usuario no puede estar vacía.");
-                //if (this.idrol==0) this.errorMostrarMsjCommerce.push("Seleccione una Role.");
-                if (this.errorMostrarMsjCommerce.length) this.errorCommerce = 1;
+      if (!this.nombre)
+        this.errorMostrarMsjCommerce.push(
+          "El El campo nombre no puede estar vacío."
+        );
+      if (!this.descripcion)
+        this.errorMostrarMsjCommerce.push(
+          "El nombre de usuario no puede estar vacío."
+        );
+      if (!this.hora_apertura || !this.hora_cierre)
+        this.errorMostrarMsjCommerce.push("Debe llenar los campos de horario");
+      if (!this.city || !this.country || !this.state)
+        this.errorMostrarMsjCommerce.push(
+          "Debe llenar los campos de ubicacion basicos (pais, estado,ciudad)"
+        );
 
-                return this.errorCommerce;
-            }
+      if (this.errorMostrarMsjCommerce.length) this.errorCommerce = 1;
+
+      return this.errorCommerce;
+    }
 
     //DROPDOWN METHODS
     /* toggleDropDown() {
@@ -583,15 +488,14 @@ export default {
   mounted() {
     this.my_commerces();
   }
-  
 };
- $(document).ready(function(){
-            $("#nombre, #slug").stringToSlug({
-                callback: function(input){
-                    $('#slug').val(input);
-                }
-            });
-        });
+$(document).ready(function() {
+  $("#nombre, #slug").stringToSlug({
+    callback: function(text) {
+      $("#slug").val(text);
+    }
+  });
+});
 </script>
 <style>
 ul#menu li {

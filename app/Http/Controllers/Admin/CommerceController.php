@@ -68,11 +68,42 @@ return $commerces;
                 $commerces =CommerceUser::orderBy('commerces.nombre','asc')
                 ->join ( 'commerces', 'commerce_users.commerce_id' ,'=' ,'commerces.id')
                 ->join('users', 'commerce_users.user_id','=','users.id')
+                ->join('locations','commerces.ubicacion_id','=','locations.id')
+                ->join('commerce_roles','commerces.id','=','commerce_roles.commerce_id')
+                ->join('roles','commerce_roles.role_id','=','roles.id')                
                 ->where ('users.id','=', $user)
-               
-        ->get(); 
+                ->select(
+                    'users.id as user_id',
+                    'commerces.id as commerce_id',
+                    'commerces.nombre' ,
+                    'commerces.slug as commerce_slug',
+                    'commerces.descripcion',  
+                    'commerces.hora_apertura',
+                    'commerces.hora_cierre',
+                    'commerces.num_telefono',
+                    'commerces.email',
+                    'commerces.file',
+                    'commerces.condition',
+                    'locations.id as ubicacion_id',
+                    'locations.calle',
+                    'locations.numero_interior',
+                    'locations.numero_exterior',
+                    'locations.city',
+                    'locations.state',
+                    'locations.country',
+                    'locations.longitude',
+                    'locations.latitude',                   
+                    'roles.id as role_id',                    
+                    'roles.name as role_name',
+                    'roles.slug as role_slug',
+                    'roles.description',
+                    'roles.special'
+                    )
+        ->get()  ; 
+        
         return $commerces;
             }
+
             else{
                 $commerces =CommerceUser::orderBy('commerces.nombre','asc')
                 ->join ( 'commerces', 'commerce_users.commerce_id' ,'=' ,'commerces.id')
@@ -211,8 +242,8 @@ return $commerces;
             $path = Storage::disk('public')->put('image',  $request->file('image'));
             $commerce->fill(['file' => asset($path)])->save();
         }   
-        return redirect()->route('commerces.edit', 
-        $commerce->id)->with('info', 'Info de commerce actualizada con éxito');
+        //return redirect()->route('commerces.edit', 
+        //$commerce->id)->with('info', 'Info de commerce actualizada con éxito');
     }
     public function desactivar(Request $request)
     {
@@ -242,66 +273,68 @@ return $commerces;
     }
     //new methods
     public function store(Request $request)
-    {/*
-        $commerceroleuserid = CommerceRoleUser::get();
-        return ['commerceroleuserid' => $commerceroleuserid];
-        $commerceuserid = CommerceUser::get();
-        return ['$commerceuserid ' => $commerceuserid ];
-        $commerceroleid = CommerceRole::get();
-        return ['commerceroleid' => $commerceroleid];
-*/
+    {
+        
+        $userid = Auth::user()->id;
         if (!$request->ajax()) return redirect('/');
-
+         
          //Insertar valores de  negocio
+         $commercelocation =new Location();
+         $commercelocation = Location::create($request->all()); 
+         $commercelocation->save();
+         $commerce=new Commerce();
          $commerce = Commerce::create($request->all()); 
         //Relacion usuario-negocio
         $commerceuser = CommerceUser::create([
-            'id' => request('commerceuserid'),
-            'commerce_id' => request('id'),//commerce->id
-            'user_id' => request('user_id')
+            //'id' => request('commerceuserid'),
+            'commerce_id' => $commerce->id,//commerce->id
+            'user_id' =>$userid
         ]);
         $commercerole = CommerceRole::create([
-            'id' => request('commerceroleid'),
-            'commerce_id' => request('id'),//commerce->id
-            'role_id' => request('role_id')//owner in role table
+            //'id' => request('commerceroleid'),
+            'commerce_id' =>  $commerce->id,//commerce->id
+            'role_id' => 1//owner in role table
         ]);
         $commerceroleuser = CommerceRoleUser::create([
-            'commerce_user_id' => request('commerceuserid'),//commerce->id
-            'commerce_role_id' => request('commerceroleid') //in commerce_role table
+            'commerce_user_id' =>$commerceuser->id,//commerce->id
+            'commerce_role_id' => $commercerole->id //in commerce_role table
             /*
             Se crea una relacion que indica que un comercio puede tener un grupo 
             de usuarios con disintos roles
              */
         ]);  
-        $locations = Location::create($request->all());  
+         
         if($request->file('image')){
             $path = Storage::disk('public')->put('image',  $request->file('image'));
             $commerce->fill(['file' => asset($path)])->save();
         }     
-        $commerce->save();
-        /*
-
-        $commerce = new Commerce();
-        $commerce->nombre = $request->nombre;
-        $commerce->descripcion = $request->descripcion;
-        $commerce->direccion = $request->direccion;
-        $commerce->condicion = '1';
-        $commerce->save();*/
+       
     }
-  
     public function update(Request $request)
-    {
+    {        
+        $commerce = Commerce ::find($request->commerce_id);          
         if (!$request->ajax()) return redirect('/');
-        $commerce = Commerce::findOrFail($request->id);
-        $commercerole = CommerceRole::findOrFail($request->commerce_id);
-        $commerceuser = CommerceUser::findOrFail($request->user_id);
-        $commerceroleuser = CommerceRoleUser::findOrFail($request->commerce_user_id);
-
+        //$commerce = Commerce::find($id);
+        $commercelocation = Location::findOrFail($request->ubicacion_id);
         $commerce->nombre = $request->nombre;
+        $commerce->slug = $request->commerce_slug;
         $commerce->descripcion = $request->descripcion;
-        $commerce->direccion = $request->direccion;
-        $commerce->condicion = '1';
-        $commerce->save();
+        $commerce->hora_apertura = $request->hora_apertura;
+        $commerce->hora_cierre = $request->hora_cierre;
+        $commerce->num_telefono = $request->num_telefono;
+        $commerce->email = $request->email;
+        $commerce->condition = $request->condition;
+         $commerce->save();
+       $commercelocation->calle = $request->calle;
+        $commercelocation->numero_interior = $request->numero_interior;
+        $commercelocation->numero_exterior = $request->numero_exterior;
+        $commercelocation->city = $request->city;
+        $commercelocation->state = $request->state;        
+        $commercelocation->country = $request->country;
+        $commercelocation->latitude = $request->latitude;
+        $commercelocation->longitude = $request->longitude;       
+        $commercelocation->save();
+    
     }
     
     public function selectCommerceRole(Request $request)

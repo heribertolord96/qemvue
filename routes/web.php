@@ -22,10 +22,9 @@ Route::get('/main', function () {
 //Route::resource('/commerces', 		'Admin\CommerceController@index');
 Route::get('admin/{slug}/commerce','Admin\CommerceController@commerce')->name('commerce');
 Route::get('my_commerces', 'Admin\CommerceController@my_commerces');
-
-Route::get('commerce_role', 'Admin\CommerceController@selectCommerceRole');
-Route::get('commerce_user', 'Admin\CommerceController@selectCommerceUser');
-Route::get('commerce_role_user', 'Admin\CommerceController@selectCommerceRoleUser');
+Route::post('commerce/store', 'Admin\CommerceController@store');
+Route::put('commerce/update', 'Admin\CommerceController@update');
+//Route::get('commerce_role_user', 'Admin\CommerceController@selectCommerceRoleUser');
 //Route::post('/commerce/store', 'Admin\CommerceController@store');
 //Route::put('commerce/update', 'Admin\CommerceController@update');
 Route::resource('commerces', 		'Admin\CommerceController');

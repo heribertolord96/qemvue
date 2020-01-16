@@ -2711,46 +2711,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
@@ -2760,13 +2720,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       ubicacion_id: 0,
       commerce_id: 0,
       user_id: 0,
-      //id: 0,
-      commerceuserid: 0,
-      commerceroleid: 0,
-      commerceroleuserid: 0,
       role_id: 0,
       nombre: "",
-      slug: "",
+      role_slug: "",
+      commerce_slug: "",
       descripcion: "",
       hora_apertura: "",
       hora_cierre: "",
@@ -2777,51 +2734,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }, _defineProperty(_ref, "ubicacion_id", ""), _defineProperty(_ref, "arrayLocations", []), _defineProperty(_ref, "arrayCommerce", []), _defineProperty(_ref, "arrayLocations", []), _defineProperty(_ref, "arrayCommerceUser", []), _defineProperty(_ref, "arrayCommerceRole", []), _defineProperty(_ref, "arrayCommerceRoleUser", []), _defineProperty(_ref, "errorCommerce", ""), _defineProperty(_ref, "errorMostrarMsjCommerce", []), _defineProperty(_ref, "modal", 0), _defineProperty(_ref, "tituloModal", ""), _defineProperty(_ref, "tipoAccion", 0), _ref;
   },
   methods: {
-    selectLocations: function selectLocations() {},
-    //from
-    selectCommerceUser: function selectCommerceUser() {
-      var me = this;
-      var url = "/commerce_user";
-      axios.get(url).then(function (response) {
-        var respuesta = response.data;
-        me.arrayCommerceUser = respuesta.commerceuserid;
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
-    selectCommerceRole: function selectCommerceRole() {
-      var me = this;
-      var url = "/commerce_role";
-      axios.get(url).then(function (response) {
-        var respuesta = response.data;
-        me.arrayCommerceRole = respuesta.commerceroleid;
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
-    selectCommerceRoleUser: function selectCommerceRoleUser() {
-      var url = "/commerce_role_user";
-      axios.get(url).then(function (response) {
-        var respuesta = response.data;
-        me.arrayCommerceRoleUser = respuesta.commerceroleuserid;
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
     my_commerces: function my_commerces() {
       //const axios = require("axios");
       var me = this;
       var url = "/my_commerces";
-      axios.get(url).then(function (response) {
-        var respuesta = response.data;
-        me.arrayCommerce = respuesta; //console.log(response);
-      })["catch"](function (error) {
-        console.table(error);
-      });
-    },
-    detalles: function detalles() {
-      var me = this;
-      var url = "/admin/my_commerces/{slug}";
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.arrayCommerce = respuesta; //console.log(response);
@@ -2837,8 +2753,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     abrirModal: function abrirModal(modelo, accion) {
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-      this.selectCommerceRole();
 
+      //this.selectCommerceRole();
       switch (modelo) {
         case "commerce":
           {
@@ -2848,13 +2764,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   this.modal = 1;
                   this.tituloModal = "Publicar comercio"; //ids
 
-                  this.commerce_id = data["id"];
-                  this.role_id = data["role_id"];
-                  this.commerceuserid = data["commerce_user"];
-                  this.commerceroleid = data["commerce_role"]; //ids
-
+                  this.role_id = 1;
                   this.nombre = "";
-                  this.slug = "";
+                  this.commerce_slug = "";
                   this.descripcion = "";
                   this.hora_apertura = "";
                   this.hora_cierre = "";
@@ -2867,8 +2779,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   this.city = "";
                   this.state = "";
                   this.country = "";
-                  this.latitud = "";
-                  this.longitud = "";
+                  this.latitude = "";
+                  this.longitude = "";
                   this.tipoAccion = 1;
                   break;
                 }
@@ -2876,18 +2788,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case "actualizar":
                 {
                   //console.log(data);
+                  this.commerce_id = data['commerce_id'];
                   this.modal = 2;
                   this.tituloModal = "Actualizar comercio";
-                  this.tipoAccion = 2; //ids
-
-                  this.commerce_id = data["commerce_id"];
-                  this.role_id = data["role_id"];
-                  this.commerceuserid = data["commerceuserid"];
-                  this.commerceroleid = data["commerceroleid"]; //ids
-
+                  this.tipoAccion = 2;
                   this.nombre = data["nombre"];
                   this.descripcion = data["descripcion"];
-                  this.slug = data["slug"];
+                  this.commerce_slug = data["commerce_slug"];
                   this.hora_apertura = data["hora_apertura"];
                   this.hora_cierre = data["hora_cierre"];
                   this.num_telefono = data["num_telefono"];
@@ -2899,8 +2806,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   this.city = data["city"];
                   this.state = data["state"];
                   this.country = data["country"];
-                  this.latitud = data["latitud"];
-                  this.longitud = data["longitud"];
+                  this.latitude = data["latitude"];
+                  this.longitude = data["longitude"];
                   break;
                 }
             }
@@ -2908,29 +2815,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     registrarCommerce: function registrarCommerce() {
-      /*if (this.validarCommerce()) {
+      if (this.validarCommerce()) {
         return;
-      }*/
+      }
+
       var me = this;
-      axios.post("commerces", {
+      axios.post("/commerce/store", {
         nombre: this.nombre,
         descripcion: this.descripcion,
-        direccion: this.direccion,
-        //id: this.commerce_id,
-        //
-        commerce_id: this.commerce_id,
-        user_id: this.user_id,
-        commerceuserid: this.commerceuserid,
-        commerceroleid: this.commerceroleid,
-        slug: this.slug,
+        commerce_slug: this.commerce_slug,
         hora_apertura: this.hora_apertura,
         hora_cierre: this.hora_cierre,
         num_telefono: this.num_telefono,
         email: this.email,
         file: this.file,
         condition: 1,
-        ubicacion_id: this.ubicacion_id,
-        role_id: this.role_id
+        calle: this.calle,
+        numero_interior: this.numero_interior,
+        numero_exterior: this.numero_exterior,
+        city: this.city,
+        state: this.state,
+        country: this.country,
+        longitude: this.longitude,
+        latitude: this.latitude
       }).then(function (response) {
         me.cerrarModal();
         me.listarCommerce(1, "", "nombre");
@@ -2944,29 +2851,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       var me = this;
-      axios.put("commerces", {
-        nombre: this.nombre,
-        descripcion: this.descripcion,
-        direccion: this.direccion,
-        //id: this.commerce_id,
-        //
-        commerce_id: this.commerce_id,
-        user_id: this.user_id,
-        commerceuserid: this.commerceuserid,
-        commerceroleuserid: this.commerceroleuserid,
-        commerceroleid: this.commerceroleid,
-        slug: this.slug,
-        hora_apertura: this.hora_apertura,
-        hora_cierre: this.hora_cierre,
-        num_telefono: this.num_telefono,
-        email: this.email,
-        file: this.file,
-        condition: 1,
-        ubicacion_id: this.ubicacion_id,
-        role_id: this.role_id
+      axios.put("/commerce/update", {
+        'nombre': this.nombre,
+        'descripcion': this.descripcion,
+        'commerce_slug': this.commerce_slug,
+        'hora_apertura': this.hora_apertura,
+        'hora_cierre': this.hora_cierre,
+        'num_telefono': this.num_telefono,
+        'email': this.email,
+        'file': this.file,
+        'condition': 1,
+        'calle': this.calle,
+        'numero_interior': this.numero_interior,
+        'numero_exterior': this.numero_exterior,
+        'city': this.city,
+        'state': this.state,
+        'country': this.country,
+        'longitude': this.longitude,
+        'latitude': this.latitude,
+        'commerce_id': this.commerce_id,
+        'ubicacion_id': this.ubicacion_id
       }).then(function (response) {
         me.cerrarModal();
-        me.listarCommerce(1, "", "nombre");
+        me.listarCommerce();
       })["catch"](function (error) {
         console.table(error);
       });
@@ -2992,10 +2899,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     validarCommerce: function validarCommerce() {
       this.errorCommerce = 0;
       this.errorMostrarMsjCommerce = [];
-      if (!this.nombre) this.errorMostrarMsjCommerce.push("El nombre de la pesona no puede estar vacío."); //if (!this.usuario) this.errorMostrarMsjCommerce.push("El nombre de usuario no puede estar vacío.");
-      //if (!this.password) this.errorMostrarMsjCommerce.push("La password del usuario no puede estar vacía.");
-      //if (this.idrol==0) this.errorMostrarMsjCommerce.push("Seleccione una Role.");
-
+      if (!this.nombre) this.errorMostrarMsjCommerce.push("El El campo nombre no puede estar vacío.");
+      if (!this.descripcion) this.errorMostrarMsjCommerce.push("El nombre de usuario no puede estar vacío.");
+      if (!this.hora_apertura || !this.hora_cierre) this.errorMostrarMsjCommerce.push("Debe llenar los campos de horario");
+      if (!this.city || !this.country || !this.state) this.errorMostrarMsjCommerce.push("Debe llenar los campos de ubicacion basicos (pais, estado,ciudad)");
       if (this.errorMostrarMsjCommerce.length) this.errorCommerce = 1;
       return this.errorCommerce;
     } //DROPDOWN METHODS
@@ -3016,8 +2923,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 });
 $(document).ready(function () {
   $("#nombre, #slug").stringToSlug({
-    callback: function callback(input) {
-      $('#slug').val(input);
+    callback: function callback(text) {
+      $("#slug").val(text);
     }
   });
 });
@@ -40088,7 +39995,13 @@ var render = function() {
                 attrs: { id: "menu" }
               },
               [
-                _vm._m(3, true),
+                _c("p", [
+                  _c("span", { staticClass: "top-left badge badge-success" }, [
+                    _c("p", {
+                      domProps: { textContent: _vm._s(commerce.role_name) }
+                    })
+                  ])
+                ]),
                 _vm._v(" "),
                 _c("li", [
                   _c(
@@ -40126,7 +40039,7 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _vm._m(4, true)
+                _vm._m(3, true)
               ]
             )
           ])
@@ -40194,172 +40107,6 @@ var render = function() {
                     }
                   },
                   [
-                    _c("div", { staticClass: "row bg-warning" }, [
-                      _c("div", { staticClass: "col-md-3" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass: "col-md-3 form-control-label",
-                            attrs: { for: "text-input" }
-                          },
-                          [_vm._v("Role ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.commerceroleid,
-                                expression: "commerceroleid"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.commerceroleid = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              }
-                            }
-                          },
-                          _vm._l(_vm.arrayCommerceRole, function(
-                            commerceroleid
-                          ) {
-                            return _c("option", {
-                              key: commerceroleid.role_id,
-                              domProps: {
-                                value: commerceroleid.role_id,
-                                textContent: _vm._s(commerceroleid.role_name)
-                              }
-                            })
-                          }),
-                          0
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-3" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass: "col-md-3 form-control-label",
-                            attrs: { for: "text-input" }
-                          },
-                          [_vm._v("Commerce User id")]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-9" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.commerceuserid,
-                                expression: "commerceuserid"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "commerceuserid "
-                            },
-                            domProps: { value: _vm.commerceuserid },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.commerceuserid = $event.target.value
-                              }
-                            }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-3" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass: "col-md-3 form-control-label",
-                            attrs: { for: "text-input" }
-                          },
-                          [_vm._v("Commerce Role id ")]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-9" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.commerceroleuserid,
-                                expression: "commerceroleuserid"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "commerceroleid "
-                            },
-                            domProps: { value: _vm.commerceroleuserid },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.commerceroleuserid = $event.target.value
-                              }
-                            }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-3" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass: "col-md-3 form-control-label",
-                            attrs: { for: "text-input" }
-                          },
-                          [_vm._v("This id")]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-9" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.commerce_id,
-                                expression: "commerce_id"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: { type: "text", placeholder: "id " },
-                            domProps: { value: _vm.commerce_id },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.commerce_id = $event.target.value
-                              }
-                            }
-                          })
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
                         "label",
@@ -40415,23 +40162,24 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.slug,
-                              expression: "slug"
+                              value: _vm.commerce_slug,
+                              expression: "commerce_slug"
                             }
                           ],
                           staticClass: "form-control",
                           attrs: {
                             type: "text",
                             id: "slug",
-                            placeholder: "Slug "
+                            placeholder: "Slug ",
+                            required: ""
                           },
-                          domProps: { value: _vm.slug },
+                          domProps: { value: _vm.commerce_slug },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.slug = $event.target.value
+                              _vm.commerce_slug = $event.target.value
                             }
                           }
                         })
@@ -40460,6 +40208,7 @@ var render = function() {
                           ],
                           staticClass: "form-control",
                           attrs: {
+                            required: "",
                             rows: "5",
                             maxlength: "900",
                             placeholder: "Ingrese descripción"
@@ -40828,14 +40577,14 @@ var render = function() {
                           })
                         ]),
                         _vm._v(" "),
+                        _vm._m(4),
+                        _vm._v(" "),
                         _vm._m(5),
                         _vm._v(" "),
-                        _vm._m(6),
-                        _vm._v(" "),
-                        _vm._m(7)
+                        _vm._m(6)
                       ]),
                       _vm._v(" "),
-                      _vm._m(8)
+                      _vm._m(7)
                     ]),
                     _vm._v(" "),
                     _c(
@@ -40854,7 +40603,7 @@ var render = function() {
                       [
                         _c(
                           "div",
-                          { staticClass: "text-center text-error" },
+                          { staticClass: "text-center text-error bg-danger" },
                           _vm._l(_vm.errorMostrarMsjCommerce, function(error) {
                             return _c("div", {
                               key: error,
@@ -40955,16 +40704,6 @@ var staticRenderFns = [
         _c("i", { staticClass: "right fas fa-cogs" }),
         _vm._v(" "),
         _c("i", { staticClass: "right fas fa-angle-left" })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("span", { staticClass: "top-left badge badge-success" }, [
-        _vm._v("admin")
       ])
     ])
   },
@@ -53570,15 +53309,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************************************!*\
   !*** ./resources/js/components/myCommerces.vue ***!
   \*************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _myCommerces_vue_vue_type_template_id_3e6431b1___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./myCommerces.vue?vue&type=template&id=3e6431b1& */ "./resources/js/components/myCommerces.vue?vue&type=template&id=3e6431b1&");
 /* harmony import */ var _myCommerces_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./myCommerces.vue?vue&type=script&lang=js& */ "./resources/js/components/myCommerces.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _myCommerces_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _myCommerces_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _myCommerces_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./myCommerces.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/myCommerces.vue?vue&type=style&index=0&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _myCommerces_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./myCommerces.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/myCommerces.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -53610,7 +53348,7 @@ component.options.__file = "resources/js/components/myCommerces.vue"
 /*!**************************************************************************!*\
   !*** ./resources/js/components/myCommerces.vue?vue&type=script&lang=js& ***!
   \**************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
