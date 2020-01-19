@@ -1,15 +1,19 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4 static-left fixed-left">
+
+        
+<aside class="main-sidebar sidebar-dark-primary ">
      <!--Inicio-nav-->
-     @include("theme/$theme/nav")
+     <header class="main-header">
+        @include("theme/$theme/nav")           
+    </header>
      <!--fin-nav-->
     <!-- Brand Logo -->
-    <a href="{{asset (" assets/lte/index3.html ")}}" class="brand-link">
+    <a href="/main" class="brand-link">
         <img src="{{asset ("assets/lte/img/quickemart (2).png")}}" alt="QEM" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light danger">Quick-E-Mart</span>
     </a>
     <!-- Sidebar -->
-    <div class="sidebar">
+    <section class="sidebar">
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             @guest
@@ -44,7 +48,7 @@
                 {{ csrf_field() }}
             </form>
         </div>
-    </div>
+    </section>
     @include("menu_admin.menu_admin")   
     @endguest
     <div class="user-panel mt-3 pb-3 mb-3 d-flex"></div>
@@ -54,6 +58,5 @@
 
     <!-- Sidebar Menu -->
 
-    </div>
     <!-- /.sidebar -->
 </aside>

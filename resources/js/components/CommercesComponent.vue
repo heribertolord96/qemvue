@@ -9,22 +9,26 @@
           <i class="icon-plus"></i>&nbsp;Nuevo
         </button-->
       </div>
-      <div class="container-fluid">
-        <div class="row" v-for="commerce in arrayCommerce" :key="commerce.id" max-height="10">
-          <div class="col-xl-12 col-md-6">
+      <div class="container-fluid col-md-12">
+        <div class="rowcontent col-md-6" v-for="commerce in arrayCommerce" :key="commerce.id" 
+       >
             <div class="card card-stats">
               <!---->
               <!---->
-              <div class="card-body">
+              <div class="card-header bg-success">
+                <router-link class="card-title" :to="{name: 'commerce', params: {slug: commerce.slug}}" v-text="commerce.nombre">
+                            </router-link>
+              </div>
+              <div class="card-body" style="max-height:200px; overflow-y:auto;">
                 <div class="row">
-                  <div class="col-5">
+                  <div class="col-md-6">
                     <div class="icon-big text-center">
                       <a href="#">
                         <div class="icon-warning">
                           <img
-                            src="https://picsum.photos/510/300?random"
+                            src="https://picsum.photos/300/300?random"
                             aspect-ratio="1.7"
-                            height="70"
+                            height="100px"
                             v-border="10"
                             border-radius="5"
                             border-color="success"
@@ -35,16 +39,18 @@
                       </a>
                     </div>
                   </div>
-                  <div class="col-7">
-                    <div class="numbers">
-                      <div>
-                        <a href="#">
-                          <h4 class="card-title" v-text="commerce.nombre"></h4>
-                        </a>
+                  <div class="col-md-6">
+                    <div>
+                      
+                        
+                      
+                           afa
+                                    <div class="card-body">                  
                         <p class="card-category">Restaurant</p>En
-                        <p v-text="commerce.ubicacion_id">
-                          <a href></a>
-                        </p>
+                        
+                          <p v-text="commerce.city"> </p>
+                          ,<p v-text="commerce.state" ></p>,<p v-text="commerce.country"></p></a>
+                       
                         <tr>
                           <th>Abierto de:</th>
                           <th>a:</th>
@@ -64,8 +70,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="card-footer">
+                    <div class="card-footer" style="border-shadow:5px; border-radius:5;">
                 <hr />
                 <div class="stats">
                   <div>
@@ -74,13 +79,14 @@
                   </div>
                 </div>
               </div>
+              </div>
+              
+              </div>              
             </div>
           </div>
         </div>
       </div>
-    </div>
    
-  </div>
 
 </template>
 
@@ -88,8 +94,6 @@
 export default {
   data() {
     return {
-      
-
       commerce_id: 0,
       user_id: 0,
       id: 0,
@@ -149,3 +153,23 @@ export default {
   }
 };
 </script>
+
+<style >
+.container-fluid{
+ display: flex;
+    flex-wrap: wrap;
+    float:center;
+    background-color: #ddfff1;
+       margin:  0%,0%,0%,0%;
+    }
+    .rowcontent >div {
+    border-radius: 9px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+       transition: 0.3s;
+     margin:  auto,auto,auto,auto;
+    text-align: center;
+    }
+    .rowcontent > div:hover{
+      box-shadow: 9px 8px 16px 10px rgba(0,2,0,0.2);
+    }
+</style>

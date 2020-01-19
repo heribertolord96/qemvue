@@ -200,6 +200,36 @@
   </div>
 </template>
 <script>
+	export default {
+		props: ['slug'],
+        data() {
+            return {
+                   commerce_id: 0,
+      user_id: 0,
+      id: 0,
+      nombre: "",
+      slug: "",
+      descripcion: "",
+      hora_apertura: "",
+      hora_cierre: "",
+      num_telefono: "",
+      email: "",
+      file: "",
+      city: "",
+      condition: 1,
+      ubicacion_id: "",
+      arrayCommerce: [],
+            }
+        },
+        created () {
+        	let url = 'http://advancedqemv1.test//api/commerce/'+this.slug
+
+        	axios.get(url)
+        	.then(response => {
+        		this.commerce = response.data
+        	})
+        }
+    }
 </script>
 <style>
   input.hidden {

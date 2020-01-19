@@ -26,28 +26,15 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 
-<body class="hold-transition sidebar-mini layout-boxed">
-    <div id="app">
-        <!--inicio-aside-->
-        @include("theme/$theme/aside")
-        <!--finaside-->
+<body class="hold-transition skin-blue sidebar-mini">
+    
        
-        @section("styles")
-        <link href="{{asset("assets/js/jquery-nestable/jquery.nestable.css")}}" rel="stylesheet" type="text/css" />
-        @endsection
-
-        @section("scriptsPlugins")
-        <!--script src="{_{asset("assets/js/jquery-nestable/jquery.nestable.js")}}" type="text/javascript"></script-->
-        <script src="{{asset("js/jquery.nestable.js")}}"></script>
-
-        @endsection
-
-        @section("scripts")
-        <script src="{{asset("assets/pages/scripts/admin/menu/index.js")}}"></script>
-        @endsection
-        <div class="wrapper">
-            <div class="content-wrapper">
-                <section class="content">
+        <div  class="wrapper" id='app'>
+            
+            @include("theme/$theme/aside") 
+        
+            <div  class="content-wrapper ">
+                <section class="content ">
                     @if (session('info'))
                     <div class="container">
                         <div class="row">
@@ -83,12 +70,26 @@
 
 
                 </section>
+                
             </div>
+            @include("theme/lte/footer")   
+            
         </div>
-        <!--inicio-footer-->
-        @include("theme/lte/footer")
-        <!--fin-footer-->
-    </div>
+       
+         @section("styles")
+        <link href="{{asset("assets/js/jquery-nestable/jquery.nestable.css")}}" rel="stylesheet" type="text/css" />
+        @endsection
+
+        @section("scriptsPlugins")
+        <!--script src="{_{asset("assets/js/jquery-nestable/jquery.nestable.js")}}" type="text/javascript"></script-->
+        <script src="{{asset("js/jquery.nestable.js")}}"></script>
+
+        @endsection
+
+        @section("scripts")
+        <script src="{{asset("assets/pages/scripts/admin/menu/index.js")}}"></script>
+        @endsection
+    
     <script src="{{asset('js/app.js')}}"></script>
 </body>
 

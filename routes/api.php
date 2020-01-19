@@ -16,5 +16,5 @@ use Illuminate\Http\Request;
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 }); */
-//Route::get('commerces', 'Admin\CommerceController@index');
-//Route::get('products', 'Admin\ProductController@index');
+Route::get('commerces', 'Admin\CommerceController@index');
+Route::get('commerce/{slug}', 'Admin\CommerceController@show');

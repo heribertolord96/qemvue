@@ -70,7 +70,7 @@ return $commerces;
                 ->join('users', 'commerce_users.user_id','=','users.id')
                 ->join('locations','commerces.ubicacion_id','=','locations.id')
                 ->join('commerce_roles','commerces.id','=','commerce_roles.commerce_id')
-                ->join('roles','commerce_roles.role_id','=','roles.id')                
+                ->join('roles','commerce_roles.role_id','=','roles.id') 
                 ->where ('users.id','=', $user)
                 ->select(
                     'users.id as user_id',
@@ -141,40 +141,7 @@ return $commerces;
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storex(CommerceStoreRequest $request)
-    {
-        
-        //Insertar valores de  negocio
-         $commerce = Commerce::create($request->all()); 
-        
-        //Relacion usuario-negocio
-        $commerceuser = CommerceUser::create([
-            'id' => request('commerceuserid'),
-            'commerce_id' => request('id'),//commerce->id
-            'user_id' => request('user_id')
-        ]);
-        $commercerole = CommerceRole::create([
-            'id' => request('commerceroleid'),
-            'commerce_id' => request('id'),//commerce->id
-            'role_id' => request('role_id')//owner in role table
-        ]);
-        $commerceroleuser = CommerceRoleUser::create([
-            'commerce_user_id' => request('commerceuserid'),//commerce->id
-            'commerce_role_id' => request('commerceroleid') //in commerce_role table
-            /*
-            Se crea una relacion que indica que un comercio puede tener un grupo 
-            de usuarios con disintos roles
-             */
-        ]);   
-        if($request->file('image')){
-            $path = Storage::disk('public')->put('image',  $request->file('image'));
-            $commerce->fill(['file' => asset($path)])->save();
-        }     
-        //$commerce = Commerce::get();
-        return redirect()->route('commerces.edit', $commerce->id)
-        ->with('info', 'commerce agregado con éxito');
-       
-    }
+   
 
     /**
      * Display the specified resource.
@@ -184,8 +151,10 @@ return $commerces;
      */
     //show  commerces from commerces.index
             public function show($slug)
-            {       
-                $commerce = Commerce::find($slug);
+            {    
+               return Commerce::where('slug', $slug)->first();
+   
+               // $commerce = Commerce::find($slug);
                 /*$commerce= Commerce::
                     select('commerces.nombre as nombre')
                     ->join('commerce_users','commerce_users.commerce_id','=','commerces.id')
@@ -193,7 +162,7 @@ return $commerces;
                         ->join('categories', 'categories.department_id','=','departments.id')
                         ->join('products', 'products.category_id','=','categories.id')
                         ->get('nombre') ;*/
-                return view('admin.commerces.show', compact('commerce'));
+                //return view('admin.commerces.show', compact('commerce'));
             }
         //show  commerces from commerces.my_commerces
             public function getcommerce($commerce_id)//Para acceder a los detalles de un item desde el  listado
@@ -227,24 +196,7 @@ return $commerces;
         return view('admin.commerces.edit', compact('commerce','roles'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function updatex(CommerceUpdateRequest $request, $id)
-    {
-        $commerce = Commerce::find($id);
-        $commerce->fill($request->all())->save();
-        if($request->file('image')){
-            $path = Storage::disk('public')->put('image',  $request->file('image'));
-            $commerce->fill(['file' => asset($path)])->save();
-        }   
-        //return redirect()->route('commerces.edit', 
-        //$commerce->id)->with('info', 'Info de commerce actualizada con éxito');
-    }
+  
     public function desactivar(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
@@ -280,10 +232,28 @@ return $commerces;
          
          //Insertar valores de  negocio
          $commercelocation =new Location();
-         $commercelocation = Location::create($request->all()); 
+         //$commercelocation = Location::create($request->all()); 
+         $commercelocation->calle = $request->calle;
+         $commercelocation->numero_interior = $request->numero_interior;
+         $commercelocation->numero_exterior = $request->numero_exterior;
+         $commercelocation->city = $request->city;
+         $commercelocation->state = $request->state;        
+         $commercelocation->country = $request->country;
+         $commercelocation->latitude = $request->latitude;
+         $commercelocation->longitude = $request->longitude;  
          $commercelocation->save();
          $commerce=new Commerce();
-         $commerce = Commerce::create($request->all()); 
+         $commerce->nombre = $request->nombre;
+         $commerce->slug = $request->commerce_slug;
+         $commerce->descripcion = $request->descripcion;
+         $commerce->hora_apertura = $request->hora_apertura;
+         $commerce->hora_cierre = $request->hora_cierre;
+         $commerce->num_telefono = $request->num_telefono;
+         $commerce->email = $request->email;
+         $commerce->condition = $request->condition;
+         $commerce->ubicacion_id = $request->$commercelocation->ubicacion_id;
+         $commerce->save();
+         //$commerce = Commerce::create($request->all()); 
         //Relacion usuario-negocio
         $commerceuser = CommerceUser::create([
             //'id' => request('commerceuserid'),
@@ -324,6 +294,7 @@ return $commerces;
         $commerce->num_telefono = $request->num_telefono;
         $commerce->email = $request->email;
         $commerce->condition = $request->condition;
+        $commerce->ubicacion_id = $request->ubicacion_id;
          $commerce->save();
        $commercelocation->calle = $request->calle;
         $commercelocation->numero_interior = $request->numero_interior;

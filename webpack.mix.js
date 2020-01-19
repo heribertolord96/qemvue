@@ -15,6 +15,8 @@ const mix = require('laravel-mix');
    .sass('resources/sass/app.scss', 'public/css');*/
 
    mix.styles([
+      'resources/plantilla/fontawesome/css/all.min.css',
+
       'resources/plantilla/css/lte/custom.css',
       'resources/plantilla/css/lte/dist/css/adminlte.css',
       'resources/plantilla/css/lte/dist/css/adminlte.css.map',

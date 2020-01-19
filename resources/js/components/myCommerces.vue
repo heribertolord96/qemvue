@@ -33,24 +33,86 @@
             </span>
           </p>
         </a>
-        <ul class="nav nav-treeview bg-primary" id="menu">
-          <p>
+        <ul class="nav nav-treeview bg-primary row" id="menu">
+          <li>
             <span class="top-left badge badge-success">
               <p v-text="commerce.role_name"></p>
             </span>
-          </p>
-          <li>
-            <button @click="menu=5" type="button" class="btn btn-info far fa-eye">Ver</button>
           </li>
-          <li>
-            <button
-              type="button"
-              class="btn btn-success fas fa-pen"
-              @click="abrirModal('commerce','actualizar',commerce)"
-            >EDITAR</button>
+          <li class="nav-item has-treeview col-md-3">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-list-alt"></i>
+              <p >Ajustes</p>
+              <p>
+                <span class="right badge badge-primary">
+                  <i class="right fas fa-cogs"></i>
+                  <i class="right fas fa-angle-left"></i>
+                </span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview bg-primary" id="menu">
+                         <li>
+                <button @click="menu=5" type="button" class="btn btn-info far fa-eye">Ver</button>
+              </li>
+              <li>
+                <button
+                  type="button"  class="btn btn-success fas fa-edit"
+                  @click="abrirModal('commerce','actualizar',commerce)"
+                >EDITAR</button>
+              </li>
+              <li>
+                <button type="button" class="btn btn-danger far fa-trash-alt">Eliminar</button>
+              </li>
+              </br>
+              <li>
+                <button type="button" class="btn btn-success ">                 
+                    <i class="fas fa-users-cog"></i> Administrar usuarios</button>
+              </li>
+            </ul>
           </li>
-          <li>
-            <button type="button" class="btn btn-danger far fa-trash-alt">Eliminar</button>
+           <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-store-alt"></i>
+              <p class="overflow-x: auto;" width="100%">Mis articulos</p>
+              <p>
+                <span class="right badge badge-primary">
+                  <i class="right fas fa-cogs"></i>
+                  <i class="right fas fa-angle-left"></i>
+                </span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview bg-danger " id="menu">              
+              <li>
+                <button type="button" class="btn btn-success ">
+                  <i class="fas fa-dolly"></i>Productos</button>
+              </li>
+              <li>
+                <button type="button" class="btn btn-success ">
+                  <i class="fas fa-people-carry"></i>Servicios</button>
+              </li>
+              </br>
+              <li>
+                <button type="button" class="btn btn-success ">
+                  <i class="fas fa-bahai"></i>Promociones</button>
+              </li>
+              <li>
+                <button type="button" class="btn btn-success ">
+                  <i class="fas fa-birthday-cake"></i>Eventos</button>
+              </li>
+              <li>
+                <button type="button" class="btn btn-success ">
+                  <i class="fas fa-camera"></i>Galeria</button>
+              </li>
+              </br>
+              <li>
+                <button type="button" class="btn btn-success ">
+                  <i class="fas fa-ad"></i>Anuncios</button>
+              </li>
+              <li>
+                <button type="button" class="btn btn-success "><i class="fas fa-chart-area"></i>
+                Graficas</button>
+              </li>
+            </ul>
           </li>
         </ul>
       </li>
@@ -75,7 +137,6 @@
           </div>
           <div class="modal-body">
             <form action method="post" enctype="multipart/form-data" class="form-horizontal">
-           
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                 <div class="col-md-9">
@@ -278,8 +339,6 @@ export default {
     };
   },
   methods: {
-  
-
     my_commerces() {
       //const axios = require("axios");
       let me = this;
@@ -296,7 +355,6 @@ export default {
         });
     },
 
-    
     cerrarModal() {
       this.modal = 0;
       this.tituloModal = "";
@@ -311,8 +369,8 @@ export default {
             case "registrar": {
               this.modal = 1;
               this.tituloModal = "Publicar comercio";
-                //ids
-                 this.role_id = 1;
+              //ids
+              this.role_id = 1;
               this.nombre = "";
               this.commerce_slug = "";
               this.descripcion = "";
@@ -335,7 +393,7 @@ export default {
             }
             case "actualizar": {
               //console.log(data);
-               this.commerce_id=data['commerce_id'];
+              this.commerce_id = data["commerce_id"];
               this.modal = 2;
               this.tituloModal = "Actualizar comercio";
               this.tipoAccion = 2;
@@ -355,7 +413,7 @@ export default {
               this.country = data["country"];
               this.latitude = data["latitude"];
               this.longitude = data["longitude"];
-              
+
               break;
             }
           }
@@ -391,7 +449,7 @@ export default {
         })
         .then(function(response) {
           me.cerrarModal();
-          me.listarCommerce(1, "", "nombre");
+          me.my_commerces(1, "", "nombre");
         })
         .catch(function(error) {
           console.table(error);
@@ -404,30 +462,31 @@ export default {
 
       let me = this;
 
-      axios.put("/commerce/update", {
-          'nombre': this.nombre,
-          'descripcion': this.descripcion,
-          'commerce_slug': this.commerce_slug,
-          'hora_apertura': this.hora_apertura,
-          'hora_cierre': this.hora_cierre,
-          'num_telefono': this.num_telefono,
-          'email': this.email,
-          'file': this.file,
-          'condition': 1,
-          'calle': this.calle,
-          'numero_interior': this.numero_interior,
-          'numero_exterior': this.numero_exterior,
-          'city': this.city,
-          'state': this.state,
-          'country': this.country,
-          'longitude': this.longitude,
-          'latitude': this.latitude,
-          'commerce_id': this.commerce_id,
-          'ubicacion_id': this.ubicacion_id
+      axios
+        .put("/commerce/update", {
+          nombre: this.nombre,
+          descripcion: this.descripcion,
+          commerce_slug: this.commerce_slug,
+          hora_apertura: this.hora_apertura,
+          hora_cierre: this.hora_cierre,
+          num_telefono: this.num_telefono,
+          email: this.email,
+          file: this.file,
+          condition: 1,
+          calle: this.calle,
+          numero_interior: this.numero_interior,
+          numero_exterior: this.numero_exterior,
+          city: this.city,
+          state: this.state,
+          country: this.country,
+          longitude: this.longitude,
+          latitude: this.latitude,
+          commerce_id: this.commerce_id,
+          ubicacion_id: this.ubicacion_id
         })
         .then(function(response) {
           me.cerrarModal();
-          me.listarCommerce();
+          me.my_commerces();
         })
         .catch(function(error) {
           console.table(error);
@@ -475,15 +534,7 @@ export default {
       return this.errorCommerce;
     }
 
-    //DROPDOWN METHODS
-    /* toggleDropDown() {
-      this.isOpen = !this.isOpen;
-      this.$emit("change", this.isOpen);
-    },
-    closeDropDown() {
-      this.isOpen = false;
-      this.$emit("change", this.isOpen);
-    }*/
+   
   },
   mounted() {
     this.my_commerces();
@@ -497,10 +548,14 @@ $(document).ready(function() {
   });
 });
 </script>
-<style>
+<style> 
 ul#menu li {
   display: inline;
+    flex-wrap: wrap;
+     margin:  auto,auto,auto,auto;
+ 
 }
+
 .modal-content {
   width: 100% !important;
   position: fixed !important;
