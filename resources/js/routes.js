@@ -5,16 +5,16 @@ Vue.use(Router)
 
 export default new Router({
 	routes: [
-		
 		{
 			path: '/commerces',
 			name: 'commerces',
 			component: require('./components/CommercesComponent')
 		},
 		{
-			path: ':slug',
+			path: ':commerce_slug',
 			name: 'commerce',
-			component: require('./components/ShowCommerce'),
+			qery:'commerce_slug',
+			component: require('./views/Commerce'),//show
 			props: true
 		},
 		{

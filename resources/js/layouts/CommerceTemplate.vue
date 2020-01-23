@@ -1,0 +1,3 @@
+<template>
+ <commerces></commerces>
+</template>

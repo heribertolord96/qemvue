@@ -1,15 +1,13 @@
 @extends("theme/lte/layout")
  @section('vue_container')
- <template v-if="menu==11" >
-        <style1> </style1>
-</template>
+
 <template v-if="menu==4">
     <my_commerces> </my_commerces>
 </template>
 <!--Administrar-->
 
 <template v-if="menu==0">
-    <commerces> </commerces>
+    <appcommerces> </appcommerces>
 </template>
 
 <template v-if="menu==1">
@@ -21,10 +19,9 @@
 <template v-if="menu==3">
     <eventos> </eventos>
 </template>
-<template v-if="menu==5">
-    <show_commerce> </show_commerce>
-</template>
+
 <!--Explorar-->
+
 
 <!-- /.card -->
 

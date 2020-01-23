@@ -420,6 +420,7 @@ export default {
         }
       }
     },
+   
     registrarCommerce() {
       if (this.validarCommerce()) {
         return;
