@@ -7,9 +7,8 @@
 <!--Administrar-->
 
 <template v-if="menu==0">
-    <appcommerces> </appcommerces>
+    <commerces> </commerces>
 </template>
-
 <template v-if="menu==1">
     <products> </products>
 </template>

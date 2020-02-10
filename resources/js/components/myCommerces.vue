@@ -1,6 +1,15 @@
 
 <template>
-  <li class="nav-item has-treeview">
+<div>
+<template v-if="listado==0">
+  <div>
+    <commerce></commerce>
+  </div>
+</template>
+
+<template v-if="listado!=0">
+  <div>
+     <li class="nav-item has-treeview">
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-list-alt"></i>
       <p>
@@ -51,9 +60,9 @@
               </p>
             </a>
             <ul class="nav nav-treeview bg-primary" id="menu">
-                         <li>
-                <button @click="menu=5" type="button" class="btn btn-info far fa-eye">Ver</button>
-              </li>
+                         <li> <a href="#">
+                <button @click="abrirModal('commerce','ver',commerce)" type="button" class="btn btn-info far fa-eye">Ver</button>
+              </a></li>
               <li>
                 <button
                   type="button"  class="btn btn-success fas fa-edit"
@@ -63,7 +72,7 @@
               <li>
                 <button type="button" class="btn btn-danger far fa-trash-alt">Eliminar</button>
               </li>
-              </br>
+              
               <li>
                 <button type="button" class="btn btn-success ">                 
                     <i class="fas fa-users-cog"></i> Administrar usuarios</button>
@@ -90,7 +99,7 @@
                 <button type="button" class="btn btn-success ">
                   <i class="fas fa-people-carry"></i>Servicios</button>
               </li>
-              </br>
+              
               <li>
                 <button type="button" class="btn btn-success ">
                   <i class="fas fa-bahai"></i>Promociones</button>
@@ -103,7 +112,7 @@
                 <button type="button" class="btn btn-success ">
                   <i class="fas fa-camera"></i>Galeria</button>
               </li>
-              </br>
+              
               <li>
                 <button type="button" class="btn btn-success ">
                   <i class="fas fa-ad"></i>Anuncios</button>
@@ -302,6 +311,9 @@
     </div>
     <!--Fin del modal-->
   </li>
+  </div>
+</template>
+  </div>
 </template>
 
 <script>
@@ -309,7 +321,7 @@ export default {
   data() {
     return {
       //isOpen: false,//DROPDOWN
-
+  listado:1,
       ubicacion_id: 0,
       commerce_id: 0,
       user_id: 0,
@@ -416,6 +428,29 @@ export default {
 
               break;
             }
+             case "ver": {
+              //console.log(data);
+              this.listado = 0;
+              this.commerce_id = data["commerce_id"];
+              this.tituloModal = "Actualizar comercio";
+              this.nombre = data["nombre"];
+              this.descripcion = data["descripcion"];
+              this.commerce_slug = data["commerce_slug"];
+              this.hora_apertura = data["hora_apertura"];
+              this.hora_cierre = data["hora_cierre"];
+              this.num_telefono = data["num_telefono"];
+              this.email = data["email"];
+              this.ubicacion_id = data["ubicacion_id"];
+              this.calle = data["calle"];
+              this.numero_interior = data["numero_interior"];
+              this.numero_exterior = data["numero_exterior"];
+              this.city = data["city"];
+              this.state = data["state"];
+              this.country = data["country"];
+              this.latitude = data["latitude"];
+              this.longitude = data["longitude"];
+              break;
+            }
           }
         }
       }
@@ -429,6 +464,15 @@ export default {
       let me = this;
       axios
         .post("/commerce/store", {
+          calle: this.calle,
+          numero_interior: this.numero_interior,
+          numero_exterior: this.numero_exterior,
+          city: this.city,
+          state: this.state,
+          country: this.country,
+          longitude: this.longitude,
+          latitude: this.latitude,
+
           nombre: this.nombre,
           descripcion: this.descripcion,
           commerce_slug: this.commerce_slug,
@@ -437,16 +481,7 @@ export default {
           num_telefono: this.num_telefono,
           email: this.email,
           file: this.file,
-          condition: 1,
-
-          calle: this.calle,
-          numero_interior: this.numero_interior,
-          numero_exterior: this.numero_exterior,
-          city: this.city,
-          state: this.state,
-          country: this.country,
-          longitude: this.longitude,
-          latitude: this.latitude
+          condition: 1
         })
         .then(function(response) {
           me.cerrarModal();
@@ -517,7 +552,7 @@ export default {
 
       if (!this.nombre)
         this.errorMostrarMsjCommerce.push(
-          "El El campo nombre no puede estar vacío."
+          "El campo nombre no puede estar vacío."
         );
       if (!this.descripcion)
         this.errorMostrarMsjCommerce.push(
@@ -533,21 +568,12 @@ export default {
       if (this.errorMostrarMsjCommerce.length) this.errorCommerce = 1;
 
       return this.errorCommerce;
-    }
-
-   
+    }   
   },
   mounted() {
     this.my_commerces();
   }
 };
-$(document).ready(function() {
-  $("#nombre, #slug").stringToSlug({
-    callback: function(text) {
-      $("#slug").val(text);
-    }
-  });
-});
 </script>
 <style> 
 ul#menu li {
@@ -578,3 +604,4 @@ ul#menu li {
   font-weight: bold;
 }
 </style>
+

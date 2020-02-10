@@ -12,14 +12,15 @@ Vue.component('appcommerces', require('./components/AppCommercesComponent.vue').
 Vue.component('commercetemplate', require('./layouts/CommerceTemplate.vue').default);
 Vue.component('commerces', require('./components/CommercesComponent.vue').default);
 Vue.component('my_commerces', require('./components/myCommerces.vue').default);
-//Vue.component('commerce', require('./views/Commerce.vue').default);//view commerce
+Vue.component('commerce', require('./views/Commerce.vue').default);//view commerce
 Vue.component('products', require('./components/ProductsComponent.vue').default);
 Vue.component('style1', require('./components/Style1Component.vue').default);
+Vue.component('departments', require('./views/Departments.vue').default);
 
 
 //Vue.component('promociones', require('./components/PromotionsComponent.vue').default);
 //Vue.component('eventos', require('./components/EventsComponent.vue').default);
-
+  
 Vue.component('infinite', 	require('vue-infinite-loading'));
 import router from './routes'
 

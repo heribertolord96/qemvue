@@ -24,11 +24,11 @@ class DepartmentStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'commerce_id' => 'required',
-            'name' => 'required',
-            'slug' => 'required|unique:departments|max:255, slug',
-            'body' => 'required',
-            'condition' => 'required',
+           
+            'department_name' => 'required',
+            'department_slug' => 'required|unique:departments|max:255, slug',
+            'department_body' => 'required',
+            'department_condition' => 'required',
         ];
     }
 }

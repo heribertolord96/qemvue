@@ -203,65 +203,20 @@ export default {
   props: ["commerce_slug"],
   data() {
     return {
-     commerce_id: 0,
-      // user_id: 0,
-      nombre: "",
-      commerce_slug: "",
-      descripcion: "",
-      hora_apertura: "",
-      hora_cierre: "",
-      num_telefono: "",
-      email: "",
-      file: "",
-      city: "",
-      condition: 1,
-      ubicacion_id: "",
-      arrayCommerce: [],
-      listado: 0,
+   commerce:{}
     };
   },
-    abrirCommerce(modelo, accion, data = []) {
-      //this.selectCommerceRole();
-      switch (modelo) {
-        case "commerce": {
-          switch (accion) {
-            case "ver": {
-              //console.log(data);
-              this.commerce_id = data["commerce_id"];
-              this.listado = 0;
-              this.modal =1;
-              this.tituloModal = "";
-              this.tipoAccion = 1;
-              this.nombre = data["nombre"];
-              this.descripcion = data["descripcion"];
-              this.commerce_slug = data["commerce_slug"];
-              this.hora_apertura = data["hora_apertura"];
-              this.hora_cierre = data["hora_cierre"];
-              this.num_telefono = data["num_telefono"];
-              this.email = data["email"];
-              this.ubicacion_id = data["ubicacion_id"];
-              this.calle = data["calle"];
-              this.numero_interior = data["numero_interior"];
-              this.numero_exterior = data["numero_exterior"];
-              this.city = data["city"];
-              this.state = data["state"];
-              this.country = data["country"];
-              this.latitude = data["latitude"];
-              this.longitude = data["longitude"];
-              break;
-            }
-          }
+  created () {
+        	 let me = this;
+      var url = 'commerce/'+this.slug
+        	axios.get(url)
+        	.then(response => {
+        		this.commerce = response.data
+          })
+           .catch(function(error) {
+          console.table(error);
+        });
         }
-      }
-    },
-  created() {
-    let me = this;
-      var url = '/api/commerce/' + this.commerce_slug;
-
-    axios.get(url).then(response => {
-      this.commerce = response.data;
-    });
-  }
 };
 </script>
 <style>

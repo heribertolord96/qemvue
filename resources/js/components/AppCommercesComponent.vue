@@ -11,8 +11,7 @@
         </div>
       </div>
   <div >
-     <div >
-       
+     <div >       
         <commerces></commerces>
         </div>
      

@@ -20,76 +20,74 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     @yield('styles')
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
-    
-       
-        <div  class="wrapper" id='app'>
-            
-            @include("theme/$theme/aside") 
-        
-            <div  class="content-wrapper ">
-                <section class="content ">
-                    @if (session('info'))
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-6 col-md-offset-2">
-                                <div class="alert alert-success">
-                                    {{ session('info') }}
-                                </div>
+
+
+    <div class="wrapper" id='app'>
+
+        @include("theme/$theme/aside")
+
+        <div class="content-wrapper ">
+            <section class="content ">
+                @if (session('info'))
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-6 col-md-offset-2">
+                            <div class="alert alert-success">
+                                {{ session('info') }}
                             </div>
                         </div>
                     </div>
-                    @endif
+                </div>
+                @endif
 
-                    @if(count($errors))
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-6 col-md-offset-2">
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
+                @if(count($errors))
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-6 col-md-offset-2">
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    @endif
-                    <!--@@yield('contenido')-->
-                    @yield('vue_container')
-@yield('contenido')
-                    <br>
+                </div>
+                @endif
+                <!--@@yield('contenido')-->
+                @yield('vue_container')
+                @yield('contenido')
+                <br>
 
 
 
-                </section>
-                
-            </div>
-            @include("theme/lte/footer")   
-            
+            </section>
+
         </div>
-       
-         @section("styles")
-        <link href="{{asset("assets/js/jquery-nestable/jquery.nestable.css")}}" rel="stylesheet" type="text/css" />
-        @endsection
+        @include("theme/lte/footer")
 
-        @section("scriptsPlugins")
-        <!--script src="{_{asset("assets/js/jquery-nestable/jquery.nestable.js")}}" type="text/javascript"></script-->
-        <script src="{{asset("js/jquery.nestable.js")}}"></script>
+    </div>
 
-        @endsection
+    @section("styles")
+    <link href="{{asset("assets/js/jquery-nestable/jquery.nestable.css")}}" rel="stylesheet" type="text/css" />
+    @endsection
 
-        @section("scripts")
-        <script src="{{asset("assets/pages/scripts/admin/menu/index.js")}}"></script>
-        @endsection
-    
+    @section("scriptsPlugins")
+    <!--script src="{_{asset("assets/js/jquery-nestable/jquery.nestable.js")}}" type="text/javascript"></script-->
+    <script src="{{asset("js/jquery.nestable.js")}}"></script>
+
+    @endsection
+
+    @section("scripts")
+    <script src="{{asset("assets/pages/scripts/admin/menu/index.js")}}"></script>
+    @endsection
+
     <script src="{{asset('js/app.js')}}"></script>
 </body>
 

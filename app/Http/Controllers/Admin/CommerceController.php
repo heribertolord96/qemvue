@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\ResponseTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Http\JsonResponse;
 use App\Commerce;
+use App\Department;
+use App\Category;
+use App\Product;
 use App\CommerceUser;
 use App\CommerceRole;
 use App\Role;
@@ -30,29 +34,74 @@ class CommerceController extends Controller
     {
         $this->middleware('auth');
     }
-    public function indexx(Request $request)
-    {
-        $commerces = Commerce::all();
-        return $commerces;
-    }
 
     public function index(Request $request)
     {
+        if (!$request->ajax()) return redirect('/');
         $user =  Auth::user()->id;
         $buscar = $request->buscar;
         $criterio = $request->criterio;
         if ($buscar == '') {
-            $commerces = CommerceUser::orderBy('commerces.nombre', 'asc')
-                ->join('commerces', 'commerce_users.commerce_id', '=', 'commerces.id')
-                ->join('users', 'commerce_users.user_id', '=', 'users.id')
+            $commerces = Commerce::orderBy('commerces.nombre', 'asc')
+                //->join('commerces', 'commerce_users.commerce_id', '=', 'commerces.id')
+                //->join('users', 'commerce_users.user_id', '=', 'users.id')
                 ->join('locations', 'commerces.ubicacion_id', '=', 'locations.id')
-                ->join('commerce_roles', 'commerces.id', '=', 'commerce_roles.commerce_id')
-                ->join('roles', 'commerce_roles.role_id', '=', 'roles.id')
+                //->join('commerce_roles', 'commerces.id', '=', 'commerce_roles.commerce_id')
+                //->join('roles', 'commerce_roles.role_id', '=', 'roles.id')
                 //->where ('commerces.id','=', 'commerce_id')
                 ->select(
                     //'users.id as user_id',
                     'commerces.id as commerce_id',
                     'commerces.nombre',
+                    //'commerces.tipo',
+                    'commerces.slug as commerce_slug',
+                    'commerces.descripcion',
+                    'commerces.hora_apertura',
+                    'commerces.hora_cierre',
+                    'commerces.num_telefono',
+                    'commerces.email',
+                    'commerces.file',
+                    'commerces.condition',
+                    'locations.id as ubicacion_id',
+                    'locations.calle',
+                    'locations.numero_interior',
+                    'locations.numero_exterior',
+                    'locations.city as location',
+                    //'locations.state ',
+                    'locations.country',
+                    'locations.longitude',
+                    'locations.latitude'
+
+                )
+                ->paginate(3);
+
+            return [
+                'pagination' => [
+                    'total'        => $commerces->total(),
+                    'current_page' => $commerces->currentPage(),
+                    'per_page'     => $commerces->perPage(),
+                    'last_page'    => $commerces->lastPage(),
+                    'from'         => $commerces->firstItem(),
+                    'to'           => $commerces->lastItem(),
+                ],
+                'commerces' => $commerces
+            ];
+            //Crear condicion para mostrar opciones sobre el item, si es del usuario
+
+            //return view('admin.commerces.index', compact('commerces'));
+        } else {
+            $commerces = Commerce::orderBy('commerces.nombre', 'asc')
+                //->join('commerces', 'commerce_users.commerce_id', '=', 'commerces.id')
+                //->join('users', 'commerce_users.user_id', '=', 'users.id')
+                ->join('locations', 'commerces.ubicacion_id', '=', 'locations.id')
+                //->join('commerce_roles', 'commerces.id', '=', 'commerce_roles.commerce_id')
+                //->join('roles', 'commerce_roles.role_id', '=', 'roles.id')
+                //->where ('commerces.id','=', 'commerce_id')
+                ->select(
+                    //'users.id as user_id',
+                    'commerces.id as commerce_id',
+                    'commerces.nombre',
+                    //'commerces.tipo',
                     'commerces.slug as commerce_slug',
                     'commerces.descripcion',
                     'commerces.hora_apertura',
@@ -70,19 +119,23 @@ class CommerceController extends Controller
                     'locations.country',
                     'locations.longitude',
                     'locations.latitude'
-                  
-                )
-                  ->get();
-            return $commerces;
-            //Crear condicion para mostrar opciones sobre el item, si es del usuario
 
-            //return view('admin.commerces.index', compact('commerces'));
-        } else {
-            $commerces = Commerce::orderBy('nombre', 'asc')
+                )
                 ->where($criterio, 'like', '%' . $buscar . '%')
                 ->paginate(3);
-            // return $commerces;
-            //return view('admin.commerces.index', compact('commerces'));
+
+            return [
+                'pagination' => [
+                    'total'        => $commerces->total(),
+                    'current_page' => $commerces->currentPage(),
+                    'per_page'     => $commerces->perPage(),
+                    'last_page'    => $commerces->lastPage(),
+                    'from'         => $commerces->firstItem(),
+                    'to'           => $commerces->lastItem(),
+                ],
+                'commerces' => $commerces
+            ];
+            //
         }
     }
 
@@ -143,11 +196,6 @@ class CommerceController extends Controller
             return view('admin.commerces.my_commerces', compact('my_commerces', 'commerces'));
         }
     }
-    /*public function show_my_commerce()
-    {
-        $commerce = Commerce::find('commerces.id');
-        return view('admin.commerces.show', compact('commerce'));
-    }*/
 
     /**
      * Show the form for creating a new resource.
@@ -184,14 +232,13 @@ class CommerceController extends Controller
         //return  //Commerce::where('commerce_slug', $commerce_slug)->first();
 
         // $commerce = Commerce::find($slug);
-        return Commerce::
-                    get('all')
-                    ->join('commerce_users','commerce_users.commerce_id','=','commerces.id')
-                        ->join('departments', 'departments.commerce_id','=','commerces.id')
-                        ->join('categories', 'categories.department_id','=','departments.id')
-                        ->join('products', 'products.category_id','=','categories.id')
-                        ->get('nombre') 
-                       -> where('commerces.slug', $commerce_slug)->first();
+        return Commerce::get('all')
+            ->join('commerce_users', 'commerce_users.commerce_id', '=', 'commerces.id')
+            ->join('departments', 'departments.commerce_id', '=', 'commerces.id')
+            ->join('categories', 'categories.department_id', '=', 'departments.id')
+            ->join('products', 'products.category_id', '=', 'categories.id')
+            ->get('nombre')
+            ->where('commerces.slug', $commerce_slug)->first();
         //return view('admin.commerces.show', compact('commerce'));
     }
     //show  commerces from commerces.my_commerces
@@ -258,92 +305,104 @@ class CommerceController extends Controller
 
         $userid = Auth::user()->id;
         if (!$request->ajax()) return redirect('/');
-
-        //Insertar valores de  negocio
-        $commercelocation = new Location();
-        //$commercelocation = Location::create($request->all()); 
-        $commercelocation->calle = $request->calle;
-        $commercelocation->numero_interior = $request->numero_interior;
-        $commercelocation->numero_exterior = $request->numero_exterior;
-        $commercelocation->city = $request->city;
-        $commercelocation->state = $request->state;
-        $commercelocation->country = $request->country;
-        $commercelocation->latitude = $request->latitude;
-        $commercelocation->longitude = $request->longitude;
-        $commercelocation->save();
-        $commerce = new Commerce();
-        $commerce->nombre = $request->nombre;
-        $commerce->slug = $request->commerce_slug;
-        $commerce->descripcion = $request->descripcion;
-        $commerce->hora_apertura = $request->hora_apertura;
-        $commerce->hora_cierre = $request->hora_cierre;
-        $commerce->num_telefono = $request->num_telefono;
-        $commerce->email = $request->email;
-        $commerce->condition = $request->condition;
-        $commerce->ubicacion_id = $request->$commercelocation->ubicacion_id;
-        $commerce->save();
-        //$commerce = Commerce::create($request->all()); 
-        //Relacion usuario-negocio
-        $commerceuser = CommerceUser::create([
-            //'id' => request('commerceuserid'),
-            'commerce_id' => $commerce->id, //commerce->id
-            'user_id' => $userid
-        ]);
-        $commercerole = CommerceRole::create([
-            //'id' => request('commerceroleid'),
-            'commerce_id' =>  $commerce->id, //commerce->id
-            'role_id' => 1 //owner in role table
-        ]);
-        $commerceroleuser = CommerceRoleUser::create([
-            'commerce_user_id' => $commerceuser->id, //commerce->id
-            'commerce_role_id' => $commercerole->id //in commerce_role table
-            /*
+        try {
+            DB::beginTransaction();
+            //Insertar valores de  negocio
+            $commercelocation = new Location();
+            //$commercelocation = Location::create($request->all()); 
+            $commercelocation->id = ($commercelocation->id*2);
+            $commercelocation->calle = $request->calle;
+            $commercelocation->numero_interior = $request->numero_interior;
+            $commercelocation->numero_exterior = $request->numero_exterior;
+            $commercelocation->city = $request->city;
+            $commercelocation->state = $request->state;
+            $commercelocation->country = $request->country;
+            $commercelocation->latitude = $request->latitude;
+            $commercelocation->longitude = $request->longitude;
+            $commercelocation->save();
+            $commerce = new Commerce();
+            $commerce->nombre = $request->nombre;
+            $commerce->slug = $request->commerce_slug;
+            $commerce->descripcion = $request->descripcion;
+            $commerce->hora_apertura = $request->hora_apertura;
+            $commerce->hora_cierre = $request->hora_cierre;
+            $commerce->num_telefono = $request->num_telefono;
+            $commerce->email = $request->email;
+            $commerce->condition = $request->condition;
+            $commerce->ubicacion_id =$commercelocation->id;
+            $commerce->save();
+            //$commerce = Commerce::create($request->all()); 
+            //Relacion usuario-negocio
+            $commerceuser = CommerceUser::create([
+                //'id' => request('commerceuserid'),
+                'commerce_id' => $commerce->id, //commerce->id
+                'user_id' => $userid
+            ]);
+            $commercerole = CommerceRole::create([
+                'commerce_id' =>  $commerce->id, //commerce->id
+                'role_id' => 1 //owner in role table
+            ]);
+            $commerceroleuser = CommerceRoleUser::create([
+                'commerce_user_id' => $commerceuser->id, //commerce->id
+                'commerce_role_id' => $commercerole->id //in commerce_role table
+                /*
             Se crea una relacion que indica que un comercio puede tener un grupo 
             de usuarios con disintos roles
              */
-        ]);
+            ]);
 
-        if ($request->file('image')) {
-            $path = Storage::disk('public')->put('image',  $request->file('image'));
-            $commerce->fill(['file' => asset($path)])->save();
+            if ($request->file('image')) {
+                $path = Storage::disk('public')->put('image',  $request->file('image'));
+                $commerce->fill(['file' => asset($path)])->save();
+            }
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
         }
     }
     public function update(Request $request)
     {
+
         $commerce = Commerce::find($request->commerce_id);
         if (!$request->ajax()) return redirect('/');
-        //$commerce = Commerce::find($id);
-        $commercelocation = Location::findOrFail($request->ubicacion_id);
-        $commerce->nombre = $request->nombre;
-        $commerce->slug = $request->commerce_slug;
-        $commerce->descripcion = $request->descripcion;
-        $commerce->hora_apertura = $request->hora_apertura;
-        $commerce->hora_cierre = $request->hora_cierre;
-        $commerce->num_telefono = $request->num_telefono;
-        $commerce->email = $request->email;
-        $commerce->condition = $request->condition;
-        $commerce->ubicacion_id = $request->ubicacion_id;
-        $commerce->save();
-        $commercelocation->calle = $request->calle;
-        $commercelocation->numero_interior = $request->numero_interior;
-        $commercelocation->numero_exterior = $request->numero_exterior;
-        $commercelocation->city = $request->city;
-        $commercelocation->state = $request->state;
-        $commercelocation->country = $request->country;
-        $commercelocation->latitude = $request->latitude;
-        $commercelocation->longitude = $request->longitude;
-        $commercelocation->save();
+        try {
+            DB::beginTransaction();
+            //$commerce = Commerce::find($id);
+            $commercelocation = Location::findOrFail($request->ubicacion_id);
+            $commerce->nombre = $request->nombre;
+            $commerce->slug = $request->commerce_slug;
+            $commerce->descripcion = $request->descripcion;
+            $commerce->hora_apertura = $request->hora_apertura;
+            $commerce->hora_cierre = $request->hora_cierre;
+            $commerce->num_telefono = $request->num_telefono;
+            $commerce->email = $request->email;
+            $commerce->condition = $request->condition;
+            $commerce->ubicacion_id = $request->ubicacion_id;
+            $commerce->save();
+            $commercelocation->calle = $request->calle;
+            $commercelocation->numero_interior = $request->numero_interior;
+            $commercelocation->numero_exterior = $request->numero_exterior;
+            $commercelocation->city = $request->city;
+            $commercelocation->state = $request->state;
+            $commercelocation->country = $request->country;
+            $commercelocation->latitude = $request->latitude;
+            $commercelocation->longitude = $request->longitude;
+            $commercelocation->save();
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
     }
 
     public function selectCommerceRole(Request $request)
     {
         $commerceroleid = Role::select(
-                'roles.id as role_id',
-                'roles.name as role_name',
-                'roles.slug as role_slug',
-                'roles.description as role_description',
-                'special'
-            )
+            'roles.id as role_id',
+            'roles.name as role_name',
+            'roles.slug as role_slug',
+            'roles.description as role_description',
+            'special'
+        )
             ->get();
         return ['commerceroleid' => $commerceroleid];
     }
@@ -357,5 +416,93 @@ class CommerceController extends Controller
     {
         $commerceuserid = CommerceUser::get();
         return ['commerceuserid' => $commerceuserid];
+    }
+    //change methods
+
+
+    /*public function department(): JsonResponse
+    {
+      $departments = Department::wherecommerce_id(request('commerce'))
+      ->select('id as department_id', 'commerce_id', 'name')
+                 ->get();
+                 return response()->json($departments);
+       //Hay que obtener unicamente los items propios::))
+    }*/
+    public function department(Request $request): JsonResponse
+    {
+        $commerce_d = $request->commerce_id;
+        //$commerce_id    = Commerce::where('commerces.slug','=', $commerce_d )->pluck('commerces.id')->first();
+        return response()->json(Department::select('id as department_id', 'commerce_id', 'name')
+            //->where('departments.commerce_id', $commerce_d)
+            ->get());
+    }
+    public function category(): JsonResponse
+    {
+        $categories = Category::wheredepartment_id(request('department'))
+            ->select('categories.name as category_name', 'categories.id as category_id')
+            ->orderBy('name', 'asc')
+            ->get();
+        return response()->json($categories);
+    }
+    public function product(Request $request): JsonResponse
+    {
+        $buscar = $request->buscar;
+        if ($buscar == '') {
+            $products = Product::wherecategory_id(request('category'))
+                ->join('categories', 'products.category_id', '=', 'categories.id')
+                ->join('departments', 'categories.department_id', '=', 'departments.id')
+                ->join('commerces', 'departments.commerce_id', '=', 'commerces.id')
+                ->select(
+                    'products.name as product_name',
+                    'products.id as product_id',
+                    'products.descripcion as product_description',
+                    'products.presentacion as product_presentation',
+                    'products.precio_venta',
+                    'products.condition as product_condition',
+                    'commerces.nombre as commerce_product'
+                )
+                ->get();
+            //->paginate(10);
+            return response()->json($products);
+            /*
+            return response()->json([
+                'pagination' => [
+                    'total'        => $products->total(),
+                    'current_page' => $products->currentPage(),
+                    'per_page'     => $products->perPage(),
+                    'last_page'    => $products->lastPage(),
+                    'from'         => $products->firstItem(),
+                    'to'           => $products->lastItem(),
+                ],
+                'products' => response()->json($products)
+            ]);
+            */
+        } else {
+            $products = Product::wherecategory_id(request('category'))
+                ->select(
+                    'name as product_name',
+                    'id as product_id',
+                    'descripcion as product_description',
+                    'presentacion as product_resentation',
+                    'precio_venta',
+                    'category_id',
+                    'condition as product_condition'
+                )
+                ->where('name', '%' . $buscar . '%')
+                //->get();
+                ->paginate(10);
+
+            return response()->json([
+                'pagination' => [
+                    'total'        => $products->total(),
+                    'current_page' => $products->currentPage(),
+                    'per_page'     => $products->perPage(),
+                    'last_page'    => $products->lastPage(),
+                    'from'         => $products->firstItem(),
+                    'to'           => $products->lastItem(),
+                ],
+                'products' => response()->json($products)
+            ]);
+        }
     }
 }

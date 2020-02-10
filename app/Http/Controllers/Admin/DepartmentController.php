@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\DB;
 use App\Department;
 use App\Commerce;
 use App\CommerceUser;
@@ -42,18 +42,44 @@ class DepartmentController extends Controller
         return view('admin.departments.index', compact('departments'));
             }
     }
-    
-    public function department($slug, Request $request) //Muestra los departments que pertenecen a una misma tienda
+    public function departments(Request $request) //Muestra los departments que pertenecen a una misma tienda
     {
+        $commerce_d =$request->commerce_d;
+        $commerce    = Commerce::where('commerces.slug', $commerce_d)->pluck('id')->first();
+        $departments =Department::select('departments.name','departments.body','departments.id as department_id',
+        'departments.commerce_id','departments.slug')
+        ->paginate(3);
+        return [
+            'pagination' => [
+                'total'        => $departments->total(),
+                'current_page' => $departments->currentPage(),
+                'per_page'     => $departments->perPage(),
+                'last_page'    => $departments->lastPage(),
+                'from'         => $departments->firstItem(),
+                'to'           => $departments->lastItem(),
+            ],
+            'departments' => $departments
+        ];
+        /*
         $buscar   = $request->buscar;
         $criterio = $request->criterio;
-        $commerce_d  = Commerce::where('slug', $slug)->first();
-        //$departamento_d  = Departamento::where('slug', $slug)->first();
-        if ($buscar == '')        {
-            
-            $commerce    = Commerce::where('slug', $slug)->pluck('id')->first();
+        $commerce_d =$request->commerce_d;
+        $commerce    = Commerce::where('commerce_slug', $commerce_d)->pluck('commerce_id')->first();
+        //$commerce_d  = Commerce::where('commerce_slug', $slug)->first();
+        $departments= Department::select('departments.name','departments.body','departments.commerce_id','commerces.slug')
+        ->join('commerces','commerces.id','=','departments.commerce_id')
+        ->where('departments.commerce_id','=',$commerce);*/
+        return $departments;
+       /* 
+        return $departments = Department::
+        where('commerce_id', $commerce)->get()
+        ->orderBy('name', 'ASC')->paginate(3);*/
+      
+        //$departamento_d  = Departamento::where('commerce_slug', $commerce_slug)->first();
+       /* if ($buscar == '')        {            
+            $commerce    = Commerce::where('slug', $slug)->pluck('commerce_id')->first();
             $departments = Department::where('commerce_id', $commerce)->orderBy('name', 'ASC')->paginate(3);
-            return view('admin.departments.index', compact('departments', 'commerce_d'));
+            //return view('admin.departments.index', compact('departments', 'commerce_d'));
         }
         else
         {
@@ -61,7 +87,7 @@ class DepartmentController extends Controller
             $tienda    = Commerce::where('slug', $slug)->pluck('id')->first();
             $departments = Department::where('commerce_id', $tienda)->orderBy('name', 'ASC')->where($criterio, 'like', '%' . $buscar . '%')->paginate(3);
             return view('admin.tienda_departamentos.index', compact('departments', 'commerce_d'));
-        }
+        }*/
     }
     /**
      * Show the form for creating a new resource.
@@ -85,7 +111,7 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DepartmentStoreRequest $request)
+    public function storex(DepartmentStoreRequest $request)
     {
         
         $department = Department::create($request->all());
@@ -95,6 +121,28 @@ class DepartmentController extends Controller
         }
        return redirect()->route('departments.edit', $department->id)
         ->with('info', 'Departamento creado con éxito');
+    }
+    public function store(Request $request){
+        if (!$request->ajax()) return redirect('/');
+        try {
+            DB::beginTransaction();
+            //Insertar valores de  negocio
+            $department = new Department();
+            $department->commerce_id= $request->commerce_id;
+            $department->name= $request->name;
+            $department->slug = $request->slug;
+            $department->body = $request->body;
+            $department->condition = $request->condition;
+            $department->save();
+            
+            if ($request->file('image')) {
+                $path = Storage::disk('public')->put('image',  $request->file('image'));
+                $department->fill(['file' => asset($path)])->save();
+            }
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
     }
 
     /**
@@ -140,16 +188,30 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(DepartmentUpdateRequest $request, $id)
+    public function update(Request $request)
     {
         $department = Department::find($id);
-        $department->fill($request->all())->save();
-        if($request->file('image')){
-            $path = Storage::disk('public')->put('image',  $request->file('image'));
-            $department->fill(['file' => asset($path)])->save();
-        }   
-        return redirect()->route('departments.edit', 
-        $department->id)->with('info', 'Info de department actualizada con éxito');
+        if (!$request->ajax()) return redirect('/');
+        try {
+            DB::beginTransaction();
+            //Insertar valores de  negocio
+            $department = new Department();
+            $department->commerce_id= $request->commerce_id;
+            $department->name= $request->name;
+            $department->slug = $request->slug;
+            $department->body = $request->body;
+            $department->condition = $request->condition;
+            
+            $department->save();
+            
+            if ($request->file('image')) {
+                $path = Storage::disk('public')->put('image',  $request->file('image'));
+                $department->fill(['file' => asset($path)])->save();
+            }
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
     }
 
     /**
