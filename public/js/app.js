@@ -2677,10 +2677,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 //import InfiniteLoading from "vue-infinite-loading";
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2845,6 +2841,114 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return console.table(error);
       });
     },
+    abrirModalDep: function abrirModalDep(modelo, accion) {
+      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+
+      switch (modelo) {
+        case "department":
+          {
+            switch (accion) {
+              case "registrar":
+                {
+                  this.modal = 1;
+                  this.tipoAccion = 1;
+                  this.tituloModal = "Agregar departamento";
+                  this.department_name = "";
+                  this.department_slug = "";
+                  this.department_body = "";
+                  this.department_condition = "";
+                  break;
+                }
+
+              case "actualizar":
+                {
+                  //console.log(data);
+                  this.department_id = data["department_id"];
+                  this.modal = 1;
+                  this.tituloModal = "Editar departamento";
+                  this.tipoAccion = 2;
+                  this.name = data["name"];
+                  this.department_body = data["department_body"];
+                  this.department_slug = data["department_slug"];
+                  break;
+                }
+            }
+          }
+          break;
+      }
+    },
+    abrirModalCat: function abrirModalCat(modelo, accion) {
+      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+
+      switch (modelo) {
+        case "category":
+          {
+            switch (accion) {
+              case "registrar":
+                {
+                  this.modal = 2;
+                  this.tituloModal = "Agregar categoria ";
+                  this.category_name = "";
+                  this.category_slug = "";
+                  this.category_body = "";
+                  this.category_condition = "";
+                  this.tipoAccion = 3;
+                  break;
+                }
+
+              case "actualizar":
+                {
+                  //console.log(data);
+                  this.category_id = data["category_id"];
+                  this.modal = 2;
+                  this.tituloModal = "Editar categoria ";
+                  this.tipoAccion = 4;
+                  this.name = data["name"];
+                  this.category_body = data["category_body"];
+                  this.category_slug = data["category_slug"];
+                  break;
+                }
+            }
+          }
+          break;
+      }
+    },
+    abrirModalProd: function abrirModalProd(modelo, accion) {
+      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+
+      switch (modelo) {
+        case "product":
+          {
+            switch (accion) {
+              case "registrar":
+                {
+                  this.modal = 3;
+                  this.tituloModal = "Agregar producto";
+                  this.product_name = "";
+                  this.product_slug = "";
+                  this.product_body = "";
+                  this.product_condition = "";
+                  this.tipoAccion = 5;
+                  break;
+                }
+
+              case "actualizar":
+                {
+                  //console.log(data);
+                  this.product_id = data["product_id"];
+                  this.modal = 3;
+                  this.tituloModal = "Editar producto";
+                  this.tipoAccion = 6;
+                  this.name = data["name"];
+                  this.product_body = data["product_body"];
+                  this.product_slug = data["product_slug"];
+                  break;
+                }
+            }
+          }
+          break;
+      }
+    },
     abrirModal: function abrirModal(modelo, accion) {
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
@@ -2882,102 +2986,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
                   _me.departments();
 
-                  break;
-                }
-            }
-          }
-          break;
-
-        case "department":
-          {
-            this.modal = d;
-
-            switch (accion) {
-              case "registrar":
-                {
-                  this.modal = 1;
-                  this.tipoAccion = 1;
-                  this.tituloModal = "Agregar departamento";
-                  this.tipoAccion = 2;
-                  this.department_name = "";
-                  this.department_slug = "";
-                  this.department_body = "";
-                  this.department_condition = "";
-                  break;
-                }
-
-              case "actualizar":
-                {
-                  //console.log(data);
-                  this.department_id = data["department_id"];
-                  this.modal = 2;
-                  this.tituloModal = "Editar departamento";
-                  this.tipoAccion = 2;
-                  this.name = data["name"];
-                  this.department_body = data["department_body"];
-                  this.department_slug = data["department_slug"];
-                  break;
-                }
-            }
-          }
-          break;
-
-        case "category":
-          {
-            switch (accion) {
-              case "registrar":
-                {
-                  this.modal = 3;
-                  this.tituloModal = "Agregar categoria ";
-                  this.category_name = "";
-                  this.category_slug = "";
-                  this.category_body = "";
-                  this.category_condition = "";
-                  this.tipoAccion = 3;
-                  break;
-                }
-
-              case "actualizar":
-                {
-                  //console.log(data);
-                  this.category_id = data["category_id"];
-                  this.modal = 4;
-                  this.tituloModal = "Editar categoria ";
-                  this.tipoAccion = 4;
-                  this.name = data["name"];
-                  this.category_body = data["category_body"];
-                  this.category_slug = data["category_slug"];
-                  break;
-                }
-            }
-          }
-          break;
-
-        case "product":
-          {
-            switch (accion) {
-              case "registrar":
-                {
-                  this.modal = 5;
-                  this.tituloModal = "Agregar producto";
-                  this.product_name = "";
-                  this.product_slug = "";
-                  this.product_body = "";
-                  this.product_condition = "";
-                  this.tipoAccion = 5;
-                  break;
-                }
-
-              case "actualizar":
-                {
-                  //console.log(data);
-                  this.product_id = data["product_id"];
-                  this.modal = 6;
-                  this.tituloModal = "Editar producto";
-                  this.tipoAccion = 6;
-                  this.name = data["name"];
-                  this.product_body = data["product_body"];
-                  this.product_slug = data["product_slug"];
                   break;
                 }
             }
@@ -40769,7 +40777,10 @@ var render = function() {
                             attrs: { type: "button" },
                             on: {
                               click: function($event) {
-                                return _vm.abrirModal("department", "registrar")
+                                return _vm.abrirModalDep(
+                                  "department",
+                                  "registrar"
+                                )
                               }
                             }
                           },
@@ -40789,7 +40800,10 @@ var render = function() {
                             attrs: { type: "button" },
                             on: {
                               click: function($event) {
-                                return _vm.abrirModal("category", "registrar")
+                                return _vm.abrirModalCat(
+                                  "category",
+                                  "registrar"
+                                )
                               }
                             }
                           },
@@ -40809,7 +40823,10 @@ var render = function() {
                             attrs: { type: "button" },
                             on: {
                               click: function($event) {
-                                return _vm.abrirModal("product", "registrar")
+                                return _vm.abrirModalProd(
+                                  "product",
+                                  "registrar"
+                                )
                               }
                             }
                           },
@@ -41138,7 +41155,7 @@ var render = function() {
               _vm._m(18)
             ]),
             _vm._v(" "),
-            _vm.modal == _vm.d
+            _vm.modal == 1
               ? _c(
                   "div",
                   {
@@ -41422,801 +41439,852 @@ var render = function() {
                 )
               : _vm._e(),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "modal fade",
-                class: { mostrar: _vm.modal },
-                staticStyle: { display: "none", "overflow-y": "auto" },
-                attrs: {
-                  tabindex: "-1",
-                  role: "dialog",
-                  "aria-labelledby": "myModalLabel",
-                  "aria-hidden": "true"
-                }
-              },
-              [
-                _c(
+            _vm.modal == 2
+              ? _c(
                   "div",
                   {
-                    staticClass: "modal-dialog modal-primary modal-lg",
-                    attrs: { role: "document" }
+                    staticClass: "modal fade",
+                    class: { mostrar: _vm.modal },
+                    staticStyle: { display: "none", "overflow-y": "auto" },
+                    attrs: {
+                      tabindex: "-1",
+                      role: "dialog",
+                      "aria-labelledby": "myModalLabel",
+                      "aria-hidden": "true"
+                    }
                   },
                   [
-                    _c("div", { staticClass: "modal-content" }, [
-                      _c("div", { staticClass: "modal-header-SUCCESS" }, [
-                        _c("h4", {
-                          staticClass: "modal-title",
-                          domProps: { textContent: _vm._s(_vm.tituloModal) }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "close",
-                            attrs: { type: "button", "aria-label": "Close" },
-                            on: {
-                              click: function($event) {
-                                return _vm.cerrarModalCat()
-                              }
-                            }
-                          },
-                          [
-                            _c("span", { attrs: { "aria-hidden": "true" } }, [
-                              _vm._v("×")
-                            ])
-                          ]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "modal-body" }, [
-                        _c(
-                          "form",
-                          {
-                            staticClass: "form-horizontal",
-                            attrs: {
-                              action: "",
-                              method: "post",
-                              enctype: "multipart/form-data"
-                            }
-                          },
-                          [
-                            _c("div", { staticClass: "form-group row" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "col-md-3 form-control-label",
-                                  attrs: { for: "text-input" }
-                                },
-                                [_vm._v("Nombre")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-9" }, [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.cat_name,
-                                      expression: "cat_name"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    id: "name",
-                                    placeholder: "frutas de temporada"
-                                  },
-                                  domProps: { value: _vm.cat_name },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.cat_name = $event.target.value
-                                    }
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group row" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "col-md-3 form-control-label",
-                                  attrs: { for: "text-input" }
-                                },
-                                [_vm._v("Slug")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-9" }, [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.category_slug,
-                                      expression: "category_slug"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    id: "category_slug",
-                                    placeholder: "frutas-de-temporada",
-                                    required: ""
-                                  },
-                                  domProps: { value: _vm.category_slug },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.category_slug = $event.target.value
-                                    }
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group row" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "col-md-3 form-control-label",
-                                  attrs: { for: "email-input" }
-                                },
-                                [_vm._v("Descripción")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-9" }, [
-                                _c("textarea", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.category_body,
-                                      expression: "category_body"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    required: "",
-                                    rows: "5",
-                                    maxlength: "900",
-                                    id: "category_body",
-                                    placeholder: "Ingrese descripción"
-                                  },
-                                  domProps: { value: _vm.category_body },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.category_body = $event.target.value
-                                    }
-                                  }
-                                })
-                              ])
-                            ]),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "modal-dialog modal-primary modal-lg",
+                        attrs: { role: "document" }
+                      },
+                      [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c("div", { staticClass: "modal-header-SUCCESS" }, [
+                            _c("h4", {
+                              staticClass: "modal-title",
+                              domProps: { textContent: _vm._s(_vm.tituloModal) }
+                            }),
                             _vm._v(" "),
                             _c(
-                              "div",
+                              "button",
                               {
-                                directives: [
-                                  {
-                                    name: "show",
-                                    rawName: "v-show",
-                                    value: _vm.errorCategory,
-                                    expression: "errorCategory"
+                                staticClass: "close",
+                                attrs: {
+                                  type: "button",
+                                  "aria-label": "Close"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.cerrarModalCat()
                                   }
-                                ],
-                                staticClass: "form-group row div-error"
+                                }
                               },
                               [
                                 _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "text-center text-error bg-danger"
-                                  },
-                                  _vm._l(_vm.errorMostrarMsjCategory, function(
-                                    error
-                                  ) {
-                                    return _c("div", {
-                                      key: error,
-                                      domProps: { textContent: _vm._s(error) }
-                                    })
-                                  }),
-                                  0
+                                  "span",
+                                  { attrs: { "aria-hidden": "true" } },
+                                  [_vm._v("×")]
                                 )
                               ]
                             )
-                          ]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "modal-footer" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-secondary",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                return _vm.cerrarModalCat()
-                              }
-                            }
-                          },
-                          [_vm._v("Cerrar")]
-                        ),
-                        _vm._v(" "),
-                        _vm.tipoAccion == 3
-                          ? _c(
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "modal-body" }, [
+                            _c(
+                              "form",
+                              {
+                                staticClass: "form-horizontal",
+                                attrs: {
+                                  action: "",
+                                  method: "post",
+                                  enctype: "multipart/form-data"
+                                }
+                              },
+                              [
+                                _c("div", { staticClass: "form-group row" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass:
+                                        "col-md-3 form-control-label",
+                                      attrs: { for: "text-input" }
+                                    },
+                                    [_vm._v("Nombre")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-md-9" }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.cat_name,
+                                          expression: "cat_name"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        id: "name",
+                                        placeholder: "frutas de temporada"
+                                      },
+                                      domProps: { value: _vm.cat_name },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.cat_name = $event.target.value
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "form-group row" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass:
+                                        "col-md-3 form-control-label",
+                                      attrs: { for: "text-input" }
+                                    },
+                                    [_vm._v("Slug")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-md-9" }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.category_slug,
+                                          expression: "category_slug"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        id: "category_slug",
+                                        placeholder: "frutas-de-temporada",
+                                        required: ""
+                                      },
+                                      domProps: { value: _vm.category_slug },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.category_slug =
+                                            $event.target.value
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "form-group row" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass:
+                                        "col-md-3 form-control-label",
+                                      attrs: { for: "email-input" }
+                                    },
+                                    [_vm._v("Descripción")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-md-9" }, [
+                                    _c("textarea", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.category_body,
+                                          expression: "category_body"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        required: "",
+                                        rows: "5",
+                                        maxlength: "900",
+                                        id: "category_body",
+                                        placeholder: "Ingrese descripción"
+                                      },
+                                      domProps: { value: _vm.category_body },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.category_body =
+                                            $event.target.value
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: _vm.errorCategory,
+                                        expression: "errorCategory"
+                                      }
+                                    ],
+                                    staticClass: "form-group row div-error"
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "text-center text-error bg-danger"
+                                      },
+                                      _vm._l(
+                                        _vm.errorMostrarMsjCategory,
+                                        function(error) {
+                                          return _c("div", {
+                                            key: error,
+                                            domProps: {
+                                              textContent: _vm._s(error)
+                                            }
+                                          })
+                                        }
+                                      ),
+                                      0
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "modal-footer" }, [
+                            _c(
                               "button",
                               {
-                                staticClass: "btn btn-success far fa-save",
+                                staticClass: "btn btn-secondary",
                                 attrs: { type: "button" },
                                 on: {
                                   click: function($event) {
-                                    return _vm.registrarCategory()
+                                    return _vm.cerrarModalCat()
                                   }
                                 }
                               },
-                              [_vm._v("Guardar")]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.tipoAccion == 4
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-primary",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.actualizarCategory()
-                                  }
-                                }
-                              },
-                              [_vm._v("Actualizar")]
-                            )
-                          : _vm._e()
-                      ])
-                    ])
+                              [_vm._v("Cerrar")]
+                            ),
+                            _vm._v(" "),
+                            _vm.tipoAccion == 3
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-success far fa-save",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.registrarCategory()
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Guardar")]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.tipoAccion == 4
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.actualizarCategory()
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Actualizar")]
+                                )
+                              : _vm._e()
+                          ])
+                        ])
+                      ]
+                    )
                   ]
                 )
-              ]
-            ),
+              : _vm._e(),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "modal fade",
-                class: { mostrar: _vm.modal },
-                staticStyle: { display: "none", "overflow-y": "auto" },
-                attrs: {
-                  tabindex: "-1",
-                  role: "dialog",
-                  "aria-labelledby": "myModalLabel",
-                  "aria-hidden": "true"
-                }
-              },
-              [
-                _c(
+            _vm.modal == 3
+              ? _c(
                   "div",
                   {
-                    staticClass: "modal-dialog modal-primary modal-lg",
-                    attrs: { role: "document" }
+                    staticClass: "modal fade",
+                    class: { mostrar: _vm.modal },
+                    staticStyle: { display: "none", "overflow-y": "auto" },
+                    attrs: {
+                      tabindex: "-1",
+                      role: "dialog",
+                      "aria-labelledby": "myModalLabel",
+                      "aria-hidden": "true"
+                    }
                   },
                   [
-                    _c("div", { staticClass: "modal-content" }, [
-                      _c("div", { staticClass: "modal-header-SUCCESS" }, [
-                        _c("h4", {
-                          staticClass: "modal-title",
-                          domProps: { textContent: _vm._s(_vm.tituloModal) }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "close",
-                            attrs: { type: "button", "aria-label": "Close" },
-                            on: {
-                              click: function($event) {
-                                return _vm.cerrarModalProd()
-                              }
-                            }
-                          },
-                          [
-                            _c("span", { attrs: { "aria-hidden": "true" } }, [
-                              _vm._v("×")
-                            ])
-                          ]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "modal-body" }, [
-                        _c(
-                          "form",
-                          {
-                            staticClass: "form-horizontal",
-                            attrs: {
-                              action: "",
-                              method: "post",
-                              enctype: "multipart/form-data"
-                            }
-                          },
-                          [
-                            _c("div", { staticClass: "form-group col-md-3" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "form-control-label",
-                                  attrs: { for: "text-input" }
-                                },
-                                [_vm._v("Departamento")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "select",
-                                {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.changestate.department,
-                                      expression: "changestate.department"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  on: {
-                                    change: [
-                                      function($event) {
-                                        var $$selectedVal = Array.prototype.filter
-                                          .call($event.target.options, function(
-                                            o
-                                          ) {
-                                            return o.selected
-                                          })
-                                          .map(function(o) {
-                                            var val =
-                                              "_value" in o ? o._value : o.value
-                                            return val
-                                          })
-                                        _vm.$set(
-                                          _vm.changestate,
-                                          "department",
-                                          $event.target.multiple
-                                            ? $$selectedVal
-                                            : $$selectedVal[0]
-                                        )
-                                      },
-                                      _vm.department
-                                    ]
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "0", disabled: "" } },
-                                    [_vm._v("Seleccione")]
-                                  ),
-                                  _vm._v(" "),
-                                  _vm._l(_vm.arrayDepartment, function(
-                                    department
-                                  ) {
-                                    return _c("option", {
-                                      key: department.department_id,
-                                      domProps: {
-                                        value: department.department_id,
-                                        textContent: _vm._s(department.name)
-                                      }
-                                    })
-                                  })
-                                ],
-                                2
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-3" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "form-control-label",
-                                  attrs: { for: "text-input" }
-                                },
-                                [_vm._v("Categoria")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "select",
-                                {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.changestate.category,
-                                      expression: "changestate.category"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  on: {
-                                    change: [
-                                      function($event) {
-                                        var $$selectedVal = Array.prototype.filter
-                                          .call($event.target.options, function(
-                                            o
-                                          ) {
-                                            return o.selected
-                                          })
-                                          .map(function(o) {
-                                            var val =
-                                              "_value" in o ? o._value : o.value
-                                            return val
-                                          })
-                                        _vm.$set(
-                                          _vm.changestate,
-                                          "category",
-                                          $event.target.multiple
-                                            ? $$selectedVal
-                                            : $$selectedVal[0]
-                                        )
-                                      },
-                                      _vm.category
-                                    ]
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "0", disabled: "" } },
-                                    [_vm._v("Seleccione")]
-                                  ),
-                                  _vm._v(" "),
-                                  _vm._l(_vm.arrayCategory, function(category) {
-                                    return _c("option", {
-                                      key: category.category_id,
-                                      domProps: {
-                                        value: category.category_id,
-                                        textContent: _vm._s(
-                                          category.category_name
-                                        )
-                                      }
-                                    })
-                                  })
-                                ],
-                                2
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group row" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "col-md-3 form-control-label",
-                                  attrs: { for: "text-input" }
-                                },
-                                [_vm._v("Nombre")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-9" }, [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.product_name,
-                                      expression: "product_name"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    id: "product_name",
-                                    placeholder: "American Green Apples"
-                                  },
-                                  domProps: { value: _vm.product_name },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.product_name = $event.target.value
-                                    }
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group row" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "col-md-3 form-control-label",
-                                  attrs: { for: "text-input" }
-                                },
-                                [_vm._v("Slug")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-9" }, [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.product_slug,
-                                      expression: "product_slug"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    id: "product_slug",
-                                    placeholder: "american-green-apples",
-                                    required: ""
-                                  },
-                                  domProps: { value: _vm.product_slug },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.product_slug = $event.target.value
-                                    }
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group row" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "col-md-3 form-control-label",
-                                  attrs: { for: "email-input" }
-                                },
-                                [_vm._v("Descripción")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-9" }, [
-                                _c("textarea", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.product_body,
-                                      expression: "product_body"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    required: "",
-                                    rows: "5",
-                                    maxlength: "900",
-                                    id: "product_body",
-                                    placeholder: "Ingrese descripción"
-                                  },
-                                  domProps: { value: _vm.product_body },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.product_body = $event.target.value
-                                    }
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group row" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "col-md-3 form-control-label",
-                                  attrs: { for: "email-input" }
-                                },
-                                [_vm._v("Stock")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-9" }, [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.product_stock,
-                                      expression: "product_stock"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "numeric",
-                                    id: "product_stock",
-                                    placeholder: "900"
-                                  },
-                                  domProps: { value: _vm.product_stock },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.product_stock = $event.target.value
-                                    }
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group row" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "col-md-3 form-control-label",
-                                  attrs: { for: "email-input" }
-                                },
-                                [_vm._v("Presentacion")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-9" }, [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.product_presentation,
-                                      expression: "product_presentation"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    id: "product_presentation",
-                                    placeholder: "Box 5 lbs"
-                                  },
-                                  domProps: { value: _vm.product_presentation },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.product_presentation =
-                                        $event.target.value
-                                    }
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group row" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "col-md-3 form-control-label",
-                                  attrs: { for: "email-input" }
-                                },
-                                [_vm._v("Precio venta")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-9" }, [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.product_precio,
-                                      expression: "product_precio"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "numeric",
-                                    id: "product_precio",
-                                    placeholder: "900"
-                                  },
-                                  domProps: { value: _vm.product_precio },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.product_precio = $event.target.value
-                                    }
-                                  }
-                                })
-                              ])
-                            ]),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "modal-dialog modal-primary modal-lg",
+                        attrs: { role: "document" }
+                      },
+                      [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c("div", { staticClass: "modal-header-SUCCESS" }, [
+                            _c("h4", {
+                              staticClass: "modal-title",
+                              domProps: { textContent: _vm._s(_vm.tituloModal) }
+                            }),
                             _vm._v(" "),
                             _c(
-                              "div",
+                              "button",
                               {
-                                directives: [
-                                  {
-                                    name: "show",
-                                    rawName: "v-show",
-                                    value: _vm.errorCategory,
-                                    expression: "errorCategory"
+                                staticClass: "close",
+                                attrs: {
+                                  type: "button",
+                                  "aria-label": "Close"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.cerrarModalProd()
                                   }
-                                ],
-                                staticClass: "form-group row div-error"
+                                }
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  { attrs: { "aria-hidden": "true" } },
+                                  [_vm._v("×")]
+                                )
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "modal-body" }, [
+                            _c(
+                              "form",
+                              {
+                                staticClass: "form-horizontal",
+                                attrs: {
+                                  action: "",
+                                  method: "post",
+                                  enctype: "multipart/form-data"
+                                }
                               },
                               [
                                 _c(
                                   "div",
-                                  {
-                                    staticClass:
-                                      "text-center text-error bg-danger"
-                                  },
-                                  _vm._l(_vm.errorMostrarMsjCategory, function(
-                                    error
-                                  ) {
-                                    return _c("div", {
-                                      key: error,
-                                      domProps: { textContent: _vm._s(error) }
+                                  { staticClass: "form-group col-md-3" },
+                                  [
+                                    _c(
+                                      "label",
+                                      {
+                                        staticClass: "form-control-label",
+                                        attrs: { for: "text-input" }
+                                      },
+                                      [_vm._v("Departamento")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "select",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.changestate.department,
+                                            expression: "changestate.department"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        on: {
+                                          change: [
+                                            function($event) {
+                                              var $$selectedVal = Array.prototype.filter
+                                                .call(
+                                                  $event.target.options,
+                                                  function(o) {
+                                                    return o.selected
+                                                  }
+                                                )
+                                                .map(function(o) {
+                                                  var val =
+                                                    "_value" in o
+                                                      ? o._value
+                                                      : o.value
+                                                  return val
+                                                })
+                                              _vm.$set(
+                                                _vm.changestate,
+                                                "department",
+                                                $event.target.multiple
+                                                  ? $$selectedVal
+                                                  : $$selectedVal[0]
+                                              )
+                                            },
+                                            _vm.department
+                                          ]
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "option",
+                                          {
+                                            attrs: { value: "0", disabled: "" }
+                                          },
+                                          [_vm._v("Seleccione")]
+                                        ),
+                                        _vm._v(" "),
+                                        _vm._l(_vm.arrayDepartment, function(
+                                          department
+                                        ) {
+                                          return _c("option", {
+                                            key: department.department_id,
+                                            domProps: {
+                                              value: department.department_id,
+                                              textContent: _vm._s(
+                                                department.name
+                                              )
+                                            }
+                                          })
+                                        })
+                                      ],
+                                      2
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "form-control-label",
+                                      attrs: { for: "text-input" }
+                                    },
+                                    [_vm._v("Categoria")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.changestate.category,
+                                          expression: "changestate.category"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      on: {
+                                        change: [
+                                          function($event) {
+                                            var $$selectedVal = Array.prototype.filter
+                                              .call(
+                                                $event.target.options,
+                                                function(o) {
+                                                  return o.selected
+                                                }
+                                              )
+                                              .map(function(o) {
+                                                var val =
+                                                  "_value" in o
+                                                    ? o._value
+                                                    : o.value
+                                                return val
+                                              })
+                                            _vm.$set(
+                                              _vm.changestate,
+                                              "category",
+                                              $event.target.multiple
+                                                ? $$selectedVal
+                                                : $$selectedVal[0]
+                                            )
+                                          },
+                                          _vm.category
+                                        ]
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "0", disabled: "" } },
+                                        [_vm._v("Seleccione")]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.arrayCategory, function(
+                                        category
+                                      ) {
+                                        return _c("option", {
+                                          key: category.category_id,
+                                          domProps: {
+                                            value: category.category_id,
+                                            textContent: _vm._s(
+                                              category.category_name
+                                            )
+                                          }
+                                        })
+                                      })
+                                    ],
+                                    2
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "form-group row" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass:
+                                        "col-md-3 form-control-label",
+                                      attrs: { for: "text-input" }
+                                    },
+                                    [_vm._v("Nombre")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-md-9" }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.product_name,
+                                          expression: "product_name"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        id: "product_name",
+                                        placeholder: "American Green Apples"
+                                      },
+                                      domProps: { value: _vm.product_name },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.product_name = $event.target.value
+                                        }
+                                      }
                                     })
-                                  }),
-                                  0
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "form-group row" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass:
+                                        "col-md-3 form-control-label",
+                                      attrs: { for: "text-input" }
+                                    },
+                                    [_vm._v("Slug")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-md-9" }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.product_slug,
+                                          expression: "product_slug"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        id: "product_slug",
+                                        placeholder: "american-green-apples",
+                                        required: ""
+                                      },
+                                      domProps: { value: _vm.product_slug },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.product_slug = $event.target.value
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "form-group row" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass:
+                                        "col-md-3 form-control-label",
+                                      attrs: { for: "email-input" }
+                                    },
+                                    [_vm._v("Descripción")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-md-9" }, [
+                                    _c("textarea", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.product_body,
+                                          expression: "product_body"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        required: "",
+                                        rows: "5",
+                                        maxlength: "900",
+                                        id: "product_body",
+                                        placeholder: "Ingrese descripción"
+                                      },
+                                      domProps: { value: _vm.product_body },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.product_body = $event.target.value
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "form-group row" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass:
+                                        "col-md-3 form-control-label",
+                                      attrs: { for: "email-input" }
+                                    },
+                                    [_vm._v("Stock")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-md-9" }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.product_stock,
+                                          expression: "product_stock"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "numeric",
+                                        id: "product_stock",
+                                        placeholder: "900"
+                                      },
+                                      domProps: { value: _vm.product_stock },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.product_stock =
+                                            $event.target.value
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "form-group row" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass:
+                                        "col-md-3 form-control-label",
+                                      attrs: { for: "email-input" }
+                                    },
+                                    [_vm._v("Presentacion")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-md-9" }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.product_presentation,
+                                          expression: "product_presentation"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        id: "product_presentation",
+                                        placeholder: "Box 5 lbs"
+                                      },
+                                      domProps: {
+                                        value: _vm.product_presentation
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.product_presentation =
+                                            $event.target.value
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "form-group row" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass:
+                                        "col-md-3 form-control-label",
+                                      attrs: { for: "email-input" }
+                                    },
+                                    [_vm._v("Precio venta")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-md-9" }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.product_precio,
+                                          expression: "product_precio"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "numeric",
+                                        id: "product_precio",
+                                        placeholder: "$900"
+                                      },
+                                      domProps: { value: _vm.product_precio },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.product_precio =
+                                            $event.target.value
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: _vm.errorCategory,
+                                        expression: "errorCategory"
+                                      }
+                                    ],
+                                    staticClass: "form-group row div-error"
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "text-center text-error bg-danger"
+                                      },
+                                      _vm._l(
+                                        _vm.errorMostrarMsjCategory,
+                                        function(error) {
+                                          return _c("div", {
+                                            key: error,
+                                            domProps: {
+                                              textContent: _vm._s(error)
+                                            }
+                                          })
+                                        }
+                                      ),
+                                      0
+                                    )
+                                  ]
                                 )
                               ]
                             )
-                          ]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "modal-footer row" }, [
-                        _vm.tipoAccion == 5
-                          ? _c(
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "modal-footer row" }, [
+                            _vm.tipoAccion == 5
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-success fas fa-save",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.registrarCategory()
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Guardar")]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.tipoAccion == 6
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-success fas fa-save",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.actualizarCategory()
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Actualizar")]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c(
                               "button",
                               {
-                                staticClass: "btn btn-success fas fa-save",
+                                staticClass: "btn btn-success fas fa-close",
                                 attrs: { type: "button" },
                                 on: {
                                   click: function($event) {
-                                    return _vm.registrarCategory()
+                                    return _vm.cerrarModalCat()
                                   }
                                 }
                               },
-                              [_vm._v("Guardar")]
+                              [_vm._v("Cerrar")]
                             )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.tipoAccion == 6
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-success fas fa-save",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.actualizarCategory()
-                                  }
-                                }
-                              },
-                              [_vm._v("Actualizar")]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-success fas fa-close",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                return _vm.cerrarModalCat()
-                              }
-                            }
-                          },
-                          [_vm._v("Cerrar")]
-                        )
-                      ])
-                    ])
+                          ])
+                        ])
+                      ]
+                    )
                   ]
                 )
-              ]
-            )
+              : _vm._e()
           ]
         : _vm._e(),
       _vm._v(" "),

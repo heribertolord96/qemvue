@@ -210,7 +210,7 @@
                   <button
                     type="button"
                     class="btn btn-default"
-                    @click="abrirModal('department','registrar')"
+                    @click="abrirModalDep('department','registrar')"
                   >Departamentos</button>
                   <button
                     type="button"
@@ -234,7 +234,7 @@
                   <button
                     type="button"
                     class="btn btn-info"
-                    @click="abrirModal('category','registrar')"
+                    @click="abrirModalCat('category','registrar')"
                   >Categorias</button>
                   <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
@@ -254,7 +254,7 @@
                   <button
                     type="button"
                     class="btn btn-danger"
-                    @click="abrirModal('product','registrar')"
+                    @click="abrirModalProd('product','registrar')"
                   >Productos</button>
                   <button
                     type="button"
@@ -413,7 +413,7 @@
                 <h3 v-text="product.product_name"></h3>
                 <p product.product_description></p>
                 <p product.product_presentation></p>
-                <h2 product.precio_venta></h2>
+                <h2  product.precio_venta></h2>
               </div>
             </div>
           </div>
@@ -472,104 +472,100 @@
           </div>
         </div>
       </div>
-      
-        <!--Inicio del modaldepartments agregar/actualizar-->
-        <div v-if="modal==d"
-          class="modal fade"
-          tabindex="-1"
-          :class="{'mostrar' : modal}"
-          role="dialog"
-          aria-labelledby="myModalLabel"
-          style="display: none; overflow-y:auto;"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-primary modal-lg" role="document">
-            <div class="modal-content">
-              <div class="modal-header-SUCCESS">
-                <h4 class="modal-title" v-text="tituloModal"></h4>
-                <button type="button" class="close" @click="cerrarModalDep()" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form action method="post" enctype="multipart/form-data" class="form-horizontal">
-                  <div class="form-group row">
-                    <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                    <div class="col-md-9">
-                      <input
-                        type="text"
-                        v-model="department_name"
-                        class="form-control"
-                        id="department_name"
-                        placeholder="Alimentos organicos"
-                      />
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-md-3 form-control-label" for="text-input">Slug</label>
-                    <div class="col-md-9">
-                      <input
-                        type="text"
-                        v-model="department_slug"
-                        class="form-control"
-                        id="department_slug"
-                        placeholder="alimentos-organicos"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-md-3 form-control-label" for="email-input">Descripción</label>
-                    <div class="col-md-9">
-                      <textarea
-                        required
-                        rows="5"
-                        maxlength="900"
-                        v-model="department_body"
-                        class="form-control"
-                        id="department_body"
-                        placeholder="Ingrese descripción"
-                      ></textarea>
-                    </div>
-                  </div>
 
-                  <div v-show="errorDepartment" class="form-group row div-error">
-                    <div class="text-center text-error bg-danger">
-                      <div v-for="error in errorMostrarMsjDepartment" :key="error" v-text="error"></div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary close"
-                  @click="cerrarModalDep()"
-                >Cerrar</button>
-                <button
-                  type="button"
-                  v-if="tipoAccion==1"
-                  class="btn btn-success fas fa-save"
-                  @click="registrarDepartment()"
-                >Guardar</button>
-                <button
-                  type="button"
-                  v-if="tipoAccion==2"
-                  class="btn btn-success fas fa-save"
-                  @click="actualizarDepartment()"
-                >Actualizar</button>
-              </div>
+      <!--Inicio del modaldepartments agregar/actualizar-->
+      <div  v-if="modal==1"      
+        class="modal fade"
+        tabindex="-1"
+        :class="{'mostrar' : modal}"
+        role="dialog"
+        aria-labelledby="myModalLabel"
+        style="display: none; overflow-y:auto;"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-primary modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header-SUCCESS">
+              <h4 class="modal-title" v-text="tituloModal"></h4>
+              <button type="button" class="close" @click="cerrarModalDep()" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
             </div>
-            <!-- /.modal-content -->
+            <div class="modal-body">
+              <form action method="post" enctype="multipart/form-data" class="form-horizontal">
+                <div class="form-group row">
+                  <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                  <div class="col-md-9">
+                    <input
+                      type="text"
+                      v-model="department_name"
+                      class="form-control"
+                      id="department_name"
+                      placeholder="Alimentos organicos"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-3 form-control-label" for="text-input">Slug</label>
+                  <div class="col-md-9">
+                    <input
+                      type="text"
+                      v-model="department_slug"
+                      class="form-control"
+                      id="department_slug"
+                      placeholder="alimentos-organicos"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-3 form-control-label" for="email-input">Descripción</label>
+                  <div class="col-md-9">
+                    <textarea
+                      required
+                      rows="5"
+                      maxlength="900"
+                      v-model="department_body"
+                      class="form-control"
+                      id="department_body"
+                      placeholder="Ingrese descripción"
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div v-show="errorDepartment" class="form-group row div-error">
+                  <div class="text-center text-error bg-danger">
+                    <div v-for="error in errorMostrarMsjDepartment" :key="error" v-text="error"></div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close" @click="cerrarModalDep()">Cerrar</button>
+              <button
+                type="button"
+                v-if="tipoAccion==1"
+                class="btn btn-success fas fa-save"
+                @click="registrarDepartment()"
+              >Guardar</button>
+              <button
+                type="button"
+                v-if="tipoAccion==2"
+                class="btn btn-success fas fa-save"
+                @click="actualizarDepartment()"
+              >Actualizar</button>
+            </div>
           </div>
-          <!-- /.modal-dialog -->
+          <!-- /.modal-content -->
         </div>
-        <!--Fin del modal-->
-     
+        <!-- /.modal-dialog -->
+      </div>
+      <!--Fin del modal-->
+
       <!--====================================================-->
-     
+
       <!--Inicio del modalcategoriess agregar/actualizar-->
-      <div
+      <div v-if="modal==2"
         class="modal fade"
         tabindex="-1"
         :class="{'mostrar' : modal}"
@@ -657,7 +653,7 @@
       </div>
       <!--Fin del modal categories-->
       <!--Inicio del modalproducts agregar/actualizar-->
-      <div
+      <div v-if="modal==3"
         class="modal fade"
         tabindex="-1"
         :class="{'mostrar' : modal}"
@@ -775,7 +771,7 @@
                       v-model="product_precio"
                       class="form-control"
                       id="product_precio"
-                      placeholder="900"
+                      placeholder="$900"
                     />
                   </div>
                 </div>
@@ -1026,6 +1022,100 @@ export default {
         })
         .catch(error => console.table(error));
     },
+    abrirModalDep(modelo, accion, data = []) {
+      switch (modelo) {
+        case "department":
+          {
+            switch (accion) {
+              case "registrar": {                
+                this.modal = 1;
+                this.tipoAccion = 1;
+                this.tituloModal = "Agregar departamento";
+                this.department_name = "";
+                this.department_slug = "";
+                this.department_body = "";
+                this.department_condition = "";
+
+                break;
+              }
+              case "actualizar": {
+                //console.log(data);
+                this.department_id = data["department_id"];
+                this.modal = 1;
+                this.tituloModal = "Editar departamento";
+                this.tipoAccion = 2;
+                this.name = data["name"];
+                this.department_body = data["department_body"];
+                this.department_slug = data["department_slug"];
+                break;
+              }
+            }
+          }
+          break;
+      }
+    },
+    abrirModalCat(modelo, accion, data = []) {
+      switch (modelo) {
+        case "category":
+          {
+            switch (accion) {
+              case "registrar": {
+                this.modal = 2;
+                this.tituloModal = "Agregar categoria ";
+                this.category_name = "";
+                this.category_slug = "";
+                this.category_body = "";
+                this.category_condition = "";
+                this.tipoAccion = 3;
+                break;
+              }
+              case "actualizar": {
+                //console.log(data);
+                this.category_id = data["category_id"];
+                this.modal = 2;
+                this.tituloModal = "Editar categoria ";
+                this.tipoAccion = 4;
+                this.name = data["name"];
+                this.category_body = data["category_body"];
+                this.category_slug = data["category_slug"];
+                break;
+              }
+            }
+          }
+          break;
+      }
+    },
+    abrirModalProd(modelo, accion, data = []) {
+      switch (modelo) {
+        case "product":
+          {
+            switch (accion) {
+              case "registrar": {
+                this.modal = 3;
+                this.tituloModal = "Agregar producto";
+                this.product_name = "";
+                this.product_slug = "";
+                this.product_body = "";
+                this.product_condition = "";
+                this.tipoAccion = 5;
+                break;
+              }
+              case "actualizar": {
+                //console.log(data);
+                this.product_id = data["product_id"];
+                this.modal = 3;
+                this.tituloModal = "Editar producto";
+                this.tipoAccion = 6;
+                this.name = data["name"];
+                this.product_body = data["product_body"];
+                this.product_slug = data["product_slug"];
+                break;
+              }
+            }
+          }
+          break;
+      }
+    },
     abrirModal(modelo, accion, data = []) {
       //this.selectCommerceRole();
       switch (modelo) {
@@ -1062,97 +1152,12 @@ export default {
             }
           }
           break;
-        case "department":
-          {
-            this.modal = d;
-            switch (accion) {
-              case "registrar": {
-                this.modal = 1;
-                this.tipoAccion = 1;
-                this.tituloModal = "Agregar departamento";
-                this.tipoAccion = 2;
-                this.department_name = "";
-                this.department_slug = "";
-                this.department_body = "";
-                this.department_condition = "";
-
-                break;
-              }
-              case "actualizar": {
-                //console.log(data);
-                this.department_id = data["department_id"];
-                this.modal = 2;
-                this.tituloModal = "Editar departamento";
-                this.tipoAccion = 2;
-                this.name = data["name"];
-                this.department_body = data["department_body"];
-                this.department_slug = data["department_slug"];
-                break;
-              }
-            }
-          }
-          break;
-        case "category":
-          {
-            switch (accion) {
-              case "registrar": {
-                this.modal = 3;
-                this.tituloModal = "Agregar categoria ";
-                this.category_name = "";
-                this.category_slug = "";
-                this.category_body = "";
-                this.category_condition = "";
-                this.tipoAccion = 3;
-                break;
-              }
-              case "actualizar": {
-                //console.log(data);
-                this.category_id = data["category_id"];
-                this.modal = 4;
-                this.tituloModal = "Editar categoria ";
-                this.tipoAccion = 4;
-                this.name = data["name"];
-                this.category_body = data["category_body"];
-                this.category_slug = data["category_slug"];
-                break;
-              }
-            }
-          }
-          break;
-        case "product":
-          {
-            switch (accion) {
-              case "registrar": {
-                this.modal = 5;
-                this.tituloModal = "Agregar producto";
-                this.product_name = "";
-                this.product_slug = "";
-                this.product_body = "";
-                this.product_condition = "";
-                this.tipoAccion = 5;
-                break;
-              }
-              case "actualizar": {
-                //console.log(data);
-                this.product_id = data["product_id"];
-                this.modal = 6;
-                this.tituloModal = "Editar producto";
-                this.tipoAccion = 6;
-                this.name = data["name"];
-                this.product_body = data["product_body"];
-                this.product_slug = data["product_slug"];
-                break;
-              }
-            }
-          }
-          break;
       }
     },
     registrarDepartment() {
       if (this.validarDepartment()) {
         return;
       }
-
       let me = this;
       axios
         .post("/department/store", {
