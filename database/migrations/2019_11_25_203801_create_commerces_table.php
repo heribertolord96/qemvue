@@ -15,7 +15,7 @@ class CreateCommercesTable extends Migration
     {
         Schema::create('commerces', function (Blueprint $table) {
             $table->BigIncrements('id');
-            $table->string('nombre',100);
+            $table->string('nombre',100)->unique();
             $table->string('slug', 128)->unique();
             $table->text('descripcion',500);
             $table->time('hora_apertura')->nullable();

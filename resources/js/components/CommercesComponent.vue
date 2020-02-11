@@ -214,7 +214,7 @@
                   >Departamentos</button>
                   <button
                     type="button"
-                    class="btn btn-card-tool dropdown-toggle"
+                    class="btn btn-card-tool dropdown-toggle2"
                     data-toggle="dropdown"
                   >
                     <span class="caret"></span>
@@ -236,7 +236,7 @@
                     class="btn btn-info"
                     @click="abrirModalCat('category','registrar')"
                   >Categorias</button>
-                  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                  <button type="button" class="btn btn-info dropdown-toggle2" data-toggle="dropdown">
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
@@ -258,7 +258,7 @@
                   >Productos</button>
                   <button
                     type="button"
-                    class="btn btn-danger dropdown-toggle"
+                    class="btn btn-danger dropdown-toggle2"
                     data-toggle="dropdown"
                   >
                     <span class="caret"></span>
@@ -283,7 +283,7 @@
                   <button type="button" class="btn btn-default btn-flat">Eventos</button>
                   <button
                     type="button"
-                    class="btn btn-default btn-flat dropdown-toggle"
+                    class="btn btn-default btn-flat dropdown-toggle2"
                     data-toggle="dropdown"
                   >
                     <span class="caret"></span>
@@ -303,7 +303,7 @@
                   <button type="button" class="btn btn-info btn-flat">Promociones</button>
                   <button
                     type="button"
-                    class="btn btn-info btn-flat dropdown-toggle"
+                    class="btn btn-info btn-flat dropdown-toggle2"
                     data-toggle="dropdown"
                   >
                     <span class="caret"></span>
@@ -323,7 +323,7 @@
                   <button type="button" class="btn btn-danger btn-flat">Posts</button>
                   <button
                     type="button"
-                    class="btn btn-danger btn-flat dropdown-toggle"
+                    class="btn btn-danger btn-flat dropdown-toggle2"
                     data-toggle="dropdown"
                   >
                     <span class="caret"></span>
@@ -380,17 +380,34 @@
               </button>
             </div>
           </div>
-          <div class="card-body">
-            <div
-              @change="product"
-              class="card card-for col-md-3"
-              v-for="product in arrayProduct"
-              :key="product.product_id"
-              :value="product.product_id"
-              max-height="300px"
-            >
-              <div class="card-body">
-                <div class="col-5">
+          <div class="card-body col-md-12">
+            <div class="row">
+              <div
+                @change="product"
+                class="card card-for col-md-3"
+                v-for="product in arrayProduct"
+                :key="product.product_id"
+                :value="product.product_id"
+                max-height="300px"
+              >
+                <div class="card-header">
+                  <div class="card-tools pull-right">
+                    
+                    <select class="form-control dropdown">
+                      <span class="right badge badge-primary">
+                  <i class="right fas fa-cogs"></i>
+                  <i class="right fas fa-angle-left"></i>
+                </span>
+                      <option type="button" class="btn btn-success">Ver</option>
+                      <option type="button" class="btn btn-success ">Comprar</option>
+                      <option type="button" class="btn btn-danger ">Editar</option>
+                      <option type="button" class="btn btn-danger ">Eliminar</option>
+                      <option type="button" class="btn btn-danger ">Ver</option>
+                      <!--$4moreinfo_go_to_gmybuissiness$$-->
+                    </select>                    
+                  </div>
+                </div>
+                <div class="card-body">
                   <div class="icon-big text-center">
                     <a href="#">
                       <div class="icon-warning">
@@ -408,16 +425,19 @@
                     </a>
                   </div>
                 </div>
-              </div>
-              <div class="card-footer">
-                <h3 v-text="product.product_name"></h3>
-                <p product.product_description></p>
-                <p product.product_presentation></p>
-                <h2  product.precio_venta></h2>
+                <div class="card-footer">
+                  <b v-text="product.product_name"></b>
+                  <p class="text-primary" v-text="product.product_presentation"></p>
+                  <p class="text-danger" v-text="product.precio_venta"></p>
+                  <p v-text="product.product_description"></p>
+                  <p>De venta en:</p>
+                  <a href>
+                    <p v-text="product.commerce_product"></p>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-          <nav>
+            <nav>
             <ul class="pagination">
               <li class="page-item" v-if="pagination.current_page > 1">
                 <a
@@ -448,6 +468,9 @@
               </li>
             </ul>
           </nav>
+          </div>
+            
+          
           <!-- /.row --
           <!- ---- ----->
         </div>
@@ -474,7 +497,8 @@
       </div>
 
       <!--Inicio del modaldepartments agregar/actualizar-->
-      <div  v-if="modal==1"      
+      <div
+        v-if="modal==1"
         class="modal fade"
         tabindex="-1"
         :class="{'mostrar' : modal}"
@@ -565,7 +589,8 @@
       <!--====================================================-->
 
       <!--Inicio del modalcategoriess agregar/actualizar-->
-      <div v-if="modal==2"
+      <div
+        v-if="modal==2"
         class="modal fade"
         tabindex="-1"
         :class="{'mostrar' : modal}"
@@ -585,13 +610,34 @@
             <div class="modal-body">
               <form action method="post" enctype="multipart/form-data" class="form-horizontal">
                 <div class="form-group row">
+                  <label class="form-control-label" for="text-input">Departamento</label>
+
+                  <div class="col-md-9">
+                    <select
+                      class="form-control"
+                      id="department"
+                      @change="department"
+                      v-model="changestate.department"
+                    >
+                      <option value="0" disabled>Seleccione</option>
+                      <option
+                        v-for="department in arrayDepartment"
+                        :key="department.department_id"
+                        :value="department.department_id"
+                        v-text="department.name"
+                      ></option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
                   <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+
                   <div class="col-md-9">
                     <input
                       type="text"
-                      v-model="cat_name"
+                      v-model="category_name"
                       class="form-control"
-                      id="name"
+                      id="category_name"
                       placeholder="frutas de temporada"
                     />
                   </div>
@@ -653,7 +699,8 @@
       </div>
       <!--Fin del modal categories-->
       <!--Inicio del modalproducts agregar/actualizar-->
-      <div v-if="modal==3"
+      <div
+        v-if="modal==3"
         class="modal fade"
         tabindex="-1"
         :class="{'mostrar' : modal}"
@@ -775,9 +822,9 @@
                     />
                   </div>
                 </div>
-                <div v-show="errorCategory" class="form-group row div-error">
+                <div v-show="errorProduct" class="form-group row div-error">
                   <div class="text-center text-error bg-danger">
-                    <div v-for="error in errorMostrarMsjCategory" :key="error" v-text="error"></div>
+                    <div v-for="error in errorMostrarMsjProduct" :key="error" v-text="error"></div>
                   </div>
                 </div>
               </form>
@@ -788,18 +835,18 @@
                 type="button"
                 v-if="tipoAccion==5"
                 class="btn btn-success fas fa-save"
-                @click="registrarCategory()"
+                @click="registrarProduct()"
               >Guardar</button>
               <button
                 type="button"
                 v-if="tipoAccion==6"
                 class="btn btn-success fas fa-save"
-                @click="actualizarCategory()"
+                @click="actualizarProduct()"
               >Actualizar</button>
               <button
                 type="button"
                 class="btn btn-success fas fa-close"
-                @click="cerrarModalCat()"
+                @click="cerrarModalProd()"
               >Cerrar</button>
             </div>
           </div>
@@ -870,16 +917,21 @@ export default {
       condition: "",
       errorDepartment: "",
       errorMostrarMsjDepartment: [],
-
       modal: 0,
       tituloModal: "",
       tipoAccion: 0,
       arrayDepartment: [],
       //categories data
       arrayCategory: [],
+      errorCategory: "",
+      errorMostrarMsjCategory: [],
       category_id: 0,
       category_name: "",
       //product data
+      product_name: "",
+      product_body: "",
+      errorProduct: "",
+      errorMostrarMsjProduct: [],
       arrayProduct: [],
       product_id: 0,
       pagination: {
@@ -1027,7 +1079,7 @@ export default {
         case "department":
           {
             switch (accion) {
-              case "registrar": {                
+              case "registrar": {
                 this.modal = 1;
                 this.tipoAccion = 1;
                 this.tituloModal = "Agregar departamento";
@@ -1062,6 +1114,7 @@ export default {
               case "registrar": {
                 this.modal = 2;
                 this.tituloModal = "Agregar categoria ";
+                this.department_id = 0;
                 this.category_name = "";
                 this.category_slug = "";
                 this.category_body = "";
@@ -1071,11 +1124,11 @@ export default {
               }
               case "actualizar": {
                 //console.log(data);
-                this.category_id = data["category_id"];
+                this.department_id = data["department_id"];
                 this.modal = 2;
                 this.tituloModal = "Editar categoria ";
                 this.tipoAccion = 4;
-                this.name = data["name"];
+                this.category_name = data["category_name"];
                 this.category_body = data["category_body"];
                 this.category_slug = data["category_slug"];
                 break;
@@ -1092,6 +1145,8 @@ export default {
             switch (accion) {
               case "registrar": {
                 this.modal = 3;
+                this.department_id = 0;
+                this.category_id = 0;
                 this.tituloModal = "Agregar producto";
                 this.product_name = "";
                 this.product_slug = "";
@@ -1101,7 +1156,8 @@ export default {
                 break;
               }
               case "actualizar": {
-                //console.log(data);
+                this.category_id = data["category_id"];
+                this.department_id = data["department_id"];
                 this.product_id = data["product_id"];
                 this.modal = 3;
                 this.tituloModal = "Editar producto";
@@ -1154,6 +1210,7 @@ export default {
           break;
       }
     },
+
     registrarDepartment() {
       if (this.validarDepartment()) {
         return;
@@ -1191,6 +1248,97 @@ export default {
         })
         .then(function(response) {
           me.cerrarModalDep();
+        })
+        .catch(function(error) {
+          console.table(error);
+        });
+    },
+    registrarCategory() {
+      if (this.validarCategory()) {
+        return;
+      }
+      let me = this;
+      axios
+        .post("/category/store", {
+          department_id: this.changestate.department,
+          name: this.category_name,
+          body: this.category_body,
+          slug: this.category_slug,
+          condition: 1
+        })
+        .then(function(response) {
+          me.cerrarModalCat();
+        })
+        .catch(function(error) {
+          console.table(error);
+        });
+    },
+    actualizarCategory() {
+      if (this.validarCategory()) {
+        return;
+      }
+
+      let me = this;
+
+      axios
+        .put("/category/update", {
+          department_id: this.changestate.department,
+          name: this.category_name,
+          body: this.category_body,
+          slug: this.category_slug,
+          condition: 1,
+          category_id: this.category_id
+        })
+        .then(function(response) {
+          me.cerrarModalCat();
+        })
+        .catch(function(error) {
+          console.table(error);
+        });
+    },
+    registrarProduct() {
+      if (this.validarProduct()) {
+        return;
+      }
+      let me = this;
+      axios
+        .post("/product/store", {
+          category_id: this.changestate.category,
+          name: this.product_name,
+          descripcion: this.product_body,
+          stock: this.product_stock,
+          codigo: this.product_codigo,
+          file: this.product_file,
+          presentacion: this.product_presentacion,
+          precio_venta: this.precio_venta,
+          slug: this.product_slug,
+          condition: 1
+        })
+        .then(function(response) {
+          me.cerrarModalProd();
+        })
+        .catch(function(error) {
+          console.table(error);
+        });
+    },
+    actualizarProduct() {
+      if (this.validarProduct()) {
+        return;
+      }
+
+      let me = this;
+
+      axios
+        .put("/product/update", {
+          category_id: this.changestate.category,
+          name: this.product_name,
+          body: this.product_body,
+          slug: this.product_slug,
+          condition: 1,
+          product_id: this.product_id
+        })
+        .then(function(response) {
+          me.cerrarModalProd();
         })
         .catch(function(error) {
           console.table(error);
@@ -1235,6 +1383,40 @@ export default {
       if (this.errorMostrarMsjDepartment.length) this.errorDepartment = 1;
 
       return this.errorDepartment;
+    },
+    validarCategory() {
+      this.errorCategory = 0;
+      this.errorMostrarMsjCategory = [];
+
+      if (!this.category_name)
+        this.errorMostrarMsjCategory.push(
+          "El campo nombre no puede estar vacío."
+        );
+      if (!this.changestate.department)
+        this.errorMostrarMsjCategory.push("Seleccione un departamento.");
+      if (!this.category_body)
+        this.errorMostrarMsjCategory.push("Agregue una breve descripcion !");
+      if (this.errorMostrarMsjCategory.length) this.errorCategory = 1;
+
+      return this.errorCategory;
+    },
+    validarProduct() {
+      this.errorProduct = 0;
+      this.errorMostrarMsjProduct = [];
+      if (!this.changestate.department)
+        this.errorMostrarMsjCategory.push("Seleccione un departamento.");
+      if (!this.changestate.category)
+        this.errorMostrarMsjCategory.push("Seleccione una categoria.");
+      if (!this.product_name)
+        this.errorMostrarMsjProduct.push(
+          "El campo nombre no puede estar vacío."
+        );
+
+      if (!this.product_body)
+        this.errorMostrarMsjProduct.push("Agregue una breve descripcion !");
+      if (this.errorMostrarMsjProduct.length) this.errorProduct = 1;
+
+      return this.errorProduct;
     }
   },
 

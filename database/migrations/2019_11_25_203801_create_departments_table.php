@@ -16,7 +16,7 @@ class CreateDepartmentsTable extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('commerce_id');
-            $table->string('name');
+            $table->string('name',100)->unique();;
             $table->string('slug', 128)->unique();
             $table->text('body',100);
             $table->boolean('condition')->default(1);

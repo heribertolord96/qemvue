@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use App\Category;
 use App\Commerce;
@@ -10,6 +11,7 @@ use App\Department;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
@@ -27,47 +29,41 @@ class CategoryController extends Controller
     {
         $buscar = $request->buscar;
         $criterio = $request->criterio;
-        if ($buscar==''){
-    $categories =Category::
-    join ('departments', 'departments.id','=','categories.department_id')
-    ->orderBy('categories.name','asc')->paginate(3);
-    return view('admin.categories.index', compact('categories'));
-        }
-        else{
-            $categories =Category::orderBy('name','desc')
-            ->where($criterio, 'like', '%'. $buscar . '%')
-            ->paginate(3);
-    return view('admin.categories.index', compact('categories'));
+        if ($buscar == '') {
+            $categories = Category::join('departments', 'departments.id', '=', 'categories.department_id')
+                ->orderBy('categories.name', 'asc')->paginate(3);
+            return view('admin.categories.index', compact('categories'));
+        } else {
+            $categories = Category::orderBy('name', 'desc')
+                ->where($criterio, 'like', '%' . $buscar . '%')
+                ->paginate(3);
+            return view('admin.categories.index', compact('categories'));
         }
     }
 
     public function categories($slug, Request $request) //Muestra los categorys que pertenecen a una misma tienda
     {
         $buscar   = $request->buscar;
-        $criterio = $request->criterio;       
+        $criterio = $request->criterio;
         $commerce_d  = Commerce::where('slug', $slug)->first();
         $commerce    = Commerce::where('slug', $slug)->pluck('id')->first();
-        if ($buscar == '')        {
+        if ($buscar == '') {
             /* $select commerces.nombre as Tienda , categories.name as Category, departments.name as Departamento 
             from commerces join departments on departments.commerce_id = commerces.id 
             join categories on categories.department_id =departments.id
              * 
              */
-            $categories =Commerce:: 
-            join('departments', 'departments.commerce_id','=','commerces.id')
-            ->join('categories', 'categories.department_id','=','departments.id')
-            ->where('commerces.id', $commerce)
-            ->orderBy('categories.name', 'ASC')->paginate(3);
+            $categories = Commerce::join('departments', 'departments.commerce_id', '=', 'commerces.id')
+                ->join('categories', 'categories.department_id', '=', 'departments.id')
+                ->where('commerces.id', $commerce)
+                ->orderBy('categories.name', 'ASC')->paginate(3);
             return view('admin.categories.index', compact('categories', 'commerce_d'));
             $count = $categories::count();
-        }
-        else
-        {            
-            $categories =Commerce:: 
-            join('departments', 'departments.commerce_id','=','commerces.id')
-            ->join('categories', 'categories.department_id','=','departments.id')
-            ->where('commerces.id', $commerce)
-            ->where($criterio, 'like', '%' . $buscar . '%')->paginate(3);
+        } else {
+            $categories = Commerce::join('departments', 'departments.commerce_id', '=', 'commerces.id')
+                ->join('categories', 'categories.department_id', '=', 'departments.id')
+                ->where('commerces.id', $commerce)
+                ->where($criterio, 'like', '%' . $buscar . '%')->paginate(3);
             return view('admin.tienda_departamentos.index', compact('categorys', 'commerce_d'));
         }
     }
@@ -90,18 +86,17 @@ join commerces on commerces.id = departments.commerce_id
 JOIN commerce_users
 join users on users.id = commerce_users.user_id
          */
-        $uid =Auth::id();
-        $departments = Department::
-        orderBy('departments.id','asc') 
-        ->join('commerces','commerces.id','=','departments.commerce_id')        
-        ->join('commerce_users','commerce_users.commerce_id','=','commerces.id')
-        ->join('users','users.id','=','commerce_users.user_id')
-        ->where('users.id','=',$uid)     
+        $uid = Auth::id();
+        $departments = Department::orderBy('departments.id', 'asc')
+            ->join('commerces', 'commerces.id', '=', 'departments.commerce_id')
+            ->join('commerce_users', 'commerce_users.commerce_id', '=', 'commerces.id')
+            ->join('users', 'users.id', '=', 'commerce_users.user_id')
+            ->where('users.id', '=', $uid)
 
-        
-        ->pluck('departments.name', 'departments.id');//Obtener dropdown de mis tiendas        
+
+            ->pluck('departments.name', 'departments.id'); //Obtener dropdown de mis tiendas        
         //return view('admin.departments.create',compact('commerce'));
-        return view('admin.categories.create' , compact( 'departments')); 
+        return view('admin.categories.create', compact('departments'));
     }
 
     /**
@@ -112,15 +107,31 @@ join users on users.id = commerce_users.user_id
      */
     public function store(CategoryStoreRequest $request)
     {
+        if (!$request->ajax()) return redirect('/');
+        try {
+            DB::beginTransaction();
+            //Insertar valores de  negocio
+            $category = new Category();
+            $category->department_id = $request->department_id;
+            $category->name = $request->name;
+            $category->slug = $request->slug;
+            $category->body = $request->body;
+            $category->condition = $request->condition;
+            $category->save();
 
+            if ($request->file('image')) {
+                $path = Storage::disk('public')->put('image',  $request->file('image'));
+                $category->fill(['file' => asset($path)])->save();
+            }
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
         $category = Category::create($request->all());
-        if($request->file('image')){
+        if ($request->file('image')) {
             $path = Storage::disk('public')->put('image',  $request->file('image'));
             $category->fill(['file' => asset($path)])->save();
         }
-
-        return redirect()->route('categories.edit', $category->slug)->
-        with('info', 'Categoría creada con éxito');
     }
 
 
@@ -160,14 +171,28 @@ join users on users.id = commerce_users.user_id
      */
     public function update(CategoryUpdateRequest $request, $slug)
     {
-        
-        $category = Category::find($slug);
-        $category->fill($request->all())->save();
-        if($request->file('image')){
-            $path = Storage::disk('public')->put('image',  $request->file('image'));
-            $category->fill(['file' => asset($path)])->save();
-        }   
-        return redirect()->route('categories.edit', $category->id)->with('info', 'Categoría actualizada con éxito');
+        $category = Category::find($id);
+        if (!$request->ajax()) return redirect('/');
+        try {
+            DB::beginTransaction();
+            //Insertar valores de  negocio
+            $category = new Category();
+            $category->commerce_id = $request->commerce_id;
+            $category->name = $request->name;
+            $category->slug = $request->slug;
+            $category->body = $request->body;
+            $category->condition = $request->condition;
+
+            $category->save();
+
+            if ($request->file('image')) {
+                $path = Storage::disk('public')->put('image',  $request->file('image'));
+                $category->fill(['file' => asset($path)])->save();
+            }
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
     }
 
     /**

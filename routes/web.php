@@ -36,8 +36,16 @@ Auth::routes();
     Route::put('commerce/update', 'Admin\CommerceController@update');
 //Routes from commerces
 //Routes from departments
-Route::post('department/store', 'Admin\DepartmentController@store');
-Route::put('department/update', 'Admin\DepartmentController@update');
+    Route::post('department/store', 'Admin\DepartmentController@store');
+    Route::put('department/update', 'Admin\DepartmentController@update');
+//Routes from departments
+//Routes from categories
+    Route::post('category/store', 'Admin\CategoryController@store');
+    Route::put('category/update', 'Admin\CategoryController@update');
+//Routes from categories
+//Routes from departments
+Route::post('product/store', 'Admin\ProductController@store');
+Route::put('product/update', 'Admin\ProductController@update');
 //Routes from departments
 
 //Route::get('commerce_role_user', 'Admin\CommerceController@selectCommerceRoleUser');
