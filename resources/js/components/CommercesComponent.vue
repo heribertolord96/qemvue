@@ -202,79 +202,67 @@
         <!----------->
         <div class="card card-default">
           <div class="card-header success with-border">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th>Departamentos</th>
+                  <th>Categorias</th>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-group">
+                      <div class="btn-group">
+                        <i class="fas fa-plus-circle">
+                        <button
+                          class="btn btn-success "
+                          @click="abrirModalDep('department','registrar')"
+                        >
+                          Crear departamento</button> </i>
+
+                        <button
+                          class="btn btn-success fas fa-plus-circle"
+                          @click="abrirModalDep('department','listar')"
+                        >Listar departamentos</button>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="btn-group">
+                      <button
+                        type="button"
+                        class="btn btn-info"
+                        @click="abrirModalCat('category','registrar')"
+                      >Categorias</button>
+                      <button
+                        type="button"
+                        class="btn btn-success fas fa-plus-circlet"
+                        @click="abrirModalCat('category','listar')"
+                      >Listar categorias</button>
+                     
+                    </div>
+                  </td>
+                  <td>
+                    <div class="btn-group">
+                      <button
+                        type="button"
+                        class="btn btn-info"
+                        @click="abrirModalProd('products','registrar')"
+                      >Agregar producto</button>
+                      <button
+                        type="button"
+                        class="btn btn-success fas fa-plus-circlet"
+                        @click="abrirModalProd('product','listar')"
+                      >Listar productos</button>
+                     
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
             <div class="box-body">
               <!-- Split button -->
               <h2>Articulos</h2>
-              <div class="margin">
-                <div class="btn-group">
-                  <button
-                    type="button"
-                    class="btn btn-default"
-                    @click="abrirModalDep('department','registrar')"
-                  >Departamentos</button>
-                  <button
-                    type="button"
-                    class="btn btn-card-tool dropdown-toggle2"
-                    data-toggle="dropdown"
-                  >
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a href="#">Listar</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                      <a href="#">Agregar</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="btn-group">
-                  <button
-                    type="button"
-                    class="btn btn-info"
-                    @click="abrirModalCat('category','registrar')"
-                  >Categorias</button>
-                  <button type="button" class="btn btn-info dropdown-toggle2" data-toggle="dropdown">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a href="#">Listar</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                      <a href="#">Agregar</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="btn-group">
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                    @click="abrirModalProd('product','registrar')"
-                  >Productos</button>
-                  <button
-                    type="button"
-                    class="btn btn-danger dropdown-toggle2"
-                    data-toggle="dropdown"
-                  >
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a href="#">Listar</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                      <a href="#">Agregar</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+
               <!-- flat split buttons -->
               <p>Publicidad:</p>
 
@@ -283,7 +271,7 @@
                   <button type="button" class="btn btn-default btn-flat">Eventos</button>
                   <button
                     type="button"
-                    class="btn btn-default btn-flat dropdown-toggle2"
+                    class="btn btn-default btn-flat dropdown-toggle"
                     data-toggle="dropdown"
                   >
                     <span class="caret"></span>
@@ -303,7 +291,7 @@
                   <button type="button" class="btn btn-info btn-flat">Promociones</button>
                   <button
                     type="button"
-                    class="btn btn-info btn-flat dropdown-toggle2"
+                    class="btn btn-info btn-flat dropdown-toggle"
                     data-toggle="dropdown"
                   >
                     <span class="caret"></span>
@@ -323,7 +311,7 @@
                   <button type="button" class="btn btn-danger btn-flat">Posts</button>
                   <button
                     type="button"
-                    class="btn btn-danger btn-flat dropdown-toggle2"
+                    class="btn btn-danger btn-flat dropdown-toggle"
                     data-toggle="dropdown"
                   >
                     <span class="caret"></span>
@@ -392,19 +380,18 @@
               >
                 <div class="card-header">
                   <div class="card-tools pull-right">
-                    
-                    <select class="form-control dropdown">
+                    <select class="form-control btn-dropdown" type="btn-dropdown">
                       <span class="right badge badge-primary">
-                  <i class="right fas fa-cogs"></i>
-                  <i class="right fas fa-angle-left"></i>
-                </span>
-                      <option type="button" class="btn btn-success">Ver</option>
-                      <option type="button" class="btn btn-success ">Comprar</option>
-                      <option type="button" class="btn btn-danger ">Editar</option>
-                      <option type="button" class="btn btn-danger ">Eliminar</option>
-                      <option type="button" class="btn btn-danger ">Ver</option>
+                        <i class="right fas fa-cogs"></i>
+                        <i class="right fas fa-angle-left"></i>
+                      </span>
+                      <option type="button" class="btn btn-success fas fa-eye">Ver</option>
+                      <option type="button" class="btn btn-success fas fa-shopping-cart">Comprar</option>
+                      <option type="button" class="btn btn-danger fas fa-pen-alt">Editar</option>
+                      <option type="button" class="btn btn-danger fas fa-trash-alt">Eliminar</option>
+
                       <!--$4moreinfo_go_to_gmybuissiness$$-->
-                    </select>                    
+                    </select>
                   </div>
                 </div>
                 <div class="card-body">
@@ -438,39 +425,38 @@
               </div>
             </div>
             <nav>
-            <ul class="pagination">
-              <li class="page-item" v-if="pagination.current_page > 1">
-                <a
-                  class="page-link"
-                  href="#"
-                  @click.prevent="cambiarPagina(pagination.current_page - 1,buscar,criterio)"
-                >Ant</a>
-              </li>
-              <li
-                class="page-item"
-                v-for="page in pagesNumber"
-                :key="page"
-                :class="[page == isActived ? 'active' : '']"
-              >
-                <a
-                  class="page-link"
-                  href="#"
-                  @click.prevent="cambiarPagina(page,buscar,criterio)"
-                  v-text="page"
-                ></a>
-              </li>
-              <li class="page-item" v-if="pagination.current_page < pagination.last_page">
-                <a
-                  class="page-link"
-                  href="#"
-                  @click.prevent="cambiarPagina(pagination.current_page + 1,buscar,criterio)"
-                >Sig</a>
-              </li>
-            </ul>
-          </nav>
+              <ul class="pagination">
+                <li class="page-item" v-if="pagination.current_page > 1">
+                  <a
+                    class="page-link"
+                    href="#"
+                    @click.prevent="cambiarPagina(pagination.current_page - 1,buscar,criterio)"
+                  >Ant</a>
+                </li>
+                <li
+                  class="page-item"
+                  v-for="page in pagesNumber"
+                  :key="page"
+                  :class="[page == isActived ? 'active' : '']"
+                >
+                  <a
+                    class="page-link"
+                    href="#"
+                    @click.prevent="cambiarPagina(page,buscar,criterio)"
+                    v-text="page"
+                  ></a>
+                </li>
+                <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                  <a
+                    class="page-link"
+                    href="#"
+                    @click.prevent="cambiarPagina(pagination.current_page + 1,buscar,criterio)"
+                  >Sig</a>
+                </li>
+              </ul>
+            </nav>
           </div>
-            
-          
+
           <!-- /.row --
           <!- ---- ----->
         </div>
@@ -855,6 +841,142 @@
         <!-- /.modal-dialog -->
       </div>
       <!--Fin del modal-->
+      <!--=================DepartmentModal=====-->
+      <!--Inicio del modal listardepartments agregar/actualizar-->
+      <div
+        v-if="modal==7"
+        class="modal fade"
+        tabindex="-1"
+        :class="{'mostrar' : modal}"
+        role="dialog"
+        aria-labelledby="myModalLabel"
+        style="display: none; overflow-y:auto;"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-primary modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header-SUCCESS">
+              <h4 class="modal-title" v-text="tituloModal"></h4>
+              <button type="button" class="close" @click="cerrarModalDep()" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div style="overflow-x:auto; border:solid ; min-width:80%">
+                <table class="table table-bordered table-striped table-sm">
+                  <thead>
+                    <tr>
+                      <th>Opciones</th>
+                      <th>Nombre</th>
+                      <th>Descripcion</th>
+                      <th>Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="department in arrayDepartment" :key="department.id">
+                      <td>
+                        <button
+                          type="button"
+                          @click="abrirModalDep('department','actualizar',department)"
+                          class="btn btn-warning btn-sm"
+                        >
+                          <i class="icon-pencil"></i>
+                        </button> &nbsp;
+                        <!--
+                               <button type="button" class="btn btn-danger btn-sm" @click="eliminarDepartment(department.id)">
+                                 <i class="icon-trash"></i>
+                        </button>&nbsp;-->
+                        <template v-if="department.condicion">
+                          <button
+                            type="button"
+                            class="btn btn-secondary btn-sm"
+                            @click="desactivarDepartment(department.id)"
+                          >
+                            <i class="icon-close"></i>
+                          </button>
+                        </template>
+                        <template v-else>
+                          <button
+                            type="button"
+                            class="btn btn-info btn-sm"
+                            @click="activarDepartment(department.id)"
+                          >
+                            <i class="icon-check"></i>
+                          </button>
+                        </template>
+                      </td>
+                      <td v-text="department.name"></td>
+                      <td v-text="department.body"></td>
+                      <td>
+                        <div v-if="department.condition">
+                          <span class="badge badge-success">Activo</span>
+                        </div>
+                        <div v-else>
+                          <span class="badge badge-danger">Desactivado</span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <nav>
+                <ul class="pagination">
+                  <li class="page-item" v-if="pagination.current_page > 1">
+                    <a
+                      class="page-link"
+                      href="#"
+                      @click.prevent="cambiarPagina(pagination.current_page - 1,buscar,criterio)"
+                    >Ant</a>
+                  </li>
+                  <li
+                    class="page-item"
+                    v-for="page in pagesNumber"
+                    :key="page"
+                    :class="[page == isActived ? 'active' : '']"
+                  >
+                    <a
+                      class="page-link"
+                      href="#"
+                      @click.prevent="cambiarPagina(page,buscar,criterio)"
+                      v-text="page"
+                    ></a>
+                  </li>
+                  <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                    <a
+                      class="page-link"
+                      href="#"
+                      @click.prevent="cambiarPagina(pagination.current_page + 1,buscar,criterio)"
+                    >Sig</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+
+            <div class="modal-footer row">
+              <button
+                type="button"
+                v-if="tipoAccion==5"
+                class="btn btn-success fas fa-save"
+                @click="registrarProduct()"
+              >Guardar</button>
+              <button
+                type="button"
+                v-if="tipoAccion==6"
+                class="btn btn-success fas fa-save"
+                @click="actualizarProduct()"
+              >Actualizar</button>
+              <button
+                type="button"
+                class="btn btn-success fas fa-close"
+                @click="cerrarModalProd()"
+              >Cerrar</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!--Fin del modal-->
     </template>
 
     <template v-if="listado==4">
@@ -1111,6 +1233,27 @@ export default {
         case "category":
           {
             switch (accion) {
+              case "listar": {
+                this.modal = 7;
+
+                //const axios = require("axios");
+
+                let me = this;
+                var url = "/departments/listar";
+                axios
+                  .get(url)
+                  .then(function(response) {
+                    var respuesta = response.data;
+                    me.arrayDepartment = respuesta.departments.data;
+                    me.pagination = respuesta.pagination;
+                    //console.table(response);
+                  })
+                  .catch(function(error) {
+                    console.table(error);
+                  });
+                this.tipoAccion = 3;
+                break;
+              }
               case "registrar": {
                 this.modal = 2;
                 this.tituloModal = "Agregar categoria ";
@@ -1165,6 +1308,9 @@ export default {
                 this.name = data["name"];
                 this.product_body = data["product_body"];
                 this.product_slug = data["product_slug"];
+                break;
+              }
+              case "eliminar": {
                 break;
               }
             }

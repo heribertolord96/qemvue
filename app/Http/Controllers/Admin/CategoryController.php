@@ -171,18 +171,17 @@ join users on users.id = commerce_users.user_id
      */
     public function update(CategoryUpdateRequest $request, $slug)
     {
-        $category = Category::find($id);
         if (!$request->ajax()) return redirect('/');
         try {
+            $category = Category::findOrFail($request->product_id);
             DB::beginTransaction();
             //Insertar valores de  negocio
             $category = new Category();
-            $category->commerce_id = $request->commerce_id;
+            $category->department_id = $request->department_id;
             $category->name = $request->name;
             $category->slug = $request->slug;
             $category->body = $request->body;
             $category->condition = $request->condition;
-
             $category->save();
 
             if ($request->file('image')) {
@@ -204,7 +203,6 @@ join users on users.id = commerce_users.user_id
     public function destroy($slug)
     {
         $category = Category::find($slug)->delete();
-
         return back()->with('info', 'Eliminado correctamente');
     }
 }

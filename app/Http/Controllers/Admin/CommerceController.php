@@ -363,12 +363,13 @@ class CommerceController extends Controller
     public function update(Request $request)
     {
 
-        $commerce = Commerce::find($request->commerce_id);
+        //$commerce = Commerce::find($request->commerce_id);
         if (!$request->ajax()) return redirect('/');
         try {
             DB::beginTransaction();
             //$commerce = Commerce::find($id);
             $commercelocation = Location::findOrFail($request->ubicacion_id);
+            $commerce = Commerce::findOrFail($request->commerce_id);
             $commerce->nombre = $request->nombre;
             $commerce->slug = $request->commerce_slug;
             $commerce->descripcion = $request->descripcion;

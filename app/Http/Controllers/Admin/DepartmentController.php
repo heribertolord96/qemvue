@@ -190,18 +190,16 @@ class DepartmentController extends Controller
      */
     public function update(Request $request)
     {
-        $department = Department::find($id);
         if (!$request->ajax()) return redirect('/');
         try {
             DB::beginTransaction();
-            //Insertar valores de  negocio
-            $department = new Department();
+            //$commerce = Commerce::find($id);
+            $department = Department::findOrFail($request->id);
             $department->commerce_id= $request->commerce_id;
             $department->name= $request->name;
             $department->slug = $request->slug;
             $department->body = $request->body;
             $department->condition = $request->condition;
-            
             $department->save();
             
             if ($request->file('image')) {

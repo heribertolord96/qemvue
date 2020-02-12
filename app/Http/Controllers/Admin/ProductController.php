@@ -218,7 +218,41 @@ class ProductController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
         }
-      
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(ProductUpdateRequest $request, $id)
+    {
+        if (!$request->ajax()) return redirect('/');
+        try {
+            $product = Product::findOrFail($request->product_id);
+            DB::beginTransaction();
+            //Insertar valores de  negocio
+
+            $product->category_id = $request->category_id;
+            $product->name = $request->name;
+            $product->slug = $request->slug;
+            $product->descripcion = $request->descripcion;
+            $product->stock = $request->stock;
+            $product->file = $request->file;
+            $product->presentacion = $request->presentacion;
+            $product->precio_venta = $request->precio_venta;
+            $product->condition = $request->condition;
+            $product->save();
+            if ($request->file('image')) {
+                $path = Storage::disk('public')->put('image',  $request->file('image'));
+                $product->fill(['file' => asset($path)])->save();
+            }
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
     }
 
     /**
@@ -254,26 +288,6 @@ class ProductController extends Controller
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(ProductUpdateRequest $request, $id)
-    {
-        $product = Product::find($id);
-        $product->fill($request->all())->save();
-        if ($request->file('image')) {
-            $path = Storage::disk('public')->put('image',  $request->file('image'));
-            $product->fill(['file' => asset($path)])->save();
-        }
-        return redirect()->route(
-            'products.edit',
-            $product->id
-        )->with('info', 'Info de product actualizada con éxito');
-    }
 
     /**
      * Remove the specified resource from storage.

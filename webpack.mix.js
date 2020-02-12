@@ -16,7 +16,6 @@ const mix = require('laravel-mix');
 
    mix.styles([
       'resources/plantilla/fontawesome/css/all.min.css',
-      'resources/plantilla/fontawesome/css/all.css',
       'resources/plantilla/fontawesome/brands.css',
       'resources/plantilla/fontawesome/solid.css',
       'resources/plantilla/fontawesome/solid.min.css',
@@ -30,10 +29,7 @@ const mix = require('laravel-mix');
       'resources/plantilla/fontawesome/v4-shims.css',
 
       'resources/plantilla/css/lte/custom.css',
-      'resources/plantilla/css/lte/dist/css/adminlte.css',
-      'resources/plantilla/css/lte/dist/css/adminlte.css.map',
       'resources/plantilla/css/lte/dist/css/adminlte.min.css',      
-      'resources/plantilla/css/lte/dist/css/adminlte.min.css.map',      
       'resources/plantilla/js/jquery-nestable/jquery.nestable.css',
       'resources/plantilla/css/estilo2.css',
       'resources/plantilla/css/cards.css',

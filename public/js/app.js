@@ -2724,6 +2724,128 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //import InfiniteLoading from "vue-infinite-loading";
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2931,6 +3053,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         case "category":
           {
             switch (accion) {
+              case "listar":
+                {
+                  this.modal = 7; //const axios = require("axios");
+
+                  var _me = this;
+
+                  var url = "/departments/listar";
+                  axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    _me.arrayDepartment = respuesta.departments.data;
+                    _me.pagination = respuesta.pagination; //console.table(response);
+                  })["catch"](function (error) {
+                    console.table(error);
+                  });
+                  this.tipoAccion = 3;
+                  break;
+                }
+
               case "registrar":
                 {
                   this.modal = 2;
@@ -2995,6 +3135,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   this.product_slug = data["product_slug"];
                   break;
                 }
+
+              case "eliminar":
+                {
+                  break;
+                }
             }
           }
           break;
@@ -3033,9 +3178,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   this.latitude = data["latitude"];
                   this.longitude = data["longitude"];
 
-                  var _me = this;
+                  var _me2 = this;
 
-                  _me.departments();
+                  _me2.departments();
 
                   break;
                 }
@@ -40914,84 +41059,138 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "card card-default" }, [
                 _c("div", { staticClass: "card-header success with-border" }, [
-                  _c("div", { staticClass: "box-body" }, [
-                    _c("h2", [_vm._v("Articulos")]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "margin" }, [
-                      _c("div", { staticClass: "btn-group" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                return _vm.abrirModalDep(
-                                  "department",
-                                  "registrar"
-                                )
-                              }
-                            }
-                          },
-                          [_vm._v("Departamentos")]
-                        ),
-                        _vm._v(" "),
-                        _vm._m(9),
-                        _vm._v(" "),
-                        _vm._m(10)
-                      ]),
+                  _c("table", { staticClass: "table table-bordered" }, [
+                    _c("tbody", [
+                      _vm._m(9),
                       _vm._v(" "),
-                      _c("div", { staticClass: "btn-group" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-info",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                return _vm.abrirModalCat(
-                                  "category",
-                                  "registrar"
+                      _c("tr", [
+                        _c("td", [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("div", { staticClass: "btn-group" }, [
+                              _c("i", { staticClass: "fas fa-plus-circle" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-success ",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.abrirModalDep(
+                                          "department",
+                                          "registrar"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                        Crear departamento"
+                                    )
+                                  ]
                                 )
-                              }
-                            }
-                          },
-                          [_vm._v("Categorias")]
-                        ),
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-success fas fa-plus-circle",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.abrirModalDep(
+                                        "department",
+                                        "listar"
+                                      )
+                                    }
+                                  }
+                                },
+                                [_vm._v("Listar departamentos")]
+                              )
+                            ])
+                          ])
+                        ]),
                         _vm._v(" "),
-                        _vm._m(11),
+                        _c("td", [
+                          _c("div", { staticClass: "btn-group" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-info",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.abrirModalCat(
+                                      "category",
+                                      "registrar"
+                                    )
+                                  }
+                                }
+                              },
+                              [_vm._v("Categorias")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-success fas fa-plus-circlet",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.abrirModalCat(
+                                      "category",
+                                      "listar"
+                                    )
+                                  }
+                                }
+                              },
+                              [_vm._v("Listar categorias")]
+                            )
+                          ])
+                        ]),
                         _vm._v(" "),
-                        _vm._m(12)
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "btn-group" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                return _vm.abrirModalProd(
-                                  "product",
-                                  "registrar"
-                                )
-                              }
-                            }
-                          },
-                          [_vm._v("Productos")]
-                        ),
-                        _vm._v(" "),
-                        _vm._m(13),
-                        _vm._v(" "),
-                        _vm._m(14)
+                        _c("td", [
+                          _c("div", { staticClass: "btn-group" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-info",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.abrirModalProd(
+                                      "products",
+                                      "registrar"
+                                    )
+                                  }
+                                }
+                              },
+                              [_vm._v("Agregar producto")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-success fas fa-plus-circlet",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.abrirModalProd(
+                                      "product",
+                                      "listar"
+                                    )
+                                  }
+                                }
+                              },
+                              [_vm._v("Listar productos")]
+                            )
+                          ])
+                        ])
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v("Publicidad:")]),
-                    _vm._v(" "),
-                    _vm._m(15)
+                    ])
                   ]),
+                  _vm._v(" "),
+                  _vm._m(10),
                   _vm._v(" "),
                   _c("h2", { staticClass: "card-title success" }, [
                     _vm._v("Ver catalogo")
@@ -41142,11 +41341,11 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _vm._m(16)
+                      _vm._m(11)
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(17)
+                  _vm._m(12)
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body col-md-12" }, [
@@ -41166,7 +41365,7 @@ var render = function() {
                           on: { change: product }
                         },
                         [
-                          _vm._m(18, true),
+                          _vm._m(13, true),
                           _vm._v(" "),
                           _c("div", { staticClass: "card-body" }, [
                             _c("div", { staticClass: "icon-big text-center" }, [
@@ -41325,7 +41524,7 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(19)
+              _vm._m(14)
             ]),
             _vm._v(" "),
             _vm.modal == 1
@@ -42539,6 +42738,370 @@ var render = function() {
                     )
                   ]
                 )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.modal == 7
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "modal fade",
+                    class: { mostrar: _vm.modal },
+                    staticStyle: { display: "none", "overflow-y": "auto" },
+                    attrs: {
+                      tabindex: "-1",
+                      role: "dialog",
+                      "aria-labelledby": "myModalLabel",
+                      "aria-hidden": "true"
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "modal-dialog modal-primary modal-lg",
+                        attrs: { role: "document" }
+                      },
+                      [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c("div", { staticClass: "modal-header-SUCCESS" }, [
+                            _c("h4", {
+                              staticClass: "modal-title",
+                              domProps: { textContent: _vm._s(_vm.tituloModal) }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "close",
+                                attrs: {
+                                  type: "button",
+                                  "aria-label": "Close"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.cerrarModalDep()
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  { attrs: { "aria-hidden": "true" } },
+                                  [_vm._v("×")]
+                                )
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "modal-body" }, [
+                            _c(
+                              "div",
+                              {
+                                staticStyle: {
+                                  "overflow-x": "auto",
+                                  border: "solid",
+                                  "min-width": "80%"
+                                }
+                              },
+                              [
+                                _c(
+                                  "table",
+                                  {
+                                    staticClass:
+                                      "table table-bordered table-striped table-sm"
+                                  },
+                                  [
+                                    _vm._m(15),
+                                    _vm._v(" "),
+                                    _c(
+                                      "tbody",
+                                      _vm._l(_vm.arrayDepartment, function(
+                                        department
+                                      ) {
+                                        return _c(
+                                          "tr",
+                                          { key: department.id },
+                                          [
+                                            _c(
+                                              "td",
+                                              [
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-warning btn-sm",
+                                                    attrs: { type: "button" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.abrirModalDep(
+                                                          "department",
+                                                          "actualizar",
+                                                          department
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass: "icon-pencil"
+                                                    })
+                                                  ]
+                                                ),
+                                                _vm._v(
+                                                  "  \n                      "
+                                                ),
+                                                _vm._v(" "),
+                                                department.condicion
+                                                  ? [
+                                                      _c(
+                                                        "button",
+                                                        {
+                                                          staticClass:
+                                                            "btn btn-secondary btn-sm",
+                                                          attrs: {
+                                                            type: "button"
+                                                          },
+                                                          on: {
+                                                            click: function(
+                                                              $event
+                                                            ) {
+                                                              return _vm.desactivarDepartment(
+                                                                department.id
+                                                              )
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _c("i", {
+                                                            staticClass:
+                                                              "icon-close"
+                                                          })
+                                                        ]
+                                                      )
+                                                    ]
+                                                  : [
+                                                      _c(
+                                                        "button",
+                                                        {
+                                                          staticClass:
+                                                            "btn btn-info btn-sm",
+                                                          attrs: {
+                                                            type: "button"
+                                                          },
+                                                          on: {
+                                                            click: function(
+                                                              $event
+                                                            ) {
+                                                              return _vm.activarDepartment(
+                                                                department.id
+                                                              )
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _c("i", {
+                                                            staticClass:
+                                                              "icon-check"
+                                                          })
+                                                        ]
+                                                      )
+                                                    ]
+                                              ],
+                                              2
+                                            ),
+                                            _vm._v(" "),
+                                            _c("td", {
+                                              domProps: {
+                                                textContent: _vm._s(
+                                                  department.name
+                                                )
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("td", {
+                                              domProps: {
+                                                textContent: _vm._s(
+                                                  department.body
+                                                )
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              department.condition
+                                                ? _c("div", [
+                                                    _c(
+                                                      "span",
+                                                      {
+                                                        staticClass:
+                                                          "badge badge-success"
+                                                      },
+                                                      [_vm._v("Activo")]
+                                                    )
+                                                  ])
+                                                : _c("div", [
+                                                    _c(
+                                                      "span",
+                                                      {
+                                                        staticClass:
+                                                          "badge badge-danger"
+                                                      },
+                                                      [_vm._v("Desactivado")]
+                                                    )
+                                                  ])
+                                            ])
+                                          ]
+                                        )
+                                      }),
+                                      0
+                                    )
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("nav", [
+                              _c(
+                                "ul",
+                                { staticClass: "pagination" },
+                                [
+                                  _vm.pagination.current_page > 1
+                                    ? _c("li", { staticClass: "page-item" }, [
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass: "page-link",
+                                            attrs: { href: "#" },
+                                            on: {
+                                              click: function($event) {
+                                                $event.preventDefault()
+                                                return _vm.cambiarPagina(
+                                                  _vm.pagination.current_page -
+                                                    1,
+                                                  _vm.buscar,
+                                                  _vm.criterio
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [_vm._v("Ant")]
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.pagesNumber, function(page) {
+                                    return _c(
+                                      "li",
+                                      {
+                                        key: page,
+                                        staticClass: "page-item",
+                                        class: [
+                                          page == _vm.isActived ? "active" : ""
+                                        ]
+                                      },
+                                      [
+                                        _c("a", {
+                                          staticClass: "page-link",
+                                          attrs: { href: "#" },
+                                          domProps: {
+                                            textContent: _vm._s(page)
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              $event.preventDefault()
+                                              return _vm.cambiarPagina(
+                                                page,
+                                                _vm.buscar,
+                                                _vm.criterio
+                                              )
+                                            }
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  }),
+                                  _vm._v(" "),
+                                  _vm.pagination.current_page <
+                                  _vm.pagination.last_page
+                                    ? _c("li", { staticClass: "page-item" }, [
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass: "page-link",
+                                            attrs: { href: "#" },
+                                            on: {
+                                              click: function($event) {
+                                                $event.preventDefault()
+                                                return _vm.cambiarPagina(
+                                                  _vm.pagination.current_page +
+                                                    1,
+                                                  _vm.buscar,
+                                                  _vm.criterio
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [_vm._v("Sig")]
+                                        )
+                                      ])
+                                    : _vm._e()
+                                ],
+                                2
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "modal-footer row" }, [
+                            _vm.tipoAccion == 5
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-success fas fa-save",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.registrarProduct()
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Guardar")]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.tipoAccion == 6
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-success fas fa-save",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.actualizarProduct()
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Actualizar")]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-success fas fa-close",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.cerrarModalProd()
+                                  }
+                                }
+                              },
+                              [_vm._v("Cerrar")]
+                            )
+                          ])
+                        ])
+                      ]
+                    )
+                  ]
+                )
               : _vm._e()
           ]
         : _vm._e(),
@@ -42637,181 +43200,119 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "btn btn-card-tool dropdown-toggle2",
-        attrs: { type: "button", "data-toggle": "dropdown" }
-      },
-      [
-        _c("span", { staticClass: "caret" }),
-        _vm._v(" "),
-        _c("span", { staticClass: "sr-only" }, [_vm._v("Toggle Dropdown")])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "dropdown-menu" }, [
-      _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Listar")])]),
+    return _c("tr", [
+      _c("th", [_vm._v("Departamentos")]),
       _vm._v(" "),
-      _c("li", { staticClass: "divider" }),
-      _vm._v(" "),
-      _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Agregar")])])
+      _c("th", [_vm._v("Categorias")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "btn btn-info dropdown-toggle2",
-        attrs: { type: "button", "data-toggle": "dropdown" }
-      },
-      [
-        _c("span", { staticClass: "caret" }),
-        _vm._v(" "),
-        _c("span", { staticClass: "sr-only" }, [_vm._v("Toggle Dropdown")])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "dropdown-menu" }, [
-      _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Listar")])]),
+    return _c("div", { staticClass: "box-body" }, [
+      _c("h2", [_vm._v("Articulos")]),
       _vm._v(" "),
-      _c("li", { staticClass: "divider" }),
+      _c("p", [_vm._v("Publicidad:")]),
       _vm._v(" "),
-      _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Agregar")])])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "btn btn-danger dropdown-toggle2",
-        attrs: { type: "button", "data-toggle": "dropdown" }
-      },
-      [
-        _c("span", { staticClass: "caret" }),
-        _vm._v(" "),
-        _c("span", { staticClass: "sr-only" }, [_vm._v("Toggle Dropdown")])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "dropdown-menu" }, [
-      _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Listar")])]),
-      _vm._v(" "),
-      _c("li", { staticClass: "divider" }),
-      _vm._v(" "),
-      _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Agregar")])])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "margin" }, [
-      _c("div", { staticClass: "btn-group" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-default btn-flat",
-            attrs: { type: "button" }
-          },
-          [_vm._v("Eventos")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-default btn-flat dropdown-toggle2",
-            attrs: { type: "button", "data-toggle": "dropdown" }
-          },
-          [
-            _c("span", { staticClass: "caret" }),
+      _c("div", { staticClass: "margin" }, [
+        _c("div", { staticClass: "btn-group" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default btn-flat",
+              attrs: { type: "button" }
+            },
+            [_vm._v("Eventos")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default btn-flat dropdown-toggle",
+              attrs: { type: "button", "data-toggle": "dropdown" }
+            },
+            [
+              _c("span", { staticClass: "caret" }),
+              _vm._v(" "),
+              _c("span", { staticClass: "sr-only" }, [
+                _vm._v("Toggle Dropdown")
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("ul", { staticClass: "dropdown-menu" }, [
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Listar")])]),
             _vm._v(" "),
-            _c("span", { staticClass: "sr-only" }, [_vm._v("Toggle Dropdown")])
-          ]
-        ),
-        _vm._v(" "),
-        _c("ul", { staticClass: "dropdown-menu" }, [
-          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Listar")])]),
-          _vm._v(" "),
-          _c("li", { staticClass: "divider" }),
-          _vm._v(" "),
-          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Agregar")])])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn-group" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-info btn-flat", attrs: { type: "button" } },
-          [_vm._v("Promociones")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-info btn-flat dropdown-toggle2",
-            attrs: { type: "button", "data-toggle": "dropdown" }
-          },
-          [
-            _c("span", { staticClass: "caret" }),
+            _c("li", { staticClass: "divider" }),
             _vm._v(" "),
-            _c("span", { staticClass: "sr-only" }, [_vm._v("Toggle Dropdown")])
-          ]
-        ),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Agregar")])])
+          ])
+        ]),
         _vm._v(" "),
-        _c("ul", { staticClass: "dropdown-menu" }, [
-          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Listar")])]),
+        _c("div", { staticClass: "btn-group" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-info btn-flat", attrs: { type: "button" } },
+            [_vm._v("Promociones")]
+          ),
           _vm._v(" "),
-          _c("li", { staticClass: "divider" }),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-info btn-flat dropdown-toggle",
+              attrs: { type: "button", "data-toggle": "dropdown" }
+            },
+            [
+              _c("span", { staticClass: "caret" }),
+              _vm._v(" "),
+              _c("span", { staticClass: "sr-only" }, [
+                _vm._v("Toggle Dropdown")
+              ])
+            ]
+          ),
           _vm._v(" "),
-          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Agregar")])])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn-group" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-danger btn-flat", attrs: { type: "button" } },
-          [_vm._v("Posts")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-danger btn-flat dropdown-toggle2",
-            attrs: { type: "button", "data-toggle": "dropdown" }
-          },
-          [
-            _c("span", { staticClass: "caret" }),
+          _c("ul", { staticClass: "dropdown-menu" }, [
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Listar")])]),
             _vm._v(" "),
-            _c("span", { staticClass: "sr-only" }, [_vm._v("Toggle Dropdown")])
-          ]
-        ),
+            _c("li", { staticClass: "divider" }),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Agregar")])])
+          ])
+        ]),
         _vm._v(" "),
-        _c("ul", { staticClass: "dropdown-menu" }, [
-          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Listar")])]),
+        _c("div", { staticClass: "btn-group" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-danger btn-flat",
+              attrs: { type: "button" }
+            },
+            [_vm._v("Posts")]
+          ),
           _vm._v(" "),
-          _c("li", { staticClass: "divider" }),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-danger btn-flat dropdown-toggle",
+              attrs: { type: "button", "data-toggle": "dropdown" }
+            },
+            [
+              _c("span", { staticClass: "caret" }),
+              _vm._v(" "),
+              _c("span", { staticClass: "sr-only" }, [
+                _vm._v("Toggle Dropdown")
+              ])
+            ]
+          ),
           _vm._v(" "),
-          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Agregar")])])
+          _c("ul", { staticClass: "dropdown-menu" }, [
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Listar")])]),
+            _vm._v(" "),
+            _c("li", { staticClass: "divider" }),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Agregar")])])
+          ])
         ])
       ])
     ])
@@ -42851,43 +43352,56 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("div", { staticClass: "card-tools pull-right" }, [
-        _c("select", { staticClass: "form-control dropdown" }, [
-          _c("span", { staticClass: "right badge badge-primary" }, [
-            _c("i", { staticClass: "right fas fa-cogs" }),
+        _c(
+          "select",
+          {
+            staticClass: "form-control btn-dropdown",
+            attrs: { type: "btn-dropdown" }
+          },
+          [
+            _c("span", { staticClass: "right badge badge-primary" }, [
+              _c("i", { staticClass: "right fas fa-cogs" }),
+              _vm._v(" "),
+              _c("i", { staticClass: "right fas fa-angle-left" })
+            ]),
             _vm._v(" "),
-            _c("i", { staticClass: "right fas fa-angle-left" })
-          ]),
-          _vm._v(" "),
-          _c(
-            "option",
-            { staticClass: "btn btn-success", attrs: { type: "button" } },
-            [_vm._v("Ver")]
-          ),
-          _vm._v(" "),
-          _c(
-            "option",
-            { staticClass: "btn btn-success ", attrs: { type: "button" } },
-            [_vm._v("Comprar")]
-          ),
-          _vm._v(" "),
-          _c(
-            "option",
-            { staticClass: "btn btn-danger ", attrs: { type: "button" } },
-            [_vm._v("Editar")]
-          ),
-          _vm._v(" "),
-          _c(
-            "option",
-            { staticClass: "btn btn-danger ", attrs: { type: "button" } },
-            [_vm._v("Eliminar")]
-          ),
-          _vm._v(" "),
-          _c(
-            "option",
-            { staticClass: "btn btn-danger ", attrs: { type: "button" } },
-            [_vm._v("Ver")]
-          )
-        ])
+            _c(
+              "option",
+              {
+                staticClass: "btn btn-success fas fa-eye",
+                attrs: { type: "button" }
+              },
+              [_vm._v("Ver")]
+            ),
+            _vm._v(" "),
+            _c(
+              "option",
+              {
+                staticClass: "btn btn-success fas fa-shopping-cart",
+                attrs: { type: "button" }
+              },
+              [_vm._v("Comprar")]
+            ),
+            _vm._v(" "),
+            _c(
+              "option",
+              {
+                staticClass: "btn btn-danger fas fa-pen-alt",
+                attrs: { type: "button" }
+              },
+              [_vm._v("Editar")]
+            ),
+            _vm._v(" "),
+            _c(
+              "option",
+              {
+                staticClass: "btn btn-danger fas fa-trash-alt",
+                attrs: { type: "button" }
+              },
+              [_vm._v("Eliminar")]
+            )
+          ]
+        )
       ])
     ])
   },
@@ -42918,6 +43432,22 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("span", { staticClass: "text" }, [_vm._v("16")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Opciones")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nombre")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Descripcion")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Estado")])
       ])
     ])
   }
