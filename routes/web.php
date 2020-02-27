@@ -22,18 +22,26 @@ Auth::routes();
     Route::get('commerce\{commerce_slug}','Admin\CommerceController@show');
     Route::post('chained/department','Admin\CommerceController@department');
     Route::get('chained/department','Admin\CommerceController@department');
+    Route::post('commerce/departments', 'Admin\DepartmentController@departments');
+    Route::get('commerce/departments', 'Admin\DepartmentController@departments');
     Route::post('chained/category','Admin\CommerceController@category');
     Route::get('chained/category','Admin\CommerceController@category');
     Route::post('chained/product','Admin\CommerceController@product');
     Route::get('chained/product','Admin\CommerceController@product');
     //------------------
-    Route::post('commerce/departments', 'Admin\DepartmentController@departments');
-    Route::get('commerce/departments', 'Admin\DepartmentController@departments') ;
+    
     //Obtiene los departamentos de una tienda
     Route::get('admin/{commerce_slug}/commerces', 'Admin\CommerceController@commerce')->name('commerce');
     Route::get('my_commerces', 'Admin\CommerceController@my_commerces');
     Route::post('commerce/store', 'Admin\CommerceController@store');
     Route::put('commerce/update', 'Admin\CommerceController@update');
+    Route::get('commerce/categories', 'Admin\CategoryController@categories');
+    //Commerce users
+    Route::get('find/users', 		'Admin\CommerceUserController@index');//Buscar usuario
+    Route::get('commerce/users', 		'Admin\CommerceUser@users');//Listar usuarios de 
+    Route::post('commerce/users', 'Admin\CommerceUser@users');
+    //Commerce users
+
 //Routes from commerces
 //Routes from departments
     Route::post('department/store', 'Admin\DepartmentController@store');
@@ -90,3 +98,7 @@ Route::resource('promotions',         'Admin\PromotionController');
 //Event routes
 Route::get('admin/event/{slug}', 'Admin\EventController@event')->name('event');
 Route::resource('events',         'Admin\EventController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

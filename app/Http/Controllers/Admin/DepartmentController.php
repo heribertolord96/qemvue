@@ -31,25 +31,27 @@ class DepartmentController extends Controller
         $buscar = $request->buscar;
             $criterio = $request->criterio;
             if ($buscar==''){
-        $departments =Department::orderBy('nombre','desc')->paginate(3);
-        return view('admin.departments.index', compact('departments'));
+        $departments =Department::orderBy('name','desc')->paginate(3);
+        return $departments;
             }
             else
             {
-                $departments =Department::orderBy('nombre','desc')
+                $departments =Department::orderBy('name','desc')
                 ->where($criterio, 'like', '%'. $buscar . '%')
                 ->paginate(3);
-        return view('admin.departments.index', compact('departments'));
+                return $departments;
             }
     }
     public function departments(Request $request) //Muestra los departments que pertenecen a una misma tienda
     {
         $commerce_d =$request->commerce_d;
+        $buscar =$request->buscar;
+        $criterio =$request->criterio;
         $commerce    = Commerce::where('commerces.slug', $commerce_d)->pluck('id')->first();
         $departments =Department::select('departments.name','departments.body','departments.id as department_id',
         'departments.commerce_id','departments.slug')
         ->paginate(3);
-        return [
+       return [
             'pagination' => [
                 'total'        => $departments->total(),
                 'current_page' => $departments->currentPage(),
@@ -60,16 +62,8 @@ class DepartmentController extends Controller
             ],
             'departments' => $departments
         ];
-        /*
-        $buscar   = $request->buscar;
-        $criterio = $request->criterio;
-        $commerce_d =$request->commerce_d;
-        $commerce    = Commerce::where('commerce_slug', $commerce_d)->pluck('commerce_id')->first();
-        //$commerce_d  = Commerce::where('commerce_slug', $slug)->first();
-        $departments= Department::select('departments.name','departments.body','departments.commerce_id','commerces.slug')
-        ->join('commerces','commerces.id','=','departments.commerce_id')
-        ->where('departments.commerce_id','=',$commerce);*/
-        return $departments;
+        
+       
        /* 
         return $departments = Department::
         where('commerce_id', $commerce)->get()
@@ -153,10 +147,10 @@ class DepartmentController extends Controller
      */
     public function show($id)
     {
-        $department = Department::find($id);
+        /*$department = Department::find($id);
         return view('admin.departments.show', compact('department'));
        // return view('admin.departments.lista_arts', compact('department'));
-
+*/
            }
    
 
@@ -221,6 +215,6 @@ class DepartmentController extends Controller
     public function destroy($id)
     {
         $department = Department::find($id)->delete();
-        return back()->with('info', 'Eliminado correctamente');
+        return back()->with('swal', 'Eliminado correctamente');
     }
 }

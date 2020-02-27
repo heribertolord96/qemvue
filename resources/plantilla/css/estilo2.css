@@ -13,11 +13,17 @@
 
     background-color: rgba(#ffffff00, 0)
 }
-
+.wrapper{
+    margin-top:55px;
+}
 .content-wrapper {
-
+margin:auto, auto, auto,auto;
     background-color: rgba(115, 241, 189, 0.699);
 }
+.content{
+    padding-left: 10px;
+}
+
 
 .main-footer {
   text-decoration-color: rgba(#a5b1ec, 0);
@@ -27,8 +33,11 @@
 .main-footer>h1 {
     text-decoration-color:rgba(#040d3bef, 0)
 }
-.card-default{
-  box-shadow: 7px 3px 4px 9px rgb(0, 0, 0);
+.card-default >card :hover{
+  box-shadow: 5px 5px 5px 5px rgba(15, 1, 37, 0.699);
+    margin: 7px 7px 7px 7px;
+    overflow-y: auto;
+    background-color: rgba(128, 116, 13, 0.788);
 }
 
 .card-for {
@@ -45,14 +54,43 @@
     width: 80%;
     height: 100%;
 }
-
+.bgtour{
+    background-image: 
+    url('https://www.liderempresarial.com/wp-content/uploads/2017/11/zacatecas-1.jpg');
+   
+}
 .card-footer {
     background-color: rgba(38, 49, 207, 0.788);
     text-align: justify;
     font-weight: bold;
     font-size: 14;
 }
+.tour-list{padding-left:0;
+    list-style:none;
+    background-color: rgba(255, 255, 255, 0); ;
 
+    }
+    .bgtour>ul{
+        background-color: rgba(138, 138, 138, 0.945); 
+        border-radius:5%;
+        box-shadow:5px
+    }
+.tour-list>li
+{width:25%;
+    float:left;
+    text-align:center}
+.tour-list>li img
+{max-width:100%;
+    height:auto}
+.tour-list>li>a:hover,
+ .tour-list-name{color:#999}
+ .tour-list-date,
+ .tour-list-name{display:block}
+ .tour-list-date,
+ .tour-list-name{display:block}
+ .tour-list-name{font-size:.875rem;color:#444;overflow:hidden;
+    white-space:nowrap;text-overflow:ellipsis}
+ .tour-list-date{color:#999;font-size:12px}
 #card-for :hover {
     box-shadow: 7px 3px 4px 9px rgb(0, 0, 0);
     margin: auto auto auto auto;
@@ -277,3 +315,49 @@ div #sidemap {
         margin-bottom: 20px
     }
 }
+
+
+.card-widget{border:none;
+    position:relative}
+.widget-commerce 
+.widget-commerce-header{padding:1rem;
+    height:120px;
+    border-top-left-radius:.25rem;
+    border-top-right-radius:.25rem}
+.widget-commerce 
+.widget-commerce-commercename{margin-top:0;
+    margin-bottom:5px;
+    font-size:25px;
+    font-weight:300;
+    text-shadow:0 1px 1px rgba(0,0,0,.2)}
+.widget-commerce 
+.widget-commerce-desc{margin-top:0}
+.widget-commerce 
+.widget-commerce-logo{position:absolute;
+    top:65px;
+    left:50%;
+    margin-left:-45px}
+.widget-commerce 
+.widget-commerce-logo>img{
+    max-width: 28px;
+    height:auto;
+    padding: auto,7,auto,auto;
+    border:3px solid rgb(87, 31, 119)}
+.widget-commerce .card-footer{padding-top:40px}
+.widget-commerce-2 
+.widget-commerce-header{padding:1rem;
+    border-top-left-radius:.25rem;
+    border-top-right-radius:.25rem}
+.widget-commerce-2 
+.widget-commerce-commercename{margin-top:5px;
+    margin-bottom:5px;
+    font-size:25px;
+    font-weight:300}
+.widget-commerce-2 
+.widget-commerce-desc{margin-top:0}
+.widget-commerce-2 
+.widget-commerce-desc,
+.widget-commerce-2 
+.widget-commerce-commercename{margin-left:75px}
+.widget-commerce-2 ;
+

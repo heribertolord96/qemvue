@@ -15,18 +15,7 @@ const mix = require('laravel-mix');
    .sass('resources/sass/app.scss', 'public/css');*/
 
    mix.styles([
-      'resources/plantilla/fontawesome/css/all.min.css',
-      'resources/plantilla/fontawesome/brands.css',
-      'resources/plantilla/fontawesome/solid.css',
-      'resources/plantilla/fontawesome/solid.min.css',
-      'resources/plantilla/fontawesome/fontawesome.css',
-      'resources/plantilla/fontawesome/regular.min.css',
-      'resources/plantilla/fontawesome/regular.css',
-      'resources/plantilla/fontawesome/fontawesome.min.css',
-      'resources/plantilla/fontawesome/svg-with-js.css',
-      'resources/plantilla/fontawesome/svg-with-js.min.css',
-      'resources/plantilla/fontawesome/v4-shims.min.css',
-      'resources/plantilla/fontawesome/v4-shims.css',
+     // 'resources/plantilla/fontawesome/css/all.min.css',
 
       'resources/plantilla/css/lte/custom.css',
       'resources/plantilla/css/lte/dist/css/adminlte.min.css',      
@@ -36,9 +25,7 @@ const mix = require('laravel-mix');
       'resources/plantilla/css/w3.css',
       'resources/plantilla/css/ionicons.min.css',
       'resources/plantilla/css/toastr.min.css',
-      'https://demos.creative-tim.com/vue-light-bootstrap-dashboard/static/css/nucleo-icons.css',
-      'https://demos.creative-tim.com/vue-light-bootstrap-dashboard/static/css/app.f637e9e6c19ce63f0094c086bedef65b.css'
-
+     
   ], 'public/css/plantilla.css')
 
   .scripts([

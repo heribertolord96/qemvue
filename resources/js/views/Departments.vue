@@ -1,125 +1,241 @@
-<template>
-     <div class="card card-success">
-        <div class="panel panel-default-success">
-          <div class="card-header with-border">
-            <h3 class="card-title success">
-              Departamentos de:
-              <p v-text="nombre"></p>
-            </h3>
+<template >
+
+<div>
+  
+ <!--Inicio del modaldepartments agregar/actualizar-->
+      <div
+        v-if="modal==1"
+        class="modal fade"
+        tabindex="-1"
+        :class="{'mostrar' : modal}" 
+        role="dialog"
+        aria-labelledby="myModalLabel"
+        style="display: none; overflow-y:auto;"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-primary modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header-SUCCESS">
+              <h4 class="modal-title" v-text="tituloModal"></h4>
+              <button type="button" class="close" @click="cerrarModalDep()" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action method="post" enctype="multipart/form-data" class="form-horizontal">
+                <div class="form-group row">
+                  <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                  <div class="col-md-9">
+                    <input
+                      type="text"
+                      v-model="department_name"
+                      class="form-control"
+                      id="department_name"
+                      placeholder="Alimentos organicos"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-3 form-control-label" for="text-input">Slug</label>
+                  <div class="col-md-9">
+                    <input
+                      type="text"
+                      v-model="department_slug"
+                      class="form-control"
+                      id="department_slug"
+                      placeholder="alimentos-organicos"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-3 form-control-label" for="email-input">Descripción</label>
+                  <div class="col-md-9">
+                    <textarea
+                      required
+                      rows="5"
+                      maxlength="900"
+                      v-model="department_body"
+                      class="form-control"
+                      id="department_body"
+                      placeholder="Ingrese descripción"
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div v-show="errorDepartment" class="form-group row div-error">
+                  <div class="text-center text-error bg-danger">
+                    <div v-for="error in errorMostrarMsjDepartment" :key="error" v-text="error"></div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close" @click="cerrarModalDep()">Cerrar</button>
+              <button
+                type="button"
+                v-if="tipoAccion==1"
+                class="btn btn-success fas fa-save"
+                @click="registrarDepartment()"
+              >Guardar</button>
+              <button
+                type="button"
+                v-if="tipoAccion==2"
+                class="btn btn-success fas fa-save"
+                @click="actualizarDepartment()"
+              >Actualizar</button>
+            </div>
           </div>
-          <div class="card-header" v-text="nombre"></div>
+          <!-- /.modal-content -->
         </div>
-        <!-- SEARCH FORM Here-->
-        <div class="card-body row-md-12">
-          <div
-            class="card card-default col-md-6 col-md-offset-2 float-left"
-            v-for="department in arrayDepartment"
-            :key="department.id"
-          >
-            <div class="card-header with-border">
-              <!--div class="card-tools pull-right">
-                <button type="button" class="btn btn-card-tool">
-                    <a href="{{ route('departments.show', $department->id) }}">
-                        <i class="fa fa-fw fa-eye 10px"></i>
-                    </a>
-                </button>
-                <button type="button" class="btn btn-card-tool">
-                    <a href="{{ route('departments.edit', $department->id) }}">
-                        <i class="fa fa-fw fa-pen 50px"></i>
-                    </a>
-                </button>
-                <button type="" class="btn btn-card-tool">
-                    {!! Form::open(['route' => ['departments.destroy', $department->id], 'method' => 'DELETE']) !!}
-                    <button class="btn-danger">
-                        <i class="fa fa-fw fa-trash "></i>
-                    </button>
-                    {!! Form::close() !!}
-                </button>
-                <button type="button" class="btn btn-card-tool" data-widget="collapse">
-                    <i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-card-tool" data-widget="remove">
-                    <i class="fa fa-times"></i></button>
-              </div-->
-              <br />
-              <h3 class="card-title" v-text="department.name">}}</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-              <img
-                style="max-width:300px, max-height:200px"
-                class="d-block w-100"
-                v-src="department.file"
-                height="100"
-                width="100"
-                alt="src-file"
-              />
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer no-padding">
-              <tr>
-                <p>
-                  <b>
-                    Descripción:
-                    <br />
-                  </b>
-                </p>
-                <p v-text="department.body"></p>
-              </tr>
-              <table class="table table-bordered">
-                <tbody>
-                  <tr>
-                    <td>
-                      <b>Articulos:</b>
-                    </td>
-                    <td>20</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <b>Promociones:</b>
-                    </td>
-                    <td>10</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <!-- /.footer -->
-          </div>
-        </div>
+        <!-- /.modal-dialog -->
       </div>
+      <!--Fin del modal-->
+  <!--Inicio del modal listardepartments agregar/actualizar-->
+      <div
+        v-if="modal==7"
+        class="modal fade"
+        tabindex="-1"
+        :class="{'mostrar' : modal}"
+        role="dialog"
+        aria-labelledby="myModalLabel"
+        style="display: none; overflow-y:auto;"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-primary modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header-SUCCESS">
+              <h4 class="modal-title" v-text="tituloModal"></h4>
+              <button type="button" class="close" @click="cerrarModalDep()" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div style="overflow-x:auto; border:solid ; min-width:80%">
+                <table class="table table-bordered table-striped table-sm">
+                  <thead>
+                    <tr>
+                      <th>Opciones</th>
+                      <th>Nombre</th>
+                      <th>Descripcion</th>
+                      <th>Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="department in arrayDepartment" :key="department.id">
+                      <td>
+                        <button
+                          type="button"
+                          @click="abrirModalDep('department','actualizar',department)"
+                          class="btn btn-warning btn-sm"
+                        >
+                          <i class="icon-pencil"></i>
+                        </button> &nbsp;
+                        <!--
+                               <button type="button" class="btn btn-danger btn-sm" @click="eliminarDepartment(department.id)">
+                                 <i class="icon-trash"></i>
+                        </button>&nbsp;-->
+                        <template v-if="department.condicion">
+                          <button
+                            type="button"
+                            class="btn btn-secondary btn-sm"
+                            @click="desactivarDepartment(department.id)"
+                          >
+                            <i class="icon-close"></i>
+                          </button>
+                        </template>
+                        <template v-else>
+                          <button
+                            type="button"
+                            class="btn btn-info btn-sm"
+                            @click="activarDepartment(department.id)"
+                          >
+                            <i class="icon-check"></i>
+                          </button>
+                        </template>
+                      </td>
+                      <td v-text="department.name"></td>
+                      <td v-text="department.body"></td>
+                      <td>
+                        <div v-if="department.condition">
+                          <span class="badge badge-success">Activo</span>
+                        </div>
+                        <div v-else>
+                          <span class="badge badge-danger">Desactivado</span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <nav>
+                <ul class="pagination">
+                  <li class="page-item" v-if="pagination.current_page > 1">
+                    <a
+                      class="page-link"
+                      href="#"
+                      @click.prevent="cambiarPagina(pagination.current_page - 1,buscar,criterio)"
+                    >Ant</a>
+                  </li>
+                  <li
+                    class="page-item"
+                    v-for="page in pagesNumber"
+                    :key="page"
+                    :class="[page == isActived ? 'active' : '']"
+                  >
+                    <a
+                      class="page-link"
+                      href="#"
+                      @click.prevent="cambiarPagina(page,buscar,criterio)"
+                      v-text="page"
+                    ></a>
+                  </li>
+                  <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                    <a
+                      class="page-link"
+                      href="#"
+                      @click.prevent="cambiarPagina(pagination.current_page + 1,buscar,criterio)"
+                    >Sig</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+
+            <div class="modal-footer row">
+              <button
+                type="button"
+                v-if="tipoAccion==5"
+                class="btn btn-success fas fa-save"
+                @click="registrarProduct()"
+              >Guardar</button>
+              <button
+                type="button"
+                v-if="tipoAccion==6"
+                class="btn btn-success fas fa-save"
+                @click="actualizarProduct()"
+              >Actualizar</button>
+              <button
+                type="button"
+                class="btn btn-success fas fa-close"
+                @click="cerrarModalProd()"
+              >Cerrar</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!--Fin del modal-->
+</div>
+  
+      
 </template>
 <script>
 export default {
-  props: ["commerce_slug"],
-  data() {
-    return {
-     commerce_id: 0,
-      // user_id: 0,
-      nombre: "",
-      commerce_slug: "",
-      descripcion: "",
-      hora_apertura: "",
-      hora_cierre: "",
-      num_telefono: "",
-      email: "",
-      file: "",
-      city: "",
-      condition: 1,
-      ubicacion_id: "",
-      arrayDepartment: [],
-      listado: 3,
-        name:"",
-        body:''
-    };
-  },
-  
-  created() {
-    let me = this;
-      var url =   +commerce_slug +
-                "/departments";
-    axios.get(url).then(response => {
-      this.commerce = response.data;
-    });
+   extends: Script,
+  components: { 
+    Script
   }
-};
+}
+
 </script>

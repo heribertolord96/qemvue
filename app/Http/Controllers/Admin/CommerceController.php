@@ -431,8 +431,8 @@ class CommerceController extends Controller
     }*/
     public function department(Request $request): JsonResponse
     {
-        $commerce_d = $request->commerce_id;
-        //$commerce_id    = Commerce::where('commerces.slug','=', $commerce_d )->pluck('commerces.id')->first();
+        $commerce_d = $request->commerce_d;
+        $commerce_id    = Commerce::where('commerces.slug','=', $commerce_d )->pluck('commerces.id')->first();
         return response()->json(Department::select('id as department_id', 'commerce_id', 'name','body','condition as department_condition')
             ->where('condition', 1)
             ->get());

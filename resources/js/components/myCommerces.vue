@@ -18,12 +18,11 @@
       </p>
     </a>
 
-    <ul class="nav nav-treeview">
+    <ul class="nav nav-treeview btn-block">
       <li
         class="nav-item btn btn-block btn-success btn-sm"
         @click="abrirModal('commerce','registrar')"
-        type="button"
-      >
+        type="button">
         <!--button type="button" @click="abrirModal('commerce','registrar')" class="btn btn-secondary">
           <i class="icon-plus"></i>&nbsp;Nuevo
         </button-->
@@ -33,7 +32,15 @@
       </li>
       <li class="nav-item" v-for="commerce in arrayCommerce" :key="commerce.id">
         <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-list-alt"></i>
+          <div class="widget-commerce widget-commerce-logo">
+                <img class="img-circle" src="/img/user3-128x128.jpg" alt="logo"
+               style="max-width: 28px;
+                  height:auto;
+                  float:left;
+                  padding: auto,7,auto,auto;
+                  border:3px solid rgb(87, 31, 119);">
+              </div>        
+                
           <p v-text="commerce.nombre" class="overflow-x: auto;" width="100%"></p>
           <p>
             <span class="right badge badge-primary">
@@ -48,7 +55,7 @@
               <p v-text="commerce.role_name"></p>
             </span>
           </li>
-          <li class="nav-item has-treeview col-md-3">
+          <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-list-alt"></i>
               <p >Ajustes</p>
@@ -579,6 +586,7 @@ export default {
 ul#menu li {
   display: inline;
     flex-wrap: wrap;
+    
      margin:  auto,auto,auto,auto;
  
 }

@@ -8,15 +8,14 @@
           with font-awesome or any other icon font library -->
 
       <li @click="menu=8" class="nav-item">
-         <a href="/" class="nav-link">
+         <a href="#" class="nav-link">
             <i class="nav-icon fas fa-home"></i>
             <p>
                Inicio
                <span class="right badge badge-danger"></span>
             </p>
          </a>
-      </li>
-      
+      </li>      
       <my_commerces></my_commerces>
    </ul>
 </nav>

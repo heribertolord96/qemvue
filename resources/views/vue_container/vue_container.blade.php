@@ -18,6 +18,9 @@
 <template v-if="menu==3">
     <eventos> </eventos>
 </template>
+<template v-if="menu==8">
+    <home> </home>
+</template>
 
 <!--Explorar-->
 
